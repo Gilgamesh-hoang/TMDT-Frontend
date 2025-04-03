@@ -4,7 +4,7 @@ import { Footer } from "@/components/customer/Footer";
 
 export const CustomerLayout = () => {
   return (
-    <div>
+    <div className="w-full min-h-screen  ">
       <Header />
       <Outlet />
       <Footer />

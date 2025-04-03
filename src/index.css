@@ -2,8 +2,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
-:root {
+@theme {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -11,9 +10,15 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #feddb9;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --color-black: #333333;
+  --color-text: #333333;
+  --secondary: #ffab66;
+  --color-success: #4caf50;
+  --color-error: #e53935;
+  --color-warning: #eef107;
+  --color-ligh-gray: #f5f5f5;
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -109,7 +114,11 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -118,4 +127,3 @@
     @apply bg-background text-foreground;
   }
 }
-
