@@ -1,8 +1,8 @@
-import React from 'react'
 
 export const Login = () => {
   return (
-    <div>Login</div>
-  )
-}
-
+    <div className="h-screen">
+      <h1>Đây là trang đăng nhập</h1>
+    </div>
+  );
+};

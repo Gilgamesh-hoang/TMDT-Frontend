@@ -2,6 +2,16 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+:root {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 @theme {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

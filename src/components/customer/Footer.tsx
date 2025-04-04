@@ -34,13 +34,14 @@ export const FooterLinks: React.FC<{ className?: string }> = ({
     },
   ];
   return (
-    <div className={cn("grid grid-cols-3 gap-8", className)}>
+    <div className={cn("grid grid-cols-3 gap-4", className)}>
       {links.map((item) => (
-        <div className="grid-cols-1" key={item.header}>
+        <div  className="grid-cols-1" key={item.header}>
           <p className="font-bold font-xl mb-4">{item.header}</p>
           <div className="flex flex-col gap-1">
             {item.links.map((link) => (
               <Link
+                key={link.name}
                 className="text-sm hover:underline transition-all"
                 to={link.to}
               >

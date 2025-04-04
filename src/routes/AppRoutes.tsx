@@ -8,8 +8,6 @@ export const AppRoutes = () => {
     <Router>
       <Routes>
         {/* Pulbic Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
 
         {/* Customer and Admin Routes */}
         <Route path="/*" element={<CustomerRoutes />} />
