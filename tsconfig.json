@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -26,6 +25,14 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".next",
+    ".vite",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
