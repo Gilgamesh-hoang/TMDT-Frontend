@@ -10,9 +10,11 @@ const CollectionCard: React.FC<Collection> = ({
   desc,
 }) => {
   return (
-    <Card className="p-0  shadow gap-2">
-      <div className="overflow-hide ">
-        <img className="rounded-2xl " src={thumbnail} />
+    <Card className="p-0 shadow gap-2 group hover:shadow-2xl transition-shadow">
+      <div className="rounded-2xl overflow-hidden">
+        <div className="overflow-hidden">
+          <img className="group-hover:scale-120 transition-transform" src={thumbnail} />
+        </div>
       </div>
       <CardDescription className="px-4 m-0">
         <h3>{name}</h3>
