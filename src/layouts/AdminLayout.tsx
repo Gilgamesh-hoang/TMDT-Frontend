@@ -1,9 +1,15 @@
-import React from 'react'
+import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminSideBar } from "@/components/admin/AdminSideBar";
+import { Outlet } from "react-router-dom";
 
 export const AdminLayout = () => {
   return (
-
-    <div>AdminLayout</div>
-  )
-}
-
+    <div className="flex min-h-screen ">
+      <AdminSideBar />
+      <div className="flex flex-col px-10 w-full bg-gray-100">
+        <AdminHeader />
+        <Outlet />
+      </div>
+    </div>
+  );
+};

@@ -1,15 +1,19 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { AdminLayout } from "@/layouts/AdminLayout";
+import { Dashboard } from "@/pages/admin/Dashboard";
+import { ManageProduct } from "@/pages/admin/ManageProduct";
+import { Outlet, Route, Routes } from "react-router-dom";
 
 export const AdminRoute = () => {
-  return <div></div>;
+  return <Outlet />;
 };
 export const AdminRoutes = () => {
   return (
     <Routes>
       <Route element={<AdminRoute />}>
-        <Route index path="/admin" element={<div>Dashboard</div>} />
-        <Route path="/products" element={<div>ManageProduct</div>} />
+        <Route element={<AdminLayout />}>
+          <Route path="/dashboard" index element={<Dashboard />} />
+          <Route path="/products" element={<ManageProduct />} />
+        </Route>
       </Route>
     </Routes>
   );
