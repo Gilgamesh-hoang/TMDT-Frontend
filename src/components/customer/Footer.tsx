@@ -36,7 +36,7 @@ export const FooterLinks: React.FC<{ className?: string }> = ({
   return (
     <div className={cn("grid grid-cols-3 gap-4", className)}>
       {links.map((item) => (
-        <div  className="grid-cols-1" key={item.header}>
+        <div className="grid-cols-1" key={item.header}>
           <p className="font-bold font-xl mb-4">{item.header}</p>
           <div className="flex flex-col gap-1">
             {item.links.map((link) => (
@@ -76,7 +76,7 @@ const EmailSubcribe: React.FC<{ className?: string }> = ({ className }) => {
 };
 export const Footer = () => {
   return (
-    <div className="grid grid-cols-7 gap-10 ">
+    <div className="grid grid-cols-7 gap-10 px-40 py-6 bg-ligh-gray/20 -mx-40">
       <div className="col-span-2 flex flex-col gap-4">
         <div className="flex items-center gap-2">
           <MapPin size={30} />

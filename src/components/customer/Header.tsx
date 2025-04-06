@@ -1,22 +1,21 @@
-import {
-  Heart,
-  Lock,
-  RectangleEllipsis,
-  Search,
-  ShoppingCart,
-  User,
-  User2,
-} from "lucide-react";
-import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+    Heart,
+    Lock,
+    Search,
+    ShoppingCart,
+    User,
+    User2
+} from "lucide-react";
+import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 const NavBar = () => {
