@@ -20,7 +20,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #feddb9;
+  --primary: #ffab66;
+  --color-gray: #6a7282;
   --primary-foreground: oklch(0.985 0 0);
   --color-black: #333333;
   --color-text: #333333;
@@ -28,7 +29,7 @@
   --color-success: #4caf50;
   --color-error: #e53935;
   --color-warning: #eef107;
-  --color-ligh-gray: #f5f5f5;
+  --color-ligh-gray: #e5e7eb;
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -130,6 +131,15 @@
   }
 }
 @layer base {
+  h1 {
+    @apply text-4xl font-bold my-4;
+  }
+  h2 {
+    @apply text-2xl font-bold my-3;
+  }
+  h3 {
+    @apply text-lg font-bold my-2;
+  }
   * {
     @apply border-border outline-ring/50;
   }
