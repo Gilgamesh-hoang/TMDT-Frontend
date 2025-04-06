@@ -1,4 +1,5 @@
 import { Banner } from "@/components/customer/home/Banner";
+import { BestSeller } from "@/components/customer/home/BestSeller";
 import { Features } from "@/components/customer/home/Features";
 import { Introduction } from "@/components/customer/home/Introduction";
 import { NewCollection } from "@/components/customer/home/NewCollection";
@@ -12,6 +13,7 @@ export const Home = () => {
       <NewCollection />
       <Introduction {...introduction1} />
       <Features features={features} />
+      <BestSeller />
       <Introduction reverse {...introduction2} />
     </div>
   );
