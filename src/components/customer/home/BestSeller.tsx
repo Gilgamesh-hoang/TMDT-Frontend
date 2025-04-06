@@ -40,7 +40,7 @@ export const ProductCard: React.FC<Product> = (product) => {
       </CardContent>
       <CardFooter className="pb-2">
         <div className="flex space-x-2 text-gray text-sm">
-          <StarIcon fill="#FFC107" className="text-transparent" size={20} />
+          <StarIcon fill="#FFC107" className="text-transparent" size={15} />
           {product.rating} - Đã bán {product.sold}
         </div>
       </CardFooter>

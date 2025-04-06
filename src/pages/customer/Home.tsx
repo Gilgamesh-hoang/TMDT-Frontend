@@ -1,5 +1,6 @@
 import { Banner } from "@/components/customer/home/Banner";
 import { BestSeller } from "@/components/customer/home/BestSeller";
+import { BrandList } from "@/components/customer/home/BrandList";
 import { Features } from "@/components/customer/home/Features";
 import { Introduction } from "@/components/customer/home/Introduction";
 import { NewCollection } from "@/components/customer/home/NewCollection";
@@ -15,6 +16,7 @@ export const Home = () => {
       <Features features={features} />
       <BestSeller />
       <Introduction reverse {...introduction2} />
+      <BrandList />
     </div>
   );
 };

@@ -13,9 +13,12 @@ export const Introduction: React.FC<
 > = ({ title, description, imageUrl, href, reverse = false }) => {
   return (
     <div
-      className={cn("px-20 py-10 ", reverse ? "bg-white" : "bg-secondary/40")}
+      className={cn(
+        "px-40 py-10 -mx-40",
+        reverse ? "bg-white" : "bg-secondary/40",
+      )}
     >
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-x-20">
         <div
           className={cn("flex flex-col space-y-4 px-5", reverse && "order-2")}
         >
@@ -25,10 +28,10 @@ export const Introduction: React.FC<
             <Button>Xem thêm</Button>
           </Link>
         </div>
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl ">
-          <div className="group">
+        <div className=" rounded-2xl overflow-hidden shadow-2xl ">
+          <div className="group h-92 w-140">
             <img
-              className="group-hover:scale-130 transition-transform"
+              className="w-full h-full object-cover group-hover:scale-130 transition-transform"
               src={imageUrl}
             />
           </div>
