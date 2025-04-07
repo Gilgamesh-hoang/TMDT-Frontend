@@ -4,8 +4,8 @@ import { Outlet } from "react-router-dom";
 
 export const AdminLayout = () => {
   return (
-    <div className="flex min-h-screen ">
-      <AdminSideBar />
+    <div className="flex  ">
+      <AdminSideBar className="fixed" />
       <div className="flex flex-col px-10 w-full bg-gray-100">
         <AdminHeader />
         <Outlet />

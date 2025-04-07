@@ -1,20 +1,13 @@
-import { cn } from "@/lib/utils";
 import {
-  ArrowLeft,
-  LayoutDashboardIcon,
-  ShoppingCart,
-  TagIcon,
-  Warehouse,
-} from "lucide-react";
+  adminSideBarData,
+  SideBarLinkItemProps,
+} from "@/data/adminSidebarData";
+import { cn } from "@/lib/utils";
+import { ArrowLeft, ShoppingCart } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 interface Props {
   className?: string;
-}
-interface SideBarLinkItemProps {
-  icon: React.ReactNode;
-  name: string;
-  href: string;
 }
 const SideBarLinkItem: React.FC<
   SideBarLinkItemProps & { expand: boolean; active: boolean }
@@ -45,23 +38,6 @@ const SideBarLinkItem: React.FC<
 };
 export const AdminSideBar: React.FC<Props> = () => {
   const [expand, setExpand] = useState(true);
-  const adminSideBarLinkData: SideBarLinkItemProps[] = [
-    {
-      icon: <LayoutDashboardIcon />,
-      name: "Bảng điều khiển",
-      href: "/dashboard",
-    },
-    {
-      icon: <Warehouse />,
-      name: "Sản phẩm",
-      href: "/products",
-    },
-    {
-      icon: <TagIcon />,
-      name: "Danh mục",
-      href: "/categories",
-    },
-  ];
   const toggleEpand = () => {
     setExpand((pre) => !pre);
   };
@@ -72,8 +48,8 @@ export const AdminSideBar: React.FC<Props> = () => {
         if (!expand) toggleEpand();
       }}
       className={cn(
-        " bg-white  flex flex-col transition-all",
-        expand ? "w-50" : "w-14",
+        " fixed bg-white  flex flex-col transition-all overflow-y-scroll h-full",
+        expand ? "w-54" : "w-14",
       )}
     >
       <section
@@ -91,18 +67,23 @@ export const AdminSideBar: React.FC<Props> = () => {
           <ArrowLeft />
         </div>
       </section>
-      <div className=" mt-4 text-black">
-        {expand && <p className="font-bold">CHUNG</p>}
-        <div className="mt-4 flex flex-col space-y-2">
-          {adminSideBarLinkData.map((link) => (
-            <SideBarLinkItem
-              expand={expand}
-              active={pathname.substring(6).startsWith(link.href)}
-              {...link}
-              key={link.href}
-            />
-          ))}
-        </div>
+
+      <div className=" mt-4 text-black flex flex-col space-y-2">
+        {adminSideBarData.map((item) => (
+          <div>
+            {expand && <p className="font-bold px-4">{item.group}</p>}
+            <div className="mt-4 flex flex-col space-y-2">
+              {item.linkItems.map((link) => (
+                <SideBarLinkItem
+                  expand={expand}
+                  active={pathname.substring(6).startsWith(link.href)}
+                  {...link}
+                  key={link.href}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
