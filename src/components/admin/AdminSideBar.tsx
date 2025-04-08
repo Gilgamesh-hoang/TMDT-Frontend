@@ -2,7 +2,7 @@ import {
   adminSideBarData,
   SideBarLinkItemProps,
 } from "@/data/adminSidebarData";
-import { cn } from "@/lib/utils";
+import { cn, uuid } from "@/lib/utils";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -74,7 +74,7 @@ export const AdminSideBar: React.FC<AdminSideBarProps> = ({
         overflow-hidden hover:overflow-y-scroll"
       >
         {adminSideBarData.map((item) => (
-          <div>
+          <div key={uuid()}>
             {expand && <p className="font-bold px-4">{item.group}</p>}
             <div className="mt-4 flex flex-col space-y-2">
               {item.linkItems.map((link) => (
@@ -82,7 +82,7 @@ export const AdminSideBar: React.FC<AdminSideBarProps> = ({
                   expand={expand}
                   active={pathname.substring(6).startsWith(link.href)}
                   {...link}
-                  key={link.href}
+                  key={uuid()}
                 />
               ))}
             </div>

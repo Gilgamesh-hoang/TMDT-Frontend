@@ -7,14 +7,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import {
-    Heart,
-    Lock,
-    Search,
-    ShoppingCart,
-    User,
-    User2
-} from "lucide-react";
+import { Heart, Lock, Search, ShoppingCart, User, User2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -115,5 +108,5 @@ export const Header = () => {
       <div className="border-b-1 border-b-gray-200"></div>
       <NavBar />
     </div>
-  );
+ );
 };
