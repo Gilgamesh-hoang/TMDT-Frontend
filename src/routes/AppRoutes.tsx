@@ -1,18 +1,25 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { Login } from "../pages/customer/Login";
-import { Register } from "../pages/customer/Register";
-import { CustomerRoutes } from "./CustomerRoutes";
-import { AdminRoutes } from "./AdminRoutes";
-export const AppRoutes = () => {
-  return (
-    <Router>
-      <Routes>
-        {/* Pulbic Routes */}
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {adminRoutes, customerPrivateRoutes, publicRoutes, RouteType} from "@/routes/index.ts";
+import RoutePage from "@/components/route/RoutePage.tsx";
+import Error404 from "@/pages/customer/Error404.tsx";
 
-        {/* Customer and Admin Routes */}
-        <Route path="/*" element={<CustomerRoutes />} />
-        <Route path="/admin/*" element={<AdminRoutes />} />
-      </Routes>
-    </Router>
-  );
+export const AppRoutes = () => {
+    return (
+        <Router>
+            <Routes>
+                {publicRoutes.map((route: RouteType, index: number) =>
+                    RoutePage(route, index),
+                )}
+
+                {customerPrivateRoutes.map((route: RouteType, index: number) =>
+                    RoutePage(route, index),
+                )}
+
+                {adminRoutes.map((route: RouteType, index: number) =>
+                    RoutePage(route, index),
+                )}
+                <Route path="*" element={<Error404/>}></Route>
+            </Routes>
+        </Router>
+    );
 };

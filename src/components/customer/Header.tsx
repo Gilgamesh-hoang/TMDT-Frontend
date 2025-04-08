@@ -13,6 +13,7 @@ import {Input} from "../ui/input";
 import {Popover, PopoverContent, PopoverTrigger} from "../ui/popover";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store.ts";
+import {ROUTES} from "@/types/constant.ts";
 
 const NavBar = () => {
     return (
@@ -88,13 +89,13 @@ export const Header = () => {
                             ) : (
                                 <>
                                     <Link
-                                        to={"/login"}
+                                        to={ROUTES.LOGIN}
                                         className="flex gap-4 mb-4 hover:text-red-900"
                                     >
                                         <Lock/>
                                         Đăng nhập
                                     </Link>
-                                    <Link to={"/register"} className="flex gap-4  hover:text-red-900">
+                                    <Link to={ROUTES.REGISTER} className="flex gap-4  hover:text-red-900">
                                         <User2/>
                                         Đăng ký
                                     </Link>

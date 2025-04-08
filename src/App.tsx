@@ -1,11 +1,11 @@
 import {useDispatch} from "react-redux";
 import "./App.css";
-import {AppRoutes} from "./routes/AppRoutes";
 import {useEffect} from "react";
 import {setCurrentUser} from "@/redux/slices/authSlice.ts";
-import {ACCESS_TOKEN_LOCALSTORAGE} from "@/types/constant.ts";
 import {useFetchCurrentUserQuery} from "@/api/customerApi/user.ts";
 import {ToastContainer} from "react-toastify";
+import {ACCESS_TOKEN_LOCALSTORAGE} from "@/types/constant.ts";
+import {AppRoutes} from "@/routes/AppRoutes.tsx";
 
 function App() {
     const dispatch = useDispatch();
@@ -26,6 +26,7 @@ function App() {
     return (
         <div>
             <AppRoutes/>
+
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
