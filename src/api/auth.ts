@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {ApiResponse, AuthResponse} from "@/types/response.ts";
 import {User} from "@/types/models.ts";
-import {LoginRequest} from "@/types/request.ts";
+import {LoginGoogleRequest, LoginRequest} from "@/types/request.ts";
 import {ACCESS_TOKEN_LOCALSTORAGE, SERVER_URL} from "@/types/constant.ts";
 
 
@@ -36,6 +36,24 @@ export const authApi = createApi({
                 };
             },
         }),
+
+        loginGoogle: builder.mutation<ApiResponse<User>, LoginGoogleRequest>({
+            query: (credentials) => ({
+                url: "/auth/google",
+                method: "POST",
+                body: credentials,
+            }),
+            transformResponse: (response: ApiResponse<AuthResponse>): ApiResponse<User> => {
+                if (response.data && response.data.accessToken) {
+                    localStorage.setItem(ACCESS_TOKEN_LOCALSTORAGE, response.data.accessToken);
+                }
+                return {
+                    status: response.status,
+                    message: response.message,
+                    data: response.data.user,
+                };
+            },
+        }),
         // logout: builder.mutation<ApiResponse<void>, void>({
         //     query: () => ({
         //         url: "/auth/logout",
@@ -53,4 +71,4 @@ export const authApi = createApi({
     }),
 });
 
-export const { useLoginMutation } = authApi;
+export const {useLoginMutation, useLoginGoogleMutation} = authApi;

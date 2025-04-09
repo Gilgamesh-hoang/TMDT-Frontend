@@ -13,9 +13,14 @@ import {useLoginMutation} from "@/api/auth.ts";
 import {useDispatch} from "react-redux";
 import {setCurrentUser} from "@/redux/slices/authSlice.ts";
 import {toastError, toastSuccess} from "@/lib/utils.ts";
+import {GoogleOAuthProvider} from "@react-oauth/google";
+import OAuth2Google from "@/components/ui/OAuth2Google.tsx";
+import {ROUTES} from "@/types/constant.ts";
 
 export const Login: React.FC = () => {
+    const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID || '';
     const [isLoading, setIsLoading] = useState(false);
+    const [isGoogleLogin, setIsGoogleLogin] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [login] = useLoginMutation();
     const dispatch = useDispatch();
@@ -40,7 +45,7 @@ export const Login: React.FC = () => {
             // Cập nhật user vào Redux
             dispatch(setCurrentUser(response.data));
             toastSuccess("Đăng nhập thành công");
-            navigate("/");
+            navigate(ROUTES.HOME);
         } catch (error) {
             toastError("Đăng nhập thất bại", 2000)
         } finally {
@@ -127,11 +132,17 @@ export const Login: React.FC = () => {
                             type="submit"
                             className="h-10 w-full"
                             style={{backgroundColor: "#291D4C"}}
-                            disabled={isLoading}
+                            disabled={isLoading || isGoogleLogin}
                         >
                             {isLoading ? <Loader/> : "Đăng Nhập"}
                         </Button>
                     </form>
+                    <div className='w-full mt-4'>
+                        <GoogleOAuthProvider
+                            clientId={clientId}>
+                            <OAuth2Google setIsGoogleLogin={setIsGoogleLogin} isDisabled={isLoading}/>
+                        </GoogleOAuthProvider>
+                    </div>
                 </Form>
             </div>
         </div>
