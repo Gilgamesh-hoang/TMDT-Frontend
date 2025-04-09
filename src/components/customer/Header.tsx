@@ -8,12 +8,15 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {Heart, Lock, LogOut, Search, ShoppingCart, User, User2} from "lucide-react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Input} from "../ui/input";
 import {Popover, PopoverContent, PopoverTrigger} from "../ui/popover";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store.ts";
 import {ROUTES} from "@/types/constant.ts";
+import {useLogoutMutation} from "@/api/auth.ts";
+import {setCurrentUser} from "@/redux/slices/authSlice.ts";
+import {toastError, toastSuccess} from "@/lib/utils.ts";
 
 const NavBar = () => {
     return (
@@ -64,6 +67,22 @@ const SearchBar = () => {
 };
 export const Header = () => {
     const {me} = useSelector((state: RootState) => state.auth);
+    const [logout] = useLogoutMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+
+            // Cập nhật user vào Redux
+            dispatch(setCurrentUser(null));
+            toastSuccess("Đăng xuất thành công");
+            navigate(ROUTES.HOME);
+        } catch (error) {
+            toastError("Đăng xuất thất bại", 2000)
+        }
+    }
 
     return (
         <div>
@@ -81,6 +100,7 @@ export const Header = () => {
                             {me ? (
                                 <button
                                     className="flex gap-4 hover:text-red-900 cursor-pointer"
+                                    onClick={handleLogout}
                                 >
                                     <LogOut/>
                                     Đăng xuất

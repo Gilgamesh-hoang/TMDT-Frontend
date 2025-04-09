@@ -54,21 +54,21 @@ export const authApi = createApi({
                 };
             },
         }),
-        // logout: builder.mutation<ApiResponse<void>, void>({
-        //     query: () => ({
-        //         url: "/auth/logout",
-        //         method: "POST",
-        //     }),
-        //     onQueryStarted: async (_, { queryFulfilled }) => {
-        //         try {
-        //             await queryFulfilled;
-        //             localStorage.removeItem(ACCESS_TOKEN_LOCALSTORAGE);
-        //         } catch (error) {
-        //             console.error("Logout failed:", error);
-        //         }
-        //     },
-        // }),
+        logout: builder.mutation<ApiResponse<void>, void>({
+            query: () => ({
+                url: "/auth/logout",
+                method: "POST",
+            }),
+            onQueryStarted: async (_, { queryFulfilled }) => {
+                try {
+                    await queryFulfilled;
+                    localStorage.removeItem(ACCESS_TOKEN_LOCALSTORAGE);
+                } catch (error) {
+                    console.error("Logout failed:", error);
+                }
+            },
+        }),
     }),
 });
 
-export const {useLoginMutation, useLoginGoogleMutation} = authApi;
+export const {useLoginMutation, useLoginGoogleMutation, useLogoutMutation} = authApi;
