@@ -1,3 +1,4 @@
+import { uuid } from "@/lib/utils";
 
 export const BrandList = () => {
   const brandListImageUrls = [
@@ -13,7 +14,7 @@ export const BrandList = () => {
   return (
     <div className="flex justify-center items-center gap-y-10 gap-x-16 flex-wrap mt-4">
       {brandListImageUrls.map((url) => (
-        <div className="max-w-52 max-h-42">
+        <div className="max-w-52 max-h-42" key={uuid()}>
           <img className="h-auto max-w-full" src={url} />
         </div>
       ))}

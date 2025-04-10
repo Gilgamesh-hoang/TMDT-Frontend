@@ -1,16 +1,31 @@
 import { Badge } from "@/components/ui/badge";
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Heart, Lock, Search, ShoppingCart, User, User2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+  Heart,
+  Lock,
+  LogOut,
+  Search,
+  ShoppingCart,
+  User,
+  User2,
+} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store.ts";
+import { ROUTES } from "@/types/constant.ts";
+import { useLogoutMutation } from "@/api/auth.ts";
+import { setCurrentUser } from "@/redux/slices/authSlice.ts";
+import { toastError, toastSuccess } from "@/lib/utils.ts";
+
 const NavBar = () => {
   return (
     <NavigationMenu className="my-4 mx-auto ">
@@ -59,6 +74,24 @@ const SearchBar = () => {
   );
 };
 export const Header = () => {
+  const { me } = useSelector((state: RootState) => state.auth);
+  const [logout] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      // Cập nhật user vào Redux
+      dispatch(setCurrentUser(null));
+      toastSuccess("Đăng xuất thành công");
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      toastError("Đăng xuất thất bại", 2000);
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center px-16 py-2">
@@ -72,41 +105,60 @@ export const Header = () => {
               <User />
             </PopoverTrigger>
             <PopoverContent className="w-42  " sideOffset={9}>
-              <Link
-                to={"/login"}
-                className="flex gap-4 mb-4 hover:text-red-900"
-              >
-                <Lock />
-                Đăng nhập
-              </Link>
-              <Link to={"/register"} className="flex gap-4  hover:text-red-900">
-                <User2 />
-                Đăng ký
-              </Link>
+              {me ? (
+                <button
+                  className="flex gap-4 hover:text-red-900 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  <LogOut />
+                  Đăng xuất
+                </button>
+              ) : (
+                <>
+                  <Link
+                    to={ROUTES.LOGIN}
+                    className="flex gap-4 mb-4 hover:text-red-900"
+                  >
+                    <Lock />
+                    Đăng nhập
+                  </Link>
+                  <Link
+                    to={ROUTES.REGISTER}
+                    className="flex gap-4  hover:text-red-900"
+                  >
+                    <User2 />
+                    Đăng ký
+                  </Link>
+                </>
+              )}
             </PopoverContent>
           </Popover>
-          <Link to="wishlist" className="relative">
-            <Heart />
-            <Badge
-              className="absolute  rounded-full -top-2 -right-3"
-              variant="destructive"
-            >
-              3
-            </Badge>
-          </Link>
-          <Link to="wishlist" className="relative">
-            <ShoppingCart />
-            <Badge
-              className="absolute  rounded-full -top-2 -right-3"
-              variant="destructive"
-            >
-              5
-            </Badge>
-          </Link>
+          {me && (
+            <>
+              <Link to="wishlist" className="relative">
+                <Heart />
+                <Badge
+                  className="absolute  rounded-full -top-2 -right-3"
+                  variant="destructive"
+                >
+                  3
+                </Badge>
+              </Link>
+              <Link to="wishlist" className="relative">
+                <ShoppingCart />
+                <Badge
+                  className="absolute  rounded-full -top-2 -right-3"
+                  variant="destructive"
+                >
+                  5
+                </Badge>
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className="border-b-1 border-b-gray-200"></div>
       <NavBar />
     </div>
- );
+  );
 };
