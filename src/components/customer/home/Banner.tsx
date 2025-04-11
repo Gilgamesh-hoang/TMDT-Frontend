@@ -5,6 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { uuid } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 import { useState } from "react";
 
@@ -22,7 +23,7 @@ export const Banner = () => {
       <Carousel plugins={[autoplay]}>
         <CarouselContent>
           {bannerUrl.map((url) => (
-            <CarouselItem>
+            <CarouselItem key={uuid()}>
               <div className="h-[520px] w-full rounded-3xl overflow-hidden">
                 <img className="w-full object-fit h-full" src={url} />
               </div>

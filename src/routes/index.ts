@@ -1,9 +1,10 @@
-import {ROUTES} from "@/types/constant.ts";
-import {CustomerLayout} from "@/layouts/CustomerLayout.tsx";
-import {Home} from "@/pages/customer/Home.tsx";
-import {AdminLayout} from "@/layouts/AdminLayout.tsx";
-import {Login} from "@/pages/customer/Login.tsx";
-import {Register} from "@/pages/customer/Register.tsx";
+import { ADMIN_ROUTES, ROUTES } from "@/types/constant.ts";
+import { CustomerLayout } from "@/layouts/CustomerLayout.tsx";
+import { Home } from "@/pages/customer/Home.tsx";
+import { AdminLayout } from "@/layouts/AdminLayout.tsx";
+import { Login } from "@/pages/customer/Login.tsx";
+import { Register } from "@/pages/customer/Register.tsx";
+import { Dashboard } from "@/pages/admin/Dashboard";
 
 export interface RouteType {
   path: string;
@@ -25,19 +26,17 @@ export const publicRoutes: RouteType[] = [
   },
   {
     path: ROUTES.REGISTER,
-    element: Register ,
+    element: Register,
     layout: CustomerLayout,
   },
 ];
 
-export const customerPrivateRoutes: RouteType[] = [
-
-];
+export const customerPrivateRoutes: RouteType[] = [];
 
 export const adminRoutes: RouteType[] = [
-  // {
-  //   path: ROUTES.HOME,
-  //   element: Home,
-  //   layout: AdminLayout,
-  // },
+  {
+    path: ADMIN_ROUTES.DASHBOARD,
+    element: Dashboard,
+    layout: AdminLayout,
+  },
 ];

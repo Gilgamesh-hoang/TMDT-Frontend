@@ -8,6 +8,7 @@ import { feedbacks } from "@/mock/customerFeedback";
 import React, { useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { uuid } from "@/lib/utils";
 
 export interface CustomerFeedback {
   avatar?: string;
@@ -30,7 +31,7 @@ export const CustomerFeedbacks = () => {
       >
         <CarouselContent>
           {feedbacks.map((item) => (
-            <CarouselItem key={item.rating}>
+            <CarouselItem key={uuid()}>
               <div className="mx-auto px-60">
                 <Avatar className="flex-center" >
                   <AvatarImage  className="rounded-full" src={item.avatar} />
