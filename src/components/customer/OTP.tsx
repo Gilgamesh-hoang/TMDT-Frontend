@@ -3,6 +3,7 @@ import {useForgotPasswordMutation} from "@/api/customerApi/user.ts";
 import {toastError, toastSuccess} from "@/lib/utils.ts";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "@/types/constant.ts";
+import Loader from "@/components/ui/Loader.tsx";
 
 interface OTPProps {
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,7 +12,7 @@ interface OTPProps {
 const OTP: FC<OTPProps> = ({setIsModalOpen}) => {
     const [otp, setOtp] = useState(Array(5).fill("")); // Array with 5 empty strings
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-    const [forgotPassword] = useForgotPasswordMutation();
+    const [forgotPassword, {isLoading}] = useForgotPasswordMutation();
     const navigate = useNavigate()
 
     const handleKeyDown = (e) => {
@@ -95,7 +96,6 @@ const OTP: FC<OTPProps> = ({setIsModalOpen}) => {
     };
 
     return (
-        // <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="fixed inset-0  z-[1] flex items-center justify-center backdrop-blur">
             <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-dark">
                 {/* Nút đóng modal */}
@@ -141,8 +141,13 @@ const OTP: FC<OTPProps> = ({setIsModalOpen}) => {
                         <button
                             type="submit"
                             className="w-full rounded-full bg-orange-200 px-6 py-3 text-gray-800 hover:bg-orange-300 dark:bg-orange-300 dark:hover:bg-orange-400"
+                            disabled={isLoading}
                         >
-                            Xác nhận
+                            {isLoading ? (
+                                <Loader/>
+                            ) : (
+                                "Xác nhận"
+                            )}
                         </button>
                     </form>
                 </div>

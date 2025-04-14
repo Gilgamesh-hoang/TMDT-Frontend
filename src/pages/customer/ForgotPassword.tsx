@@ -12,9 +12,8 @@ import {useForgotPasswordOtpMutation} from "@/api/customerApi/user.ts";
 import {toastError} from "@/lib/utils.ts";
 
 const ForgotPassword: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [forgotPasswordOtp] = useForgotPasswordOtpMutation();
+    const [forgotPasswordOtp, {isLoading}] = useForgotPasswordOtpMutation();
 
     const form = useForm<z.infer<typeof EmailValidation>>({
         resolver: zodResolver(EmailValidation),
@@ -24,15 +23,12 @@ const ForgotPassword: React.FC = () => {
     });
 
     const handleSubmit = async ({email}: z.infer<typeof EmailValidation>) => {
-        setIsLoading(true);
         try {
             await forgotPasswordOtp({email}).unwrap();
             setIsModalOpen(true);
         } catch (error) {
             console.error("Error:", error);
             toastError('Email không tồn tại trong hệ thống', 2000)
-        }finally {
-            setIsLoading(false);
         }
     }
 
