@@ -5,6 +5,7 @@ import { AdminLayout } from "@/layouts/AdminLayout.tsx";
 import { Login } from "@/pages/customer/Login.tsx";
 import { Register } from "@/pages/customer/Register.tsx";
 import { Dashboard } from "@/pages/admin/Dashboard";
+import { VerifyEmail } from "@/pages/customer/VerifyEmail";
 
 export interface RouteType {
   path: string;
@@ -29,6 +30,13 @@ export const publicRoutes: RouteType[] = [
     element: Register,
     layout: CustomerLayout,
   },
+  {
+    path: ROUTES.VERIFY_EMAIL,
+    element: VerifyEmail,
+    layout: CustomerLayout,
+  },
+  
+
 ];
 
 export const customerPrivateRoutes: RouteType[] = [];

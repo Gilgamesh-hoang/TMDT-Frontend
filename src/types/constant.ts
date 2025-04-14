@@ -5,7 +5,9 @@ export const ROUTES = Object.freeze({
   HOME: "/",
   LOGIN: "/dang-nhap",
   REGISTER: "/dang-ky",
+  VERIFY_EMAIL: '/verify-email',
   CART: "/gio-hang",
+
 });
 
 export const ADMIN_ROUTES = Object.freeze({
