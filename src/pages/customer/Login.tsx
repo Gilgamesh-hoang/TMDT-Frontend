@@ -67,10 +67,10 @@ export const Login: React.FC = () => {
                             name="email"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Tên đăng nhập</FormLabel>
+                                    <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Tên đăng nhập"
+                                            placeholder="Email"
                                             className="h-10"
                                             {...field}
                                         />
@@ -114,7 +114,7 @@ export const Login: React.FC = () => {
 
                         <div className="flex justify-between items-center">
                             <Link
-                                to={""}
+                                to={ROUTES.FORGOT_PASSWORD}
                                 className="text-sm text-[#291D4C] hover:underline"
                             >
                                 Quên mật khẩu
