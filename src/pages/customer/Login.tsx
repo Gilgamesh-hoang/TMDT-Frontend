@@ -138,10 +138,7 @@ export const Login: React.FC = () => {
                         </Button>
                     </form>
                     <div className='w-full mt-4'>
-                        <GoogleOAuthProvider
-                            clientId={clientId}>
-                            <OAuth2Google setIsGoogleLogin={setIsGoogleLogin} isDisabled={isLoading}/>
-                        </GoogleOAuthProvider>
+                    <OAuth2Google setIsGoogleLogin={setIsGoogleLogin} isDisabled={isLoading} />
                     </div>
                 </Form>
             </div>

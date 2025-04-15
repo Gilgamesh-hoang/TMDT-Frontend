@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {ApiResponse, AuthResponse} from "@/types/response.ts";
 import {User} from "@/types/models.ts";
-import {LoginGoogleRequest, LoginRequest} from "@/types/request.ts";
+import {LoginGoogleRequest, LoginRequest, RegisterRequest} from "@/types/request.ts";
 import {ACCESS_TOKEN_LOCALSTORAGE, SERVER_URL} from "@/types/constant.ts";
 
 
@@ -68,7 +68,31 @@ export const authApi = createApi({
                 }
             },
         }),
+
+        register: builder.mutation<ApiResponse<User>, RegisterRequest>({
+            query: (userData) => ({
+              url: '/registration',
+              method: 'POST',
+              body: userData,
+            }),
+          }),
+          
+          verifyEmail: builder.mutation<ApiResponse<void>, string>({
+            query: (otp) => ({
+              url: `/registration/verify?otp=${otp}`,
+              method: 'POST',
+            }),
+          }),
+          
+          checkEmailExists: builder.query<ApiResponse<boolean>, string>({
+            query: (email) => ({
+              url: `/registration/check-email?email=${encodeURIComponent(email)}`,
+              method: 'GET',
+            }),
+          }),
+          
     }),
 });
 
-export const {useLoginMutation, useLoginGoogleMutation, useLogoutMutation} = authApi;
+export const {useLoginMutation, useLoginGoogleMutation, useLogoutMutation, useRegisterMutation,useVerifyEmailMutation,
+    useCheckEmailExistsQuery,} = authApi;

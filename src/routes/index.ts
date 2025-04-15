@@ -5,6 +5,7 @@ import { AdminLayout } from "@/layouts/AdminLayout.tsx";
 import { Login } from "@/pages/customer/Login.tsx";
 import { Register } from "@/pages/customer/Register.tsx";
 import { Dashboard } from "@/pages/admin/Dashboard";
+import { VerifyEmail } from "@/pages/customer/VerifyEmail";
 import ForgotPassword from "@/pages/customer/ForgotPassword.tsx";
 
 export interface RouteType {
@@ -31,10 +32,17 @@ export const publicRoutes: RouteType[] = [
     layout: CustomerLayout,
   },
   {
+
+    path: ROUTES.VERIFY_EMAIL,
+    element: VerifyEmail,
+    layout: CustomerLayout,
+  },
+  {
     path: ROUTES.FORGOT_PASSWORD,
     element: ForgotPassword,
     layout: CustomerLayout,
   },
+
 ];
 
 export const customerPrivateRoutes: RouteType[] = [];
