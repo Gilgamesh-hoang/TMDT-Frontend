@@ -7,6 +7,7 @@ import { Introduction } from "@/components/customer/home/Introduction";
 import { NewCollection } from "@/components/customer/home/NewCollection";
 import { features } from "@/mock/features";
 import { introduction1, introduction2 } from "@/mock/introction";
+import MostView from "@/components/customer/home/MostView.tsx";
 
 export const Home = () => {
   return (
@@ -16,6 +17,7 @@ export const Home = () => {
       <Introduction {...introduction1} />
       <Features features={features} />
       <BestSeller />
+      <MostView />
       <Introduction reverse {...introduction2} />
       <CustomerFeedbacks/>
       <BrandList />
