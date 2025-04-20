@@ -3,6 +3,8 @@ import { Detail } from "@/components/customer/productDetail/Detail";
 import { ProductBlog } from "@/components/customer/productDetail/ProductBlog";
 import { ProductBreadCrumb } from "@/components/customer/productDetail/ProductBreadCrumbs";
 import { ProductTabs } from "@/components/customer/productDetail/ProductTabs";
+import { SimilarProducts } from "@/components/customer/productDetail/SimilarProducts";
+import { VisitedProducts } from "@/components/customer/productDetail/VisitedProducts";
 import Loader from "@/components/ui/Loader";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -24,6 +26,8 @@ export const ProductDetail = () => {
       <Detail {...product} />
       <ProductBlog content={product.description} />
       <ProductTabs />
+      <SimilarProducts />
+      <VisitedProducts />
     </div>
   );
 };
