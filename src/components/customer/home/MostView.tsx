@@ -1,10 +1,10 @@
 import ProductCard from "@/components/customer/home/ProductCard.tsx";
-import {useGetBestSellerProductsQuery} from "@/api/customerApi/product.ts";
+import {useGetMostViewedProductsQuery} from "@/api/customerApi/product.ts";
 import Loader from "@/components/ui/Loader.tsx";
 
+const MostView = () => {
 
-export const BestSeller = () => {
-    const {data, isLoading} = useGetBestSellerProductsQuery({page: 1, size: 8});
+    const {data, isLoading} = useGetMostViewedProductsQuery({page: 1, size: 8});
 
     const renderProducts = () => {
         if (isLoading) {
@@ -25,14 +25,17 @@ export const BestSeller = () => {
         )
     }
 
+
     return (
         <div className="flex flex-col space-x-4">
             <div className="flex items-center justify-center ">
                 <div className="bg-primary h-[2px] w-full">.</div>
-                <h1 className="text-center w-full text-primary">Sản phẩm bán chạy</h1>
+                <h1 className="text-center w-full text-primary">Sản phẩm được xem nhiều nhất</h1>
                 <div className="bg-primary h-[2px] w-full">.</div>
             </div>
             {renderProducts()}
         </div>
     );
 };
+
+export default MostView;

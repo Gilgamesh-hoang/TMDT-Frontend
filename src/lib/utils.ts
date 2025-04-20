@@ -43,3 +43,11 @@ export const toastError = (message: string, timeout = 1000) => {
     transition: Bounce,
   });
 };
+
+export function calculateDiscountPercentage(price: number, discountPrice: number): number {
+  if (discountPrice === 0 || price <= 0 || discountPrice < 0 || discountPrice >= price) {
+    return 0;
+  }
+  const discount = ((price - discountPrice) / price) * 100;
+  return Math.round(discount);
+}
