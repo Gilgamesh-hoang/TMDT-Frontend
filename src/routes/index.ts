@@ -7,6 +7,7 @@ import { Register } from "@/pages/customer/Register.tsx";
 import { Dashboard } from "@/pages/admin/Dashboard";
 import { VerifyEmail } from "@/pages/customer/VerifyEmail";
 import ForgotPassword from "@/pages/customer/ForgotPassword.tsx";
+import { ProductDetail } from "@/pages/customer/ProductDetail";
 
 export interface RouteType {
   path: string;
@@ -22,6 +23,11 @@ export const publicRoutes: RouteType[] = [
     layout: CustomerLayout,
   },
   {
+    path: ROUTES.PRODUCT_DETAIL,
+    element: ProductDetail,
+    layout: CustomerLayout,
+  },
+  {
     path: ROUTES.LOGIN,
     element: Login,
     layout: CustomerLayout,
@@ -32,7 +38,6 @@ export const publicRoutes: RouteType[] = [
     layout: CustomerLayout,
   },
   {
-
     path: ROUTES.VERIFY_EMAIL,
     element: VerifyEmail,
     layout: CustomerLayout,
@@ -42,7 +47,6 @@ export const publicRoutes: RouteType[] = [
     element: ForgotPassword,
     layout: CustomerLayout,
   },
-
 ];
 
 export const customerPrivateRoutes: RouteType[] = [];
