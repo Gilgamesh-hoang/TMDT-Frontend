@@ -17,24 +17,28 @@ export const productApi = createApi({
             return headers;
         },
     }),
+    tagTypes: ['NewestProducts', 'BestSellerProducts', 'MostViewedProducts'],
     endpoints: (builder) => ({
         getNewestProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>({
             query: ({page, size}) => ({
                 url: '/newest',
                 params: {page, size},
             }),
+            providesTags: ['NewestProducts'],
         }),
         getBestSellerProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>({
             query: ({page, size}) => ({
                 url: '/best-seller',
                 params: {page, size},
             }),
+            providesTags: ['BestSellerProducts'],
         }),
         getMostViewedProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>({
             query: ({page, size}) => ({
                 url: '/most-viewed',
                 params: {page, size},
             }),
+            providesTags: ['MostViewedProducts'],
         }),
 
 
