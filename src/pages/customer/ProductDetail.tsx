@@ -1,6 +1,8 @@
 import { useGetProductDetailQuery } from "@/api/customerApi/product";
 import { Detail } from "@/components/customer/productDetail/Detail";
+import { ProductBlog } from "@/components/customer/productDetail/ProductBlog";
 import { ProductBreadCrumb } from "@/components/customer/productDetail/ProductBreadCrumbs";
+import { ProductTabs } from "@/components/customer/productDetail/ProductTabs";
 import Loader from "@/components/ui/Loader";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -15,10 +17,13 @@ export const ProductDetail = () => {
   if (isError || !data) {
     return <Navigate to="/notfound" />;
   }
+  const product = data.data;
   return (
     <div className="w-full flex flex-col space-y-2 p-2">
       <ProductBreadCrumb productName={data.data.name} />
-      <Detail {...data.data} />
+      <Detail {...product} />
+      <ProductBlog content={product.description} />
+      <ProductTabs />
     </div>
   );
 };
