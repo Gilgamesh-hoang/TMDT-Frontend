@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button.tsx";
 import { Heart, ShoppingCart, StarIcon } from "lucide-react";
 import { calculateDiscountPercentage, formatCurrency } from "@/lib/utils.ts";
+import { Link } from "react-router-dom";
 
 const ProductCard: React.FC<Product> = (product) => {
   const renderDiscount = () => {
@@ -45,7 +46,9 @@ const ProductCard: React.FC<Product> = (product) => {
           alt={product.id}
         />
       </div>
-      <CardTitle className="text-center px-3">{product.name}</CardTitle>
+      <CardTitle className="text-center px-3">
+        <Link to={`san-pham/${product.id}`}>{product.name}</Link>
+      </CardTitle>
       <CardContent>
         <h3 className="text-error">
           {product.discountPrice
