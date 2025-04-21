@@ -41,7 +41,6 @@ export const productApi = createApi({
             providesTags: ['MostViewedProducts'],
         }),
 
-
     }),
 });
 

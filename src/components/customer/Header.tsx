@@ -144,14 +144,14 @@ export const Header = () => {
                   3
                 </Badge>
               </Link>
-              <Link to="wishlist" className="relative">
+              <Link to={ROUTES.CART} className="relative">
                 <ShoppingCart />
-                <Badge
-                  className="absolute  rounded-full -top-2 -right-3"
-                  variant="destructive"
-                >
-                  5
-                </Badge>
+                {/*<Badge*/}
+                {/*  className="absolute  rounded-full -top-2 -right-3"*/}
+                {/*  variant="destructive"*/}
+                {/*>*/}
+                {/*  5*/}
+                {/*</Badge>*/}
               </Link>
             </>
           )}
