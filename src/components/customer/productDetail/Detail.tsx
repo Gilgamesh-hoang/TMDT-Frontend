@@ -38,11 +38,12 @@ export const Detail: React.FC<Product> = (props) => {
       </div>
       <div className="col-span-7 ">
         <h3>{props.name}</h3>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 items-center">
           <Ratings variant="yellow" rating={props.rating || 5} />
           <div className="text-sm text-yellow-600">
             (20 đánh giá từ khách hàng)
           </div>
+          <div className="text-xs text-gray">({props.totalViews} lượt xem)</div>
         </div>
         <div>
           <h2>{formatCurrency(props.price)}</h2>
