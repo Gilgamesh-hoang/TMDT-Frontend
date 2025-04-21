@@ -27,20 +27,17 @@ import {
 
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/redux/store.ts";
-import {useAddCartMutation, useClearCartMutation, useGetCartQuery} from "@/api/customerApi/cart.ts";
+import {useClearCartMutation, useGetCartQuery} from "@/api/customerApi/cart.ts";
 import {useEffect} from "react";
 import {addToCart, clearCart as clearCartRedux} from "@/redux/slices/cartSlice.ts";
 import {AiOutlineClear} from "react-icons/ai";
 
 const Cart = () => {
     const {data: cartResponse, isLoading} = useGetCartQuery();
-    // const cartItems = cartResponse?.data || [];
     const dispatch = useDispatch();
     const {items, totalPrice} = useSelector((state: RootState) => state.cart);
-    // const cartItems = sampleCartItems;
-    // const isLoading = false;
 
-    const [addCart] = useAddCartMutation();
+
     const [clearCart] = useClearCartMutation();
 
     // Đồng bộ giỏ hàng từ API vào Redux
@@ -50,23 +47,9 @@ const Cart = () => {
             cartItems.forEach((item) => {
                 dispatch(addToCart(item));
             });
-            // dispatch(addAllToCart(items));
         }
     }, [cartResponse]);
 
-    // Thêm sản phẩm vào giỏ hàng
-    const handleAddToCart = async () => {
-        try {
-            const response = await addCart({
-                productId: 'product-001', // Thay bằng productId thực tế
-                quantity: 1,
-            }).unwrap();
-            const cartItem: CartItemType = response.data;
-            dispatch(addToCart(cartItem)); // Cập nhật Redux sau khi API thành công
-        } catch (err) {
-            console.error('Failed to add to cart:', err);
-        }
-    };
 
     // Xóa toàn bộ giỏ hàng
     const handleClearCart = async () => {
@@ -120,7 +103,7 @@ const Cart = () => {
                         <FaArrowLeft className="mr-2"/>
                         Tiếp tục mua hàng
                     </NavLink>
-                    {/*{items.length > 0 && (*/}
+                    {items.length > 0 && (
                         <div className="flex">
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
@@ -143,7 +126,7 @@ const Cart = () => {
                             </AlertDialog>
 
                         </div>
-                    {/*)}*/}
+                    )}
                 </div>
             </div>
 

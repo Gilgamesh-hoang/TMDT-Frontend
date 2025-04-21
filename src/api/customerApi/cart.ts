@@ -1,27 +1,18 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {ACCESS_TOKEN_LOCALSTORAGE, SERVER_URL} from "@/types/constant.ts";
+import {createApi} from "@reduxjs/toolkit/query/react";
 import {ApiResponse} from "@/types/response.ts";
 import {AddCartRequest, CartItem, UpdateCartRequest} from "@/types/cart.ts";
+import {baseQueryWithAccessToken} from "@/api/util.ts";
 
 
 export const cartApi = createApi({
     reducerPath: "cartApi",
-    baseQuery: fetchBaseQuery({
-        baseUrl: SERVER_URL + '/cart',
-        prepareHeaders: (headers) => {
-            const token = localStorage.getItem(ACCESS_TOKEN_LOCALSTORAGE);
-            if (token) {
-                headers.set("Authorization", `Bearer ${token}`);
-            }
-            return headers;
-        },
-    }),
+    baseQuery: baseQueryWithAccessToken,
     tagTypes: ['Cart'],
     endpoints: (builder) => ({
         // GET /cart
         getCart: builder.query<ApiResponse<CartItem[]>, void>({
             query: () => ({
-                url: '/',
+                url: 'cart/',
                 method: 'GET',
             }),
             providesTags: ['Cart'],
@@ -30,7 +21,7 @@ export const cartApi = createApi({
         // POST /cart
         addCart: builder.mutation<ApiResponse<CartItem>, AddCartRequest>({
             query: (request) => ({
-                url: '/',
+                url: 'cart/',
                 method: 'POST',
                 body: request,
             }),
@@ -40,7 +31,7 @@ export const cartApi = createApi({
         // PUT /cart
         updateCart: builder.mutation<ApiResponse<CartItem>, UpdateCartRequest>({
             query: (request) => ({
-                url: '/',
+                url: 'cart/',
                 method: 'PUT',
                 body: request,
             }),
@@ -50,7 +41,7 @@ export const cartApi = createApi({
         // DELETE /cart/{itemId}
         deleteCart: builder.mutation<ApiResponse<void>, string>({
             query: (itemId) => ({
-                url: `/${itemId}`,
+                url: `cart/${itemId}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ['Cart'], // Invalidate cache của getCart sau khi xóa
@@ -58,7 +49,7 @@ export const cartApi = createApi({
 
         clearCart: builder.mutation<ApiResponse<void>, void>({
             query: () => ({
-                url: '/',
+                url: 'cart/',
                 method: 'DELETE',
             }),
             invalidatesTags: ['Cart'],
