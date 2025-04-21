@@ -1,51 +1,60 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {ApiResponse} from "@/types/response.ts";
-import {ACCESS_TOKEN_LOCALSTORAGE, SERVER_URL} from "@/types/constant.ts";
-import {Product} from "@/types/product.ts";
-import {PaginationRequest} from "@/types/pagination.ts";
-
+import { PaginationRequest } from "@/types/pagination.ts";
+import { Product } from "@/types/product.ts";
+import { ApiResponse } from "@/types/response.ts";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithAccessToken } from "../util";
 
 export const productApi = createApi({
-    reducerPath: "productApi",
-    baseQuery: fetchBaseQuery({
-        baseUrl: SERVER_URL + '/products',
-        prepareHeaders: (headers) => {
-            const token = localStorage.getItem(ACCESS_TOKEN_LOCALSTORAGE);
-            if (token) {
-                headers.set("Authorization", `Bearer ${token}`);
-            }
-            return headers;
-        },
+  reducerPath: "productApi",
+  baseQuery: baseQueryWithAccessToken,
+  tagTypes: [
+    "Product",
+    "NewestProducts",
+    "BestSellerProducts",
+    "MostViewedProducts",
+  ],
+  endpoints: (builder) => ({
+    getNewestProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>(
+      {
+        query: ({ page, size }) => ({
+          url: "products/newest",
+          params: { page, size },
+        }),
+        providesTags: ["NewestProducts"],
+      },
+    ),
+    getBestSellerProducts: builder.query<
+      ApiResponse<Product[]>,
+      PaginationRequest
+    >({
+      query: ({ page, size }) => ({
+        url: "products/best-seller",
+        params: { page, size },
+      }),
+      providesTags: ["BestSellerProducts"],
     }),
-    tagTypes: ['NewestProducts', 'BestSellerProducts', 'MostViewedProducts'],
-    endpoints: (builder) => ({
-        getNewestProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>({
-            query: ({page, size}) => ({
-                url: '/newest',
-                params: {page, size},
-            }),
-            providesTags: ['NewestProducts'],
-        }),
-        getBestSellerProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>({
-            query: ({page, size}) => ({
-                url: '/best-seller',
-                params: {page, size},
-            }),
-            providesTags: ['BestSellerProducts'],
-        }),
-        getMostViewedProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>({
-            query: ({page, size}) => ({
-                url: '/most-viewed',
-                params: {page, size},
-            }),
-            providesTags: ['MostViewedProducts'],
-        }),
-
+    getMostViewedProducts: builder.query<
+      ApiResponse<Product[]>,
+      PaginationRequest
+    >({
+      query: ({ page, size }) => ({
+        url: "products/most-viewed",
+        params: { page, size },
+      }),
+      providesTags: ["MostViewedProducts"],
     }),
+    getProductDetail: builder.query<ApiResponse<Product>, string>({
+      query: (productId) => ({
+        url: `products/${productId}`,
+      }),
+      providesTags: ["Product"],
+    }),
+  }),
 });
 
 export const {
-    useGetNewestProductsQuery,
-    useGetBestSellerProductsQuery,
-    useGetMostViewedProductsQuery,
+  useGetNewestProductsQuery,
+  useGetBestSellerProductsQuery,
+  useGetMostViewedProductsQuery,
+  useGetProductDetailQuery,
 } = productApi;
