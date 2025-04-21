@@ -1,0 +1,35 @@
+.slick-dots li.slick-active img {
+  border: 2px solid gray;
+  transform: scale(1.1);
+}
+.slick-list {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  left: 0;
+  margin-left: 90px;
+  margin-right: 10px;
+  padding: 0;
+}
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  margin: 5px 10px;
+  padding: 0;
+  cursor: pointer;
+}
+.slick-dots {
+  position: absolute;
+  display: flex !important;
+  flex-direction: column;
+  top: 0px;
+  width: 100%;
+  right: 50px;
+  left: 0px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}

@@ -8,6 +8,7 @@ export const ROUTES = Object.freeze({
     VERIFY_EMAIL: '/verify-email',
     FORGOT_PASSWORD: "/quen-mat-khau",
     CART: "/gio-hang",
+    PRODUCT_DETAIL: "/san-pham/:productId",
 });
 
 export const ADMIN_ROUTES = Object.freeze({
