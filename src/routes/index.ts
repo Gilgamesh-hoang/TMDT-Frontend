@@ -8,8 +8,9 @@ import { Dashboard } from "@/pages/admin/Dashboard";
 import { VerifyEmail } from "@/pages/customer/VerifyEmail";
 import ForgotPassword from "@/pages/customer/ForgotPassword.tsx";
 import Cart from "@/pages/customer/Cart.tsx";
-import { ProductDetail } from "@/pages/customer/ProductDetail.tsx";
 import { Wishlist } from "@/pages/customer/Wishlist";
+import { ProductDetail } from "@/pages/customer/ProductDetail";
+import { SearchPage } from "@/pages/customer/SearchPage";
 
 export interface RouteType {
   path: string;
@@ -27,6 +28,11 @@ export const publicRoutes: RouteType[] = [
   {
     path: ROUTES.PRODUCT_DETAIL,
     element: ProductDetail,
+    layout: CustomerLayout,
+  },
+  {
+    path: ROUTES.SEARCH_PRODUCT,
+    element: SearchPage,
     layout: CustomerLayout,
   },
   {

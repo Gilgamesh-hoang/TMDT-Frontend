@@ -28,6 +28,7 @@ import { toastError, toastSuccess } from "@/lib/utils.ts";
 import { useCountTotalQuantitiesQuery } from "@/api/customerApi/cart.ts";
 import { useEffect } from "react";
 import { setTotalQuantities } from "@/redux/slices/cartSlice.ts";
+import { useState } from "react";
 
 const NavBar = () => {
   return (
@@ -64,15 +65,52 @@ const NavBar = () => {
     </NavigationMenu>
   );
 };
-const SearchBar = () => {
+interface SearchBarProps {
+  className?: string;
+  placeholder?: string;
+  initialValue?: string;
+  onSearch?: (value: string) => void;
+}
+const SearchBar = ({
+  className = "",
+  placeholder = "Tìm kiếm sản phẩm...",
+  initialValue = "",
+  onSearch,
+}: SearchBarProps) => {
+  const [searchTerm, setSearchTerm] = useState(initialValue);
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch(searchTerm);
+    } else {
+      // Nếu không có hàm onSearch được truyền vào, chuyển hướng đến trang tìm kiếm
+      navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+
   return (
-    <div className=" relative drop-shadow-2xl rounded-2xl border  border-gray-200 ">
+    <div className={`relative drop-shadow-md rounded-lg border border-gray-200 ${className}`}>
       <Input
-        className="rounded-2xl  border-none ring-0 "
-        placeholder="Tìm kiếm"
-        size={50}
-      ></Input>
-      <Search className="absolute top-1/2 transform -translate-y-1/2 right-4" />
+        className="rounded-lg border-none ring-0 pl-4 pr-10 py-2"
+        placeholder={placeholder}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      <button
+        onClick={handleSearch}
+        className="absolute top-1/2 transform -translate-y-1/2 right-3 text-gray-400 hover:text-primary transition-colors"
+      >
+        <Search size={20} />
+      </button>
     </div>
   );
 };

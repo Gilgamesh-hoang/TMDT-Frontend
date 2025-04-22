@@ -10,9 +10,10 @@ export const ROUTES = Object.freeze({
   CART: "/gio-hang",
   PRODUCT_DETAIL: "/san-pham/:productId",
   WISHLIST: "/wishlist",
+    SEARCH_PRODUCT: "/tim-kiem"
 });
 
 export const ADMIN_ROUTES = Object.freeze({
-  DASHBOARD: "admin/dashboard",
-  MANAGE_PRODUCT: "admin/manage-products",
+    DASHBOARD: "admin/dashboard",
+    MANAGE_PRODUCT: "admin/manage-products",
 });

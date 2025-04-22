@@ -49,6 +49,13 @@ export const productApi = createApi({
       }),
       providesTags: ["Product"],
     }),
+    searchProducts: builder.query<ApiResponse<Product[]>, { keyword: string; page: number; size: number }>({
+      query: ({ keyword, page, size }) => ({
+        url: "products/quick-search",
+        params: { q: keyword, page, size },
+      }),
+      providesTags: ["Product"],
+    }),
   }),
 });
 
@@ -57,4 +64,5 @@ export const {
   useGetBestSellerProductsQuery,
   useGetMostViewedProductsQuery,
   useGetProductDetailQuery,
+  useSearchProductsQuery
 } = productApi;
