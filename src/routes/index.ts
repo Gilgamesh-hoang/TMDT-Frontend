@@ -7,7 +7,8 @@ import { Register } from "@/pages/customer/Register.tsx";
 import { Dashboard } from "@/pages/admin/Dashboard";
 import { VerifyEmail } from "@/pages/customer/VerifyEmail";
 import ForgotPassword from "@/pages/customer/ForgotPassword.tsx";
-import { ProductDetail } from "@/pages/customer/ProductDetail";
+import Cart from "@/pages/customer/Cart.tsx";
+import {ProductDetail} from "@/pages/customer/ProductDetail.tsx";
 
 export interface RouteType {
   path: string;
@@ -49,12 +50,18 @@ export const publicRoutes: RouteType[] = [
   },
 ];
 
-export const customerPrivateRoutes: RouteType[] = [];
+export const customerPrivateRoutes: RouteType[] = [
+    {
+        path: ROUTES.CART,
+        element: Cart,
+        layout: CustomerLayout,
+    },
+];
 
 export const adminRoutes: RouteType[] = [
-  {
-    path: ADMIN_ROUTES.DASHBOARD,
-    element: Dashboard,
-    layout: AdminLayout,
-  },
+    {
+        path: ADMIN_ROUTES.DASHBOARD,
+        element: Dashboard,
+        layout: AdminLayout,
+    },
 ];

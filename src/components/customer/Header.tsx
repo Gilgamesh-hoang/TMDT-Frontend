@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import {Badge} from "@/components/ui/badge";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -7,24 +7,19 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import {
-  Heart,
-  Lock,
-  LogOut,
-  Search,
-  ShoppingCart,
-  User,
-  User2,
-} from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { Input } from "../ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store.ts";
-import { ROUTES } from "@/types/constant.ts";
-import { useLogoutMutation } from "@/api/auth.ts";
-import { setCurrentUser } from "@/redux/slices/authSlice.ts";
-import { toastError, toastSuccess } from "@/lib/utils.ts";
+import {Heart, Lock, LogOut, Search, ShoppingCart, User, User2,} from "lucide-react";
+import {Link, useNavigate} from "react-router-dom";
+import {Input} from "../ui/input";
+import {Popover, PopoverContent, PopoverTrigger} from "../ui/popover";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/redux/store.ts";
+import {ROUTES} from "@/types/constant.ts";
+import {useLogoutMutation} from "@/api/auth.ts";
+import {setCurrentUser} from "@/redux/slices/authSlice.ts";
+import {toastError, toastSuccess} from "@/lib/utils.ts";
+import {useCountTotalQuantitiesQuery} from "@/api/customerApi/cart.ts";
+import {useEffect} from "react";
+import {setTotalQuantities} from "@/redux/slices/cartSlice.ts";
 
 const NavBar = () => {
   return (
@@ -76,8 +71,21 @@ const SearchBar = () => {
 export const Header = () => {
   const { me } = useSelector((state: RootState) => state.auth);
   const [logout] = useLogoutMutation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const {data, isLoading} = useCountTotalQuantitiesQuery();
+  const dispatch = useDispatch();
+  const {totalQuantities} = useSelector((state: RootState) => state.cart);
+
+
+
+  useEffect(() => {
+    const quantityResp = data?.data;
+    if (quantityResp !== undefined && !isLoading) {
+      dispatch(setTotalQuantities(quantityResp));
+    }
+  }, [data, isLoading, dispatch]);
+
 
   const handleLogout = async () => {
     try {
@@ -144,13 +152,13 @@ export const Header = () => {
                   3
                 </Badge>
               </Link>
-              <Link to="wishlist" className="relative">
+              <Link to={ROUTES.CART} className="relative">
                 <ShoppingCart />
                 <Badge
                   className="absolute  rounded-full -top-2 -right-3"
                   variant="destructive"
                 >
-                  5
+                  {totalQuantities}
                 </Badge>
               </Link>
             </>
