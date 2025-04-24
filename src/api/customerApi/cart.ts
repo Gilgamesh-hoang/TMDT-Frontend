@@ -18,6 +18,14 @@ export const cartApi = createApi({
             providesTags: ['Cart'],
         }),
 
+        countTotalQuantities: builder.query<ApiResponse<number>, void>({
+            query: () => ({
+                url: 'cart/count',
+                method: 'GET',
+            }),
+            providesTags: ['Cart'],
+        }),
+
         // POST /cart
         addCart: builder.mutation<ApiResponse<CartItem>, AddCartRequest>({
             query: (request) => ({
@@ -63,4 +71,5 @@ export const {
     useUpdateCartMutation,
     useDeleteCartMutation,
     useClearCartMutation,
+    useCountTotalQuantitiesQuery
 } = cartApi;

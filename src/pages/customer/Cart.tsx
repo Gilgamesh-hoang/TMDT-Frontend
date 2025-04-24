@@ -1,19 +1,11 @@
 import {FaArrowLeft} from 'react-icons/fa';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import CartItem from "@/components/customer/cart/CartItem.tsx";
 import {ROUTES} from "@/types/constant.ts";
 import type {CartItem as CartItemType} from "@/types/cart.ts";
 import Loader from "@/components/ui/Loader.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {formatCurrency} from "@/lib/utils.ts";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -64,19 +56,19 @@ const Cart = () => {
 
     return (
         <div className="w-full">
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink>
-                            <Link to={ROUTES.HOME}>Trang chủ</Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator/>
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Giỏ hàng</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+            {/*<Breadcrumb>*/}
+            {/*    <BreadcrumbList>*/}
+            {/*        <BreadcrumbItem>*/}
+            {/*            <BreadcrumbLink>*/}
+            {/*                <Link to={ROUTES.HOME}>Trang chủ</Link>*/}
+            {/*            </BreadcrumbLink>*/}
+            {/*        </BreadcrumbItem>*/}
+            {/*        <BreadcrumbSeparator/>*/}
+            {/*        <BreadcrumbItem>*/}
+            {/*            <BreadcrumbPage>Giỏ hàng</BreadcrumbPage>*/}
+            {/*        </BreadcrumbItem>*/}
+            {/*    </BreadcrumbList>*/}
+            {/*</Breadcrumb>*/}
             <div className="p-6 w-full shadow-md rounded-lg my-12">
                 {/* Danh sách sản phẩm */}
                 {isLoading ? (

@@ -4,12 +4,14 @@ import {CartItem} from "@/types/cart.ts";
 interface CartState {
     items: CartItem[];
     totalPrice: number;
+    totalQuantities: number;
 }
 
 // State ban đầu
 const initialState: CartState = {
     items: [],
     totalPrice: 0,
+    totalQuantities: 0,
 };
 
 // Hàm tính tổng tiền
@@ -59,10 +61,6 @@ export const cartSlice = createSlice({
 
             if (item) {
                 item.quantity -= 1;
-                if (item.quantity <= 0) {
-                    // Nếu số lượng về 0, xóa CartItem
-                    state.items = state.items.filter((item) => item.id !== cartItemId);
-                }
                 state.totalPrice = calculateTotalPrice(state.items);
             }
         },
@@ -78,6 +76,12 @@ export const cartSlice = createSlice({
         clearCart: (state) => {
             state.items = [];
             state.totalPrice = 0;
+            state.totalQuantities = 0;
+        },
+
+        setTotalQuantities: (state, action: PayloadAction<number>) => {
+            const totalQuantities = action.payload;
+            state.totalQuantities = totalQuantities;
         },
     },
 });
@@ -89,6 +93,7 @@ export const {
     decreaseQuantity,
     removeFromCart,
     clearCart,
+    setTotalQuantities
 } = cartSlice.actions;
 
 // Export reducer
