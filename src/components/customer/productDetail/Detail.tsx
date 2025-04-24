@@ -79,6 +79,7 @@ export const Detail: React.FC<Product> = (props) => {
                 <div className="my-2 flex space-x-2 items-center">
                     <div>Dung tích:</div>
                     <span className="bg-primary p-[5px]  rounded-sm font-bold text-white">
+
             {props.volume}
           </span>
                 </div>
