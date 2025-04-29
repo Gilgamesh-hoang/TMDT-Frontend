@@ -58,7 +58,7 @@ export const Wishlist: FC<WishlistProps> = () => {
   const dispatch = useAppDispatch();
   const handleRemove = (productId: string) => {
     dispatch(removeFromWishlist(productId));
-    toastError("Xóa khỏi wishlist thành công", 1500);
+    toastSuccess("Xóa khỏi wishlist thành công", 1500);
   };
   const [addCart] = useAddCartMutation();
   const handleAddToCart = async (productId: string) => {
