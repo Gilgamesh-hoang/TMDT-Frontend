@@ -26,8 +26,8 @@ import { Link } from "react-router-dom";
 
 const ProductCard: React.FC<Product> = (product) => {
   const [addCart] = useAddCartMutation();
+  const wishlist = useSelector((state: RootState) => state.wishlist);
   const dispatch = useDispatch();
-
   const renderDiscount = () => {
     if (!product.discountPrice) return null;
 
@@ -61,7 +61,6 @@ const ProductCard: React.FC<Product> = (product) => {
       toastError("Lỗi", 1500);
     }
   };
-  const wishlist = useSelector((state: RootState) => state.wishlist);
   const isInWishlist = wishlist.items.some(
     (item) => item.product.id == product.id,
   );
