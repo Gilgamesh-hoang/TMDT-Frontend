@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import RatingLayout from "@/components/customer/productDetail/rating/RatingLayout.tsx";
 
 export const ProductTabs = () => {
   return (
@@ -17,8 +18,8 @@ export const ProductTabs = () => {
         </div>
       </TabsContent>
       <TabsContent value="rating">
-        <div className="min-h-30 flex-center">
-          Trong đây sẽ tạo component render danh sách đánh giá, form đánh giá
+        <div className="min-h-30">
+          <RatingLayout />
         </div>
       </TabsContent>
     </Tabs>
