@@ -1,0 +1,69 @@
+import React from 'react';
+import { FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+
+interface PaymentMethodProps {
+    form: any; // Type của useForm
+}
+
+const PaymentMethod: React.FC<PaymentMethodProps> = ({ form }) => {
+    return (
+        <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <h3 className="text-lg font-bold text-orange-500 mb-4">
+                PHƯƠNG THỨC THANH TOÁN
+            </h3>
+            <FormField
+                control={form.control}
+                name="paymentMethod"
+                render={({field}) => (
+                    <FormItem>
+                        <FormControl>
+                            <RadioGroup
+                                onValueChange={field.onChange}
+                                value={field.value}
+                                className="space-y-2"
+                                defaultValue="vnpay"
+                            >
+                                <div className="flex items-center p-2 bg-gray-100 rounded-md">
+                                    <RadioGroupItem
+                                        value={'vnpay'}
+                                        id={'vnpay'}
+                                        className="mr-2"
+                                    />
+                                    <img
+                                        src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
+                                        alt={'vnpay'}
+                                        className="w-10 mr-2 object-contain"
+                                    />
+                                    <label htmlFor={'vnpay'} className="cursor-pointer">
+                                        Thanh toán qua VNPAY
+                                    </label>
+                                </div>
+
+                                <div className="flex items-center p-2 bg-gray-100 rounded-md">
+                                    <RadioGroupItem
+                                        value={'momo'}
+                                        id={'momo'}
+                                        className="mr-2"
+                                    />
+                                    <img
+                                        src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
+                                        alt={'momo'}
+                                        className="w-10 mr-2 object-contain"
+                                    />
+                                    <label htmlFor={'momo'} className="cursor-pointer">
+                                        Thanh toán qua Momo
+                                    </label>
+                                </div>
+
+                            </RadioGroup>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+            />
+        </div>
+    );
+};
+
+export default PaymentMethod;

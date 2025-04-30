@@ -6,6 +6,7 @@ import wishlistReducer from "@/redux/slices/wishlistSlice.ts";
 import { userApi } from "@/api/customerApi/user.ts";
 import { productApi } from "@/api/customerApi/product.ts";
 import { cartApi } from "@/api/customerApi/cart.ts";
+import { addressApi } from "@/api/customerApi/address.ts";
 
 export const store = configureStore({
   reducer: {
@@ -16,13 +17,15 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
+    [addressApi.reducerPath]: addressApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(userApi.middleware)
       .concat(authApi.middleware)
       .concat(cartApi.middleware)
-      .concat(productApi.middleware),
+      .concat(productApi.middleware)
+      .concat(addressApi.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

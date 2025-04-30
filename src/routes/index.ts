@@ -10,6 +10,7 @@ import ForgotPassword from "@/pages/customer/ForgotPassword.tsx";
 import Cart from "@/pages/customer/Cart.tsx";
 import { ProductDetail } from "@/pages/customer/ProductDetail.tsx";
 import { Wishlist } from "@/pages/customer/Wishlist";
+import CheckoutForm from "@/pages/customer/CheckoutForm.tsx";
 
 export interface RouteType {
   path: string;
@@ -60,6 +61,11 @@ export const customerPrivateRoutes: RouteType[] = [
   {
     path: ROUTES.WISHLIST,
     element: Wishlist,
+    layout: CustomerLayout,
+  },
+  {
+    path: ROUTES.CHECKOUT,
+    element: CheckoutForm,
     layout: CustomerLayout,
   },
 ];
