@@ -5,10 +5,9 @@ import {CartItem} from "@/types/cart.ts";
 
 interface SummaryOrderProps {
     cartItems: CartItem[];
-    onSubmit: () => void;
 }
 
-const SummaryOrder: FC<SummaryOrderProps> = ({cartItems, onSubmit}) => {
+const SummaryOrder: FC<SummaryOrderProps> = ({cartItems}) => {
 
     const calculateTotalPrice = (items: CartItem[]) => {
         return items.reduce((total, item) => {
@@ -39,7 +38,6 @@ const SummaryOrder: FC<SummaryOrderProps> = ({cartItems, onSubmit}) => {
             <button
                 type="submit"
                 className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 cursor-pointer"
-                onClick={onSubmit}
             >
                 Đặt hàng
             </button>

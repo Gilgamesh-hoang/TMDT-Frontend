@@ -51,7 +51,7 @@ const CheckoutForm: FC = () => {
                             <ListProducts cartItems={cartItems}/>
 
                             {/* Summary Order */}
-                            <SummaryOrder cartItems={cartItems} onSubmit={form.handleSubmit(handleCheckout)}/>
+                            <SummaryOrder cartItems={cartItems}/>
                         </div>
                     </div>
                 </form>
