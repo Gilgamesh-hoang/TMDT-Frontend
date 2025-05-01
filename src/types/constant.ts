@@ -2,6 +2,7 @@ export const ACCESS_TOKEN_LOCALSTORAGE = "access_token";
 export const SERVER_URL = "http://localhost:8182/api/v1";
 
 export const ROUTES = Object.freeze({
+
     HOME: "/",
     LOGIN: "/dang-nhap",
     REGISTER: "/dang-ky",
@@ -11,6 +12,8 @@ export const ROUTES = Object.freeze({
     PRODUCT_DETAIL: "/san-pham/:productId",
     WISHLIST: "/wishlist",
     CHECKOUT: "/thanh-toan",
+   SEARCH_PRODUCT: "/tim-kiem"
+
 });
 
 export const ADMIN_ROUTES = Object.freeze({
