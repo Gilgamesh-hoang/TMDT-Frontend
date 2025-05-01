@@ -1,5 +1,5 @@
 import {FaArrowLeft} from 'react-icons/fa';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import CartItem from "@/components/customer/cart/CartItem.tsx";
 import {ROUTES} from "@/types/constant.ts";
 import type {CartItem as CartItemType} from "@/types/cart.ts";
@@ -28,7 +28,7 @@ const Cart = () => {
     const {data: cartResponse, isLoading} = useGetCartQuery();
     const dispatch = useDispatch();
     const {items, totalPrice} = useSelector((state: RootState) => state.cart);
-
+    const navigate = useNavigate()
 
     const [clearCart] = useClearCartMutation();
 
@@ -145,14 +145,14 @@ const Cart = () => {
                                 <span className="">{formatCurrency(0)}</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td className='text-left'>
-                                <h3 className="">Thuế</h3>
-                            </td>
-                            <td className='text-right'>
-                                <span className="">{formatCurrency(0)}</span>
-                            </td>
-                        </tr>
+                        {/*<tr>*/}
+                        {/*    <td className='text-left'>*/}
+                        {/*        <h3 className="">Thuế</h3>*/}
+                        {/*    </td>*/}
+                        {/*    <td className='text-right'>*/}
+                        {/*        <span className="">{formatCurrency(0)}</span>*/}
+                        {/*    </td>*/}
+                        {/*</tr>*/}
                         <tr>
                             <td className='text-left'>
                                 <h3 className="">Tổng tiền</h3>
@@ -168,6 +168,7 @@ const Cart = () => {
                         type="submit"
                         className="h-10 w-full mt-4"
                         // style={{backgroundColor: "#ffab66"}}
+                        onClick={() => navigate(ROUTES.CHECKOUT)}
                     >
                         Thanh toán
                     </Button>
