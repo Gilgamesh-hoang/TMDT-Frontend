@@ -10,3 +10,9 @@ export interface ApiResponse<T> {
     message: string;
     data: T;
 }
+
+export interface PageResponse<T> {
+    currentPage: number;
+    totalPage: number;
+    data: T;
+  }

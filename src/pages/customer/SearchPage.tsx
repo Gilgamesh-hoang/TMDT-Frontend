@@ -5,45 +5,31 @@ import { VisitedProducts } from "@/components/customer/productDetail/VisitedProd
 import ProductCard from "@/components/customer/home/ProductCard.tsx";
 import Loader from "@/components/ui/Loader";
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Pagination } from "@/components/ui/Pagination"; // Import component Pagination
+import { useState, useEffect } from "react";
+import { Pagination } from "@/components/ui/Pagination";
 
 export const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("q") || "";
   const [page, setPage] = useState(1);
   const size = 10;
-  const [totalPages, setTotalPages] = useState(1); // Thêm state cho tổng số trang
-  
+
+  // Sử dụng PaginationRequest object
   const { data, isLoading, isError } = useSearchProductsQuery({
-    keyword,
-    page,
-    size
+    search: keyword,
+    page: page,
+    size: size
   });
 
+  // Reset page khi keyword thay đổi
   useEffect(() => {
-  
     setPage(1);
   }, [keyword]);
 
-  useEffect(() => {
-  
-    if (data?.data) {
-      const products = data.data;
-      const hasMorePages = products.length >= size;
-      
-      if (page === 1 && !hasMorePages) {
-        setTotalPages(1);
-      } else if (hasMorePages) {
-      
-        setTotalPages(Math.max(page + 1, totalPages));
-      } else if (products.length === 0 && page > 1) {
-        setTotalPages(page - 1);
-      } else if (products.length < size && page > 1) {
-        setTotalPages(page);
-      }
-    }
-  }, [data, page, size]);
+  // Lấy thông tin phân trang từ response của backend
+  const products = data?.data?.data || [];
+  const currentPage = data?.data?.currentPage || 1;
+  const totalPages = data?.data?.totalPage || 1;
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -55,8 +41,6 @@ export const SearchPage = () => {
     return <Loader />;
   }
 
-  const products = data?.data || [];
-  
   return (
     <div className="w-full flex flex-col space-y-4 p-2">
       <ProductBreadCrumb productName={`Kết quả tìm kiếm: "${keyword}"`} />
@@ -65,7 +49,7 @@ export const SearchPage = () => {
         <h1 className="text-2xl font-bold mb-2">Kết quả tìm kiếm cho: "{keyword}"</h1>
         <p className="text-gray-500">
           {products.length > 0 ? 
-            `${products.length} sản phẩm được tìm thấy${totalPages > 1 ? ` - Trang ${page}/${totalPages}` : ''}` : 
+            `${products.length} sản phẩm được tìm thấy${totalPages > 1 ? ` - Trang ${currentPage}/${totalPages}` : ''}` : 
             'Không tìm thấy sản phẩm'}
         </p>
       </div>
@@ -81,7 +65,7 @@ export const SearchPage = () => {
           {totalPages > 1 && (
             <div className="flex justify-center my-6">
               <Pagination
-                currentPage={page}
+                currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
               />
@@ -93,7 +77,7 @@ export const SearchPage = () => {
           <img 
             src="/empty-search.svg" 
             alt="Không tìm thấy sản phẩm" 
-            className="w-64 h-64 mb-4"
+            className="w-64 h-64 mb-4" 
           />
           <h2 className="text-xl font-semibold">Không tìm thấy sản phẩm nào phù hợp</h2>
           <p className="text-gray-500 mt-2">Vui lòng thử lại với từ khóa khác</p>

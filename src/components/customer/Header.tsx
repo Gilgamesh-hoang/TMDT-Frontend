@@ -85,7 +85,7 @@ const SearchBar = ({
       onSearch(searchTerm);
     } else {
       // Nếu không có hàm onSearch được truyền vào, chuyển hướng đến trang tìm kiếm
-      navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+      navigate(`/tim-kiem?q=${encodeURIComponent(searchTerm)}`);
     }
   };
 

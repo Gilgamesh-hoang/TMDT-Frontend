@@ -1,6 +1,6 @@
 import { PaginationRequest } from "@/types/pagination.ts";
 import { Product } from "@/types/product.ts";
-import { ApiResponse } from "@/types/response.ts";
+import { ApiResponse, PageResponse } from "@/types/response.ts";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithAccessToken } from "../util";
 
@@ -49,14 +49,28 @@ export const productApi = createApi({
       }),
       providesTags: ["Product"],
     }),
-    searchProducts: builder.query<ApiResponse<Product[]>, { keyword: string; page: number; size: number }>({
-      query: ({ keyword, page, size }) => ({
-        url: "products/quick-search",
-        params: { q: keyword, page, size },
-      }),
-      providesTags: ["Product"],
+    searchProducts: builder.query<ApiResponse<PageResponse<Product[]>>, string | PaginationRequest>({
+      query: (searchParams) => {
+        // Xử lý tham số search
+        if (typeof searchParams === 'string') {
+          return {
+            url: `products/quick-search`,
+            params: { q: searchParams }
+          };
+        } else {
+          return {
+            url: `products/quick-search`,
+            params: {
+              q: searchParams.search,
+              page: searchParams.page,
+              size: searchParams.size
+            }
+          };
+        }
+      },
     }),
   }),
+  
 });
 
 export const {
