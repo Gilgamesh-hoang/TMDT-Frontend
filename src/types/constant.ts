@@ -2,15 +2,18 @@ export const ACCESS_TOKEN_LOCALSTORAGE = "access_token";
 export const SERVER_URL = "http://localhost:8182/api/v1";
 
 export const ROUTES = Object.freeze({
-  HOME: "/",
-  LOGIN: "/dang-nhap",
-  REGISTER: "/dang-ky",
-  VERIFY_EMAIL: "/verify-email",
-  FORGOT_PASSWORD: "/quen-mat-khau",
-  CART: "/gio-hang",
-  PRODUCT_DETAIL: "/san-pham/:productId",
-  WISHLIST: "/wishlist",
-    SEARCH_PRODUCT: "/tim-kiem"
+
+    HOME: "/",
+    LOGIN: "/dang-nhap",
+    REGISTER: "/dang-ky",
+    VERIFY_EMAIL: "/verify-email",
+    FORGOT_PASSWORD: "/quen-mat-khau",
+    CART: "/gio-hang",
+    PRODUCT_DETAIL: "/san-pham/:productId",
+    WISHLIST: "/wishlist",
+    CHECKOUT: "/thanh-toan",
+   SEARCH_PRODUCT: "/tim-kiem"
+
 });
 
 export const ADMIN_ROUTES = Object.freeze({

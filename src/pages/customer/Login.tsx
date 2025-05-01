@@ -13,12 +13,10 @@ import {useLoginMutation} from "@/api/auth.ts";
 import {useDispatch} from "react-redux";
 import {setCurrentUser} from "@/redux/slices/authSlice.ts";
 import {toastError, toastSuccess} from "@/lib/utils.ts";
-import {GoogleOAuthProvider} from "@react-oauth/google";
 import OAuth2Google from "@/components/ui/OAuth2Google.tsx";
 import {ROUTES} from "@/types/constant.ts";
 
 export const Login: React.FC = () => {
-    const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID || '';
     const [isLoading, setIsLoading] = useState(false);
     const [isGoogleLogin, setIsGoogleLogin] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
