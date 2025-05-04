@@ -7,6 +7,7 @@ import { userApi } from "@/api/customerApi/user.ts";
 import { productApi } from "@/api/customerApi/product.ts";
 import { cartApi } from "@/api/customerApi/cart.ts";
 import { addressApi } from "@/api/customerApi/address.ts";
+import { adminProductApi } from "@/api/adminApi/product";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [addressApi.reducerPath]: addressApi.reducer,
+    [adminProductApi.reducerPath]: adminProductApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -25,7 +27,8 @@ export const store = configureStore({
       .concat(authApi.middleware)
       .concat(cartApi.middleware)
       .concat(productApi.middleware)
-      .concat(addressApi.middleware),
+      .concat(addressApi.middleware)
+      .concat(adminProductApi.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

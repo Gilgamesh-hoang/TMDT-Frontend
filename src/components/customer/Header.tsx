@@ -148,7 +148,7 @@ export const Header = () => {
 
   return (
     <div
-      className={cn(" z-10 bg-white transition-all", isSticky ? "sticky top-0" : "top-[100px]")}
+      className={cn(" z-10 bg-white transition-all ease-in-out duration-400", isSticky ? "sticky top-0" : "top-[-100px]")}
     >
       <div className="flex justify-between items-center px-16 py-2  ">
         <div className="w-16 h-16  flex-center rounded-full bg-primary">
