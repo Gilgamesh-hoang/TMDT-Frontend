@@ -22,36 +22,36 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ form }) => {
                                 onValueChange={field.onChange}
                                 value={field.value}
                                 className="space-y-2"
-                                defaultValue="vnpay"
+                                defaultValue="VNPAY"
                             >
                                 <div className="flex items-center p-2 bg-gray-100 rounded-md">
                                     <RadioGroupItem
-                                        value={'vnpay'}
-                                        id={'vnpay'}
+                                        value={'VNPAY'}
+                                        id={'VNPAY'}
                                         className="mr-2"
                                     />
                                     <img
                                         src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
-                                        alt={'vnpay'}
+                                        alt={'VNPAY'}
                                         className="w-10 mr-2 object-contain"
                                     />
-                                    <label htmlFor={'vnpay'} className="cursor-pointer">
+                                    <label htmlFor={'VNPAY'} className="cursor-pointer">
                                         Thanh toán qua VNPAY
                                     </label>
                                 </div>
 
                                 <div className="flex items-center p-2 bg-gray-100 rounded-md">
                                     <RadioGroupItem
-                                        value={'momo'}
-                                        id={'momo'}
+                                        value={'MOMO'}
+                                        id={'MOMO'}
                                         className="mr-2"
                                     />
                                     <img
                                         src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
-                                        alt={'momo'}
+                                        alt={'MOMO'}
                                         className="w-10 mr-2 object-contain"
                                     />
-                                    <label htmlFor={'momo'} className="cursor-pointer">
+                                    <label htmlFor={'MOMO'} className="cursor-pointer">
                                         Thanh toán qua Momo
                                     </label>
                                 </div>

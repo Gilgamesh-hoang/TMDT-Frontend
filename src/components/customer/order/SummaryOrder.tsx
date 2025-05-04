@@ -2,12 +2,14 @@ import {FC} from "react";
 import {formatCurrency} from "@/lib/utils.ts";
 import {ROUTES} from "@/types/constant.ts";
 import {CartItem} from "@/types/cart.ts";
+import Loader from "@/components/ui/Loader.tsx";
 
 interface SummaryOrderProps {
     cartItems: CartItem[];
+    isLoading?: boolean;
 }
 
-const SummaryOrder: FC<SummaryOrderProps> = ({cartItems}) => {
+const SummaryOrder: FC<SummaryOrderProps> = ({cartItems, isLoading = false}) => {
 
     const calculateTotalPrice = (items: CartItem[]) => {
         return items.reduce((total, item) => {
@@ -38,8 +40,9 @@ const SummaryOrder: FC<SummaryOrderProps> = ({cartItems}) => {
             <button
                 type="submit"
                 className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 cursor-pointer"
+                disabled={isLoading}
             >
-                Đặt hàng
+                {isLoading ? <Loader/> : 'Đặt hàng'}
             </button>
             <a
                 href={ROUTES.CART}
