@@ -3,7 +3,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { DataTableProps } from "../admin/dashboard/RecentOrders";
 import {
   Table,
   TableBody,
@@ -12,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { DataTableProps } from "@/types/data-table";
 
 export function DataTable<TData, TValue>({
   columns,

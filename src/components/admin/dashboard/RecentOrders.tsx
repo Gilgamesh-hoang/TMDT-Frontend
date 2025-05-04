@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { cn, formatCurrency, statusColorMap } from "@/lib/utils";
 import { mockOrders } from "@/mock/orders";
+import { DataTableProps } from "@/types/data-table";
 import { Order, OrderStatus } from "@/types/order";
 import {
   ColumnDef,
@@ -15,11 +16,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-export interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-}
 
 export function SummaryDataTable<TData, TValue>({
   columns,
