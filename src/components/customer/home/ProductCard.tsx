@@ -100,7 +100,7 @@ const ProductCard: React.FC<Product> = (product) => {
         />
       </div>
       <CardTitle className="text-center px-3">
-        <Link to={`san-pham/${product.id}`}>{product.name}</Link>
+        <Link to={`/san-pham/${product.id}`}>{product.name}</Link>
       </CardTitle>
       <CardContent>
         <h3 className="text-error">

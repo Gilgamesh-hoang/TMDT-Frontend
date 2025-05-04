@@ -24,13 +24,14 @@ import { RootState } from "@/redux/store.ts";
 import { ROUTES } from "@/types/constant.ts";
 import { useLogoutMutation } from "@/api/auth.ts";
 import { setCurrentUser } from "@/redux/slices/authSlice.ts";
-import { toastError, toastSuccess } from "@/lib/utils.ts";
+import { cn, toastError, toastSuccess } from "@/lib/utils.ts";
 import { useCountTotalQuantitiesQuery } from "@/api/customerApi/cart.ts";
 import { useEffect } from "react";
 import { setTotalQuantities } from "@/redux/slices/cartSlice.ts";
 import { useState } from "react";
+import { useStickyHeader } from "@/hooks/useStickyHeader";
 
-const NavBar = () => {
+export const NavBar = () => {
   return (
     <NavigationMenu className="my-4 mx-auto ">
       <NavigationMenuList>
@@ -95,9 +96,10 @@ const SearchBar = ({
     }
   };
 
-
   return (
-    <div className={`relative drop-shadow-md rounded-lg border border-gray-200 ${className}`}>
+    <div
+      className={`relative drop-shadow-md rounded-lg border border-gray-200 ${className}`}
+    >
       <Input
         className="rounded-lg border-none ring-0 pl-4 pr-10 py-2"
         placeholder={placeholder}
@@ -130,7 +132,7 @@ export const Header = () => {
       dispatch(setTotalQuantities(quantityResp));
     }
   }, [data, isLoading, dispatch]);
-
+  const isSticky = useStickyHeader();
   const handleLogout = async () => {
     try {
       await logout();
@@ -145,8 +147,10 @@ export const Header = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center px-16 py-2">
+    <div
+      className={cn(" z-10 bg-white transition-all", isSticky ? "sticky top-0" : "top-[100px]")}
+    >
+      <div className="flex justify-between items-center px-16 py-2  ">
         <div className="w-16 h-16  flex-center rounded-full bg-primary">
           Logo
         </div>
@@ -209,8 +213,6 @@ export const Header = () => {
           )}
         </div>
       </div>
-      <div className="border-b-1 border-b-gray-200"></div>
-      <NavBar />
     </div>
   );
 };
