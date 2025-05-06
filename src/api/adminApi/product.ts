@@ -35,20 +35,6 @@ export const adminProductApi = createApi({
         invalidatesTags: ["Product"],
       },
     ),
-    uploadImage: builder.mutation<
-      ApiResponse<{ url: string; id: string }>,
-      File
-    >({
-      query: (file) => {
-        const formData = new FormData();
-        formData.append("file", file);
-        return {
-          url: "/admin/media/upload",
-          method: "post",
-          body: formData,
-        };
-      },
-    }),
   }),
 });
 
@@ -56,5 +42,4 @@ export const {
   useGetProductDetailQuery,
   useGetProductsQuery,
   useCreateProductMutation,
-  useUploadImageMutation
 } = adminProductApi;

@@ -8,7 +8,8 @@ import { productApi } from "@/api/customerApi/product.ts";
 import { cartApi } from "@/api/customerApi/cart.ts";
 import { addressApi } from "@/api/customerApi/address.ts";
 import { adminProductApi } from "@/api/adminApi/product";
-import { adminCategoryApi } from "@/api/adminApi/categories";
+import { adminCategoryApi } from "@/api/adminApi/category";
+import { adminImageApi } from "@/api/adminApi/image";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     [addressApi.reducerPath]: addressApi.reducer,
     [adminProductApi.reducerPath]: adminProductApi.reducer,
     [adminCategoryApi.reducerPath]: adminCategoryApi.reducer,
+    [adminImageApi.reducerPath]: adminImageApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -31,7 +33,8 @@ export const store = configureStore({
       .concat(productApi.middleware)
       .concat(addressApi.middleware)
       .concat(adminProductApi.middleware)
-      .concat(adminCategoryApi.middleware),
+      .concat(adminCategoryApi.middleware)
+      .concat(adminImageApi.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
