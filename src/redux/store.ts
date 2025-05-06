@@ -8,6 +8,7 @@ import { productApi } from "@/api/customerApi/product.ts";
 import { cartApi } from "@/api/customerApi/cart.ts";
 import { addressApi } from "@/api/customerApi/address.ts";
 import { vnpayApi } from "@/api/customerApi/vnpay.ts";
+import { momoApi } from "@/api/customerApi/momo.ts";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     [cartApi.reducerPath]: cartApi.reducer,
     [addressApi.reducerPath]: addressApi.reducer,
     [vnpayApi.reducerPath]: vnpayApi.reducer,
+    [momoApi.reducerPath]: momoApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -28,6 +30,7 @@ export const store = configureStore({
       .concat(cartApi.middleware)
       .concat(productApi.middleware)
       .concat(vnpayApi.middleware)
+      .concat(momoApi.middleware)
       .concat(addressApi.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;

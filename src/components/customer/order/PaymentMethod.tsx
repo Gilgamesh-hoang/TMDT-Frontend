@@ -1,9 +1,10 @@
 import React from 'react';
 import { FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {FormType} from "@/types/order.tsx";
 
 interface PaymentMethodProps {
-    form: any; // Type của useForm
+    form: FormType;
 }
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({ form }) => {
@@ -47,7 +48,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ form }) => {
                                         className="mr-2"
                                     />
                                     <img
-                                        src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
+                                        src={'https://cdn.prod.website-files.com/64199d190fc7afa82666d89c/6491bee997eba92836f95d0c_momo_wallet.png'}
                                         alt={'MOMO'}
                                         className="w-10 mr-2 object-contain"
                                     />

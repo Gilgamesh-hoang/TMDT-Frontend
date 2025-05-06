@@ -2,9 +2,10 @@ import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/compon
 import {Input} from "@/components/ui/input.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {useGetDistrictsQuery, useGetProvincesQuery, useGetWardsQuery} from "@/api/customerApi/address.ts";
+import {FormType} from "@/types/order.tsx";
 
 interface ShippingInfoProps {
-    form: any; // Type của useForm
+    form: FormType;
 }
 
 const ShippingInfo: React.FC<ShippingInfoProps> = ({form}) => {
@@ -28,12 +29,12 @@ const ShippingInfo: React.FC<ShippingInfoProps> = ({form}) => {
     );
     const wards = wardsData?.results || [];
 
-    const handleProvinceChange = (value: string) => {
+    const handleProvinceChange = () => {
         form.setValue('district', '');
         form.setValue('commune', '');
     };
 
-    const handleDistrictChange = (value: string) => {
+    const handleDistrictChange = () => {
         form.setValue('commune', '');
 
     };
@@ -103,7 +104,7 @@ const ShippingInfo: React.FC<ShippingInfoProps> = ({form}) => {
                             <Select
                                 onValueChange={(value) => {
                                     field.onChange(value);
-                                    handleProvinceChange(value);
+                                    handleProvinceChange();
                                 }}
                                 value={field.value}
                                 disabled={isProvincesLoading}
@@ -140,7 +141,7 @@ const ShippingInfo: React.FC<ShippingInfoProps> = ({form}) => {
                             <Select
                                 onValueChange={(value) => {
                                     field.onChange(value);
-                                    handleDistrictChange(value);
+                                    handleDistrictChange();
                                 }}
                                 value={field.value}
                                 disabled={isDistrictsLoading || !selectedProvinceId}
