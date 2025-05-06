@@ -18,4 +18,5 @@ export const ADMIN_ROUTES = Object.freeze({
   DASHBOARD: "/admin/dashboard",
   MANAGE_PRODUCT: "/admin/manage-products",
   SAVE_PRODUCT: "save",
+  TEST: "test",
 });

@@ -1,18 +1,28 @@
-
-import {Category} from "@/types/category.ts";
+import { Category } from "@/types/category.ts";
 
 export interface Product {
-    id: string;
-    category: Category;
-    name: string;
-    description: string;
-    images: string[];
-    totalViews: number;
-    volume: string;
-    thumbnail: string;
-    price: number;
-    discountPrice?: number;
-    quantity: number;
-    rating?: number;
-    sold?: number;
+  id: string;
+  category: Category;
+  name: string;
+  description: string;
+  images: string[];
+  totalViews: number;
+  volume: string;
+  thumbnail: string;
+  price: number;
+  discountPrice?: number;
+  quantity: number;
+  rating?: number;
+  sold?: number;
+}
+
+export interface ProductCreateRequest {
+  name: string;
+  categoryId: string;
+  description: string;
+  status: number;
+  volume: string;
+  price: number;
+  discountPrice: number;
+  quantity: number;
 }

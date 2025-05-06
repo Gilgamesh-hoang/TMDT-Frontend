@@ -1,13 +1,13 @@
 import { useGetProductsQuery } from "@/api/adminApi/product";
+import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import Loader from "@/components/ui/Loader";
 import { PageSizeSelector } from "@/components/ui/PageSizeSelector";
 import { Pagination } from "@/components/ui/Pagination";
 import { PaginationRequest } from "@/types/pagination";
 import { useState } from "react";
-import { columns } from "./columns";
-import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
+import { columns } from "./columns";
 
 export const ManageProduct = () => {
   const [page, setPage] = useState<PaginationRequest>({ page: 1, size: 5 });
@@ -18,7 +18,6 @@ export const ManageProduct = () => {
   const handleOnSizeChange = (value: string) => {
     setPage((prev) => ({ ...prev, size: Number(value) }));
   };
-
   if (isLoading) return <Loader />;
   return (
     <div className="flex flex-col px-4">
