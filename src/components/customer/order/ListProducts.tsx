@@ -34,7 +34,7 @@ const ListProducts: FC<ListProductsProps> = ({cartItems}) => {
                         <div className="flex gap-10">
                             {/* Giá */}
                             <div
-                                className="text-lg ">{formatCurrency(item.product.discountPrice || item.product.price * item.quantity)}</div>
+                                className="text-lg ">{formatCurrency((item.product.discountPrice || item.product.price) * item.quantity)}</div>
                         </div>
                     </div>
 
