@@ -8,7 +8,7 @@ export const EmailValidation = z.object({
     email: z.string().email({message: 'Email không hợp lệ'}),
 });
 
-const paymentMethodEnum = z.enum(['vnpay', 'momo']);
+const paymentMethodEnum = z.enum(['VNPAY', 'MOMO']);
 export const CheckoutValidation = z.object({
     fullName: z.string().min(1, {message: "Tên không được để trống."}),
     // email: z.string().email({message: 'Email không hợp lệ'}),

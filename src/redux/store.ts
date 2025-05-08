@@ -10,6 +10,8 @@ import { addressApi } from "@/api/customerApi/address.ts";
 import { adminProductApi } from "@/api/adminApi/product";
 import { adminCategoryApi } from "@/api/adminApi/category";
 import { adminImageApi } from "@/api/adminApi/image";
+import { vnpayApi } from "@/api/customerApi/vnpay.ts";
+import { momoApi } from "@/api/customerApi/momo.ts";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +26,8 @@ export const store = configureStore({
     [adminProductApi.reducerPath]: adminProductApi.reducer,
     [adminCategoryApi.reducerPath]: adminCategoryApi.reducer,
     [adminImageApi.reducerPath]: adminImageApi.reducer,
+    [vnpayApi.reducerPath]: vnpayApi.reducer,
+    [momoApi.reducerPath]: momoApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -34,7 +38,10 @@ export const store = configureStore({
       .concat(addressApi.middleware)
       .concat(adminProductApi.middleware)
       .concat(adminCategoryApi.middleware)
-      .concat(adminImageApi.middleware),
+      .concat(adminImageApi.middleware)
+      .concat(vnpayApi.middleware)
+      .concat(momoApi.middleware)
+      .concat(addressApi.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

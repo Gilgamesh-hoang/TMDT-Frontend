@@ -1,9 +1,10 @@
 import React from 'react';
 import { FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {FormType} from "@/types/order.tsx";
 
 interface PaymentMethodProps {
-    form: any; // Type của useForm
+    form: FormType;
 }
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({ form }) => {
@@ -22,36 +23,36 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ form }) => {
                                 onValueChange={field.onChange}
                                 value={field.value}
                                 className="space-y-2"
-                                defaultValue="vnpay"
+                                defaultValue="VNPAY"
                             >
                                 <div className="flex items-center p-2 bg-gray-100 rounded-md">
                                     <RadioGroupItem
-                                        value={'vnpay'}
-                                        id={'vnpay'}
+                                        value={'VNPAY'}
+                                        id={'VNPAY'}
                                         className="mr-2"
                                     />
                                     <img
                                         src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
-                                        alt={'vnpay'}
+                                        alt={'VNPAY'}
                                         className="w-10 mr-2 object-contain"
                                     />
-                                    <label htmlFor={'vnpay'} className="cursor-pointer">
+                                    <label htmlFor={'VNPAY'} className="cursor-pointer">
                                         Thanh toán qua VNPAY
                                     </label>
                                 </div>
 
                                 <div className="flex items-center p-2 bg-gray-100 rounded-md">
                                     <RadioGroupItem
-                                        value={'momo'}
-                                        id={'momo'}
+                                        value={'MOMO'}
+                                        id={'MOMO'}
                                         className="mr-2"
                                     />
                                     <img
-                                        src={'https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-350x65.png'}
-                                        alt={'momo'}
+                                        src={'https://cdn.prod.website-files.com/64199d190fc7afa82666d89c/6491bee997eba92836f95d0c_momo_wallet.png'}
+                                        alt={'MOMO'}
                                         className="w-10 mr-2 object-contain"
                                     />
-                                    <label htmlFor={'momo'} className="cursor-pointer">
+                                    <label htmlFor={'MOMO'} className="cursor-pointer">
                                         Thanh toán qua Momo
                                     </label>
                                 </div>
