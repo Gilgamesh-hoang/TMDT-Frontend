@@ -24,7 +24,8 @@ export const Detail: React.FC<Product> = (props) => {
   };
 
   const handleIncrease = () => {
-    setQuantity((prev) => Math.max(50, prev + 1));
+    console.log("click increase")
+    setQuantity((prev) => Math.min(50, prev + 1));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,13 +77,14 @@ export const Detail: React.FC<Product> = (props) => {
           </span>
         </div>
         <div className="flex space-x-3">
-          <div className="flex items-center border rounded-md overflow-hidden w-28 h-10">
+          <div className="flex items-center border rounded-md overflow-hidden w-30 h-10">
             <Button variant="ghost" onClick={handleDecrease}>
               –
             </Button>
             <Input
               type="number"
               min={1}
+              size={20}
               value={quantity}
               onChange={handleChange}
               className="border-none text-center focus-visible:ring-0
