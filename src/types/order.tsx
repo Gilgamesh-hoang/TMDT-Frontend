@@ -1,3 +1,7 @@
+import {UseFormReturn} from "react-hook-form";
+import {CheckoutValidation} from "@/validation";
+import {z} from "zod";
+
 export type OrderStatus = "Success" | "Failed" | "Pending" | "Processing";
 
 export interface Order {
@@ -8,5 +12,10 @@ export interface Order {
     status: OrderStatus;
 }
 
+export type PlaceOrderRequest = z.infer<typeof CheckoutValidation>;
 
-export type PaymentMethod = "vnpay" | "momo";
+export type FormType = UseFormReturn<PlaceOrderRequest>;
+
+export interface OnlinePaymentResponse {
+    paymentUrl: string;
+}
