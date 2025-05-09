@@ -14,6 +14,7 @@ import { SearchPage } from "@/pages/customer/SearchPage";
 import CheckoutForm from "@/pages/customer/CheckoutForm.tsx";
 import { ManageProduct } from "@/pages/admin/manage-product";
 import { ProductSaveForm } from "@/pages/admin/manage-product/ProductSaveForm";
+import { ManageCategory } from "@/pages/admin/manage-category";
 
 export interface RouteType {
   path: string;
@@ -82,6 +83,11 @@ export const adminRoutes: RouteType[] = [
   {
     path: ADMIN_ROUTES.DASHBOARD,
     element: Dashboard,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_CATEGORY,
+    element: ManageCategory,
     layout: AdminLayout,
   },
   {
