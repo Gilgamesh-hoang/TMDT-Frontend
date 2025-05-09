@@ -17,7 +17,7 @@ const SideBarLinkItem: React.FC<
   return (
     <div>
       <Link
-        to={`/admin${href}`}
+        to={href}
         className={cn(
           "px-4 py-[8px] relative flex space-x-2 box-content",
           active && "text-primary shadow-[inset_4px_0_0_0_#ffab66]",
@@ -80,7 +80,7 @@ export const AdminSideBar: React.FC<AdminSideBarProps> = ({
               {item.linkItems.map((link) => (
                 <SideBarLinkItem
                   expand={expand}
-                  active={pathname.substring(6).startsWith(link.href)}
+                  active={pathname.startsWith(link.href)}
                   {...link}
                   key={uuid()}
                 />

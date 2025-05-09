@@ -25,3 +25,4 @@ export const transformToApiResponse = (
     data: response.data.user,
   };
 };
+export const extractData = <T>(response: ApiResponse<T>): T => response.data;

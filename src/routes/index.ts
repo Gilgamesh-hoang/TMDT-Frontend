@@ -12,7 +12,8 @@ import { Wishlist } from "@/pages/customer/Wishlist";
 import { ProductDetail } from "@/pages/customer/ProductDetail";
 import { SearchPage } from "@/pages/customer/SearchPage";
 import CheckoutForm from "@/pages/customer/CheckoutForm.tsx";
-
+import { ManageProduct } from "@/pages/admin/manage-product";
+import { ProductSaveForm } from "@/pages/admin/manage-product/ProductSaveForm";
 
 export interface RouteType {
   path: string;
@@ -81,6 +82,16 @@ export const adminRoutes: RouteType[] = [
   {
     path: ADMIN_ROUTES.DASHBOARD,
     element: Dashboard,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_PRODUCT,
+    element: ManageProduct,
+    layout: AdminLayout,
+  },
+  {
+    path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/${ADMIN_ROUTES.SAVE_PRODUCT}`,
+    element: ProductSaveForm,
     layout: AdminLayout,
   },
 ];

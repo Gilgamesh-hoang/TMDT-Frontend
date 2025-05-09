@@ -1,3 +1,4 @@
+import { ADMIN_ROUTES } from "@/types/constant";
 import {
   BookOpen,
   ChartPie,
@@ -29,7 +30,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <LayoutDashboardIcon />,
         name: "Bảng điều khiển",
-        href: "/dashboard",
+        href: ADMIN_ROUTES.DASHBOARD,
       },
       {
         icon: <ChartPie />,
@@ -39,7 +40,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <Warehouse />,
         name: "Sản phẩm",
-        href: "/products",
+        href: ADMIN_ROUTES.MANAGE_PRODUCT,
       },
       {
         icon: <TagIcon />,

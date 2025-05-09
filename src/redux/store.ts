@@ -7,6 +7,9 @@ import { userApi } from "@/api/customerApi/user.ts";
 import { productApi } from "@/api/customerApi/product.ts";
 import { cartApi } from "@/api/customerApi/cart.ts";
 import { addressApi } from "@/api/customerApi/address.ts";
+import { adminProductApi } from "@/api/adminApi/product";
+import { adminCategoryApi } from "@/api/adminApi/category";
+import { adminImageApi } from "@/api/adminApi/image";
 import { vnpayApi } from "@/api/customerApi/vnpay.ts";
 import { momoApi } from "@/api/customerApi/momo.ts";
 
@@ -20,6 +23,9 @@ export const store = configureStore({
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [addressApi.reducerPath]: addressApi.reducer,
+    [adminProductApi.reducerPath]: adminProductApi.reducer,
+    [adminCategoryApi.reducerPath]: adminCategoryApi.reducer,
+    [adminImageApi.reducerPath]: adminImageApi.reducer,
     [vnpayApi.reducerPath]: vnpayApi.reducer,
     [momoApi.reducerPath]: momoApi.reducer,
   },
@@ -29,6 +35,10 @@ export const store = configureStore({
       .concat(authApi.middleware)
       .concat(cartApi.middleware)
       .concat(productApi.middleware)
+      .concat(addressApi.middleware)
+      .concat(adminProductApi.middleware)
+      .concat(adminCategoryApi.middleware)
+      .concat(adminImageApi.middleware)
       .concat(vnpayApi.middleware)
       .concat(momoApi.middleware)
       .concat(addressApi.middleware),

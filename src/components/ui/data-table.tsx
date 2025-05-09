@@ -1,4 +1,9 @@
 import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import {
   Table,
   TableBody,
   TableCell,
@@ -6,18 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn, formatCurrency, statusColorMap } from "@/lib/utils";
-import { mockOrders } from "@/mock/orders";
 import { DataTableProps } from "@/types/data-table";
-import { Order, OrderStatus } from "@/types/order";
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
 
-export function SummaryDataTable<TData, TValue>({
+export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -28,10 +24,10 @@ export function SummaryDataTable<TData, TValue>({
   });
   return (
     <div>
-      <Table>
+      <Table >
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="bg-white/50">
               {headerGroup.headers.map((header) => (
                 <TableHead key={header.id} className="text-amber-500 font-bold">
                   {flexRender(
@@ -46,9 +42,9 @@ export function SummaryDataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -66,37 +62,3 @@ export function SummaryDataTable<TData, TValue>({
     </div>
   );
 }
-const columns: ColumnDef<Order>[] = [
-  { header: "Id", accessorKey: "id" },
-  { header: "Date", accessorKey: "date" },
-  { header: "Customer", accessorKey: "customerName" },
-  {
-    header: "Amount",
-    accessorKey: "total",
-    cell: ({ row }) => <p>{formatCurrency(row.getValue("total"))}</p>,
-  },
-  {
-    header: "Status",
-    accessorKey: "status",
-    cell: ({ row }) => (
-      <div className=" flex">
-        <div
-          className={cn(
-            "text-white rounded-2xl px-3 py-[2px] font-bold",
-            statusColorMap[row.getValue("status") as OrderStatus],
-          )}
-        >
-          {row.getValue("status")}
-        </div>
-      </div>
-    ),
-  },
-];
-export const RecentOrders = () => {
-  return (
-    <div className="container mx-auto p2-10">
-      <h2>Đơn hàng mới nhất</h2>
-      <SummaryDataTable columns={columns} data={mockOrders} />
-    </div>
-  );
-};
