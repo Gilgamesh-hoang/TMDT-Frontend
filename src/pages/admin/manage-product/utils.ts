@@ -16,9 +16,3 @@ export const toMb = (bytes: number): string => {
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + "Kb";
   return (bytes / (1024 * 1024)).toFixed(1) + "Mb";
 };
-export const formatDateTime = (dateTime: string) => {
-  const time = dayjs(dateTime);
-  const formatedDateTime =
-    dayjs().diff(time, "day") < 1 ? time.fromNow() : time.format("DD/MM/YYYY");
-  return formatedDateTime;
-};

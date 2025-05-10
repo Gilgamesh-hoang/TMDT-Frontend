@@ -211,7 +211,7 @@ export const ProductSaveForm = () => {
                         </SelectTrigger>
                         <SelectContent>
                           {categories &&
-                            categories.data.map((category) => (
+                            categories.map((category) => (
                               <SelectItem value={category.id} key={category.id}>
                                 {category.name}
                               </SelectItem>

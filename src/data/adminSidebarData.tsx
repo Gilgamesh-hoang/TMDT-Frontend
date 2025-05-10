@@ -45,7 +45,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <TagIcon />,
         name: "Danh mục",
-        href: "/categories",
+        href: ADMIN_ROUTES.MANAGE_CATEGORY,
       },
       {
         icon: <ReceiptText />,

@@ -5,10 +5,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { ImageContainer } from "@/components/ui/image-container";
 import Loader from "@/components/ui/Loader";
+import { formatDateTime } from "@/lib/string-utils";
 import { toastError, toastSuccess, uuid } from "@/lib/utils";
 import {
   compressImageToWebP,
-  formatDateTime,
   toMb,
 } from "@/pages/admin/manage-product/utils";
 import { ImageResponse } from "@/types/image";
