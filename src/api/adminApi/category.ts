@@ -1,6 +1,7 @@
 import {
   Category,
   CategoryCreateRequest,
+  CategoryDetail,
   CategoryUpdateRequest,
 } from "@/types/category";
 import { createApi } from "@reduxjs/toolkit/query/react";
@@ -15,6 +16,18 @@ export const adminCategoryApi = createApi({
       query: () => "/admin/categories",
       transformResponse: extractData,
       providesTags: ["Category"],
+    }),
+    getCategoryDetailById: builder.query<CategoryDetail, string>({
+      query: (id) => `/admin/categories/${id}/detail`,
+      transformResponse: extractData,
+      providesTags: ["Category"],
+    }),
+    deleteCategory: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/admin/categories/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Category"],
     }),
     createCategory: builder.mutation<Category, CategoryCreateRequest>({
       query: (body) => ({
@@ -39,4 +52,6 @@ export const {
   useGetCategoriesQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+  useGetCategoryDetailByIdQuery
 } = adminCategoryApi;

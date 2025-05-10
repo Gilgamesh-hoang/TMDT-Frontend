@@ -30,8 +30,10 @@ import { useEffect } from "react";
 import { setTotalQuantities } from "@/redux/slices/cartSlice.ts";
 import { useState } from "react";
 import { useStickyHeader } from "@/hooks/useStickyHeader";
+import { useGetCategoriesQuery } from "@/api/customerApi/category";
 
 export const NavBar = () => {
+  const { data, isLoading } = useGetCategoriesQuery();
   return (
     <NavigationMenu className="my-4 mx-auto ">
       <NavigationMenuList>
@@ -43,16 +45,14 @@ export const NavBar = () => {
             Tinh dầu
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3  w-[200px] ">
-              <li className="border-b-1 border-b-gray-200">
-                <NavigationMenuLink>Tinh dầu hương thảo</NavigationMenuLink>
-              </li>
-              <li className="border-b-1 border-b-gray-200">
-                <NavigationMenuLink>Tinh dầu cam</NavigationMenuLink>
-              </li>
-              <li>
-                <NavigationMenuLink>Tinh dầu oải hương</NavigationMenuLink>
-              </li>
+            <ul className="grid gap-1  w-[200px] ">
+              {data &&
+                data.length > 0 &&
+                data?.map((category) => (
+                  <li className="border-b-1 border-b-gray-200">
+                    <NavigationMenuLink>{category.name}</NavigationMenuLink>
+                  </li>
+                ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -148,7 +148,10 @@ export const Header = () => {
 
   return (
     <div
-      className={cn(" z-10 bg-white transition-all ease-in-out duration-400", isSticky ? "sticky top-0" : "top-[-100px]")}
+      className={cn(
+        " z-10 bg-white transition-all ease-in-out duration-400",
+        isSticky ? "sticky top-0" : "top-[-100px]",
+      )}
     >
       <div className="flex justify-between items-center px-16 py-2  ">
         <div className="w-16 h-16  flex-center rounded-full bg-primary">

@@ -10,12 +10,15 @@ import {
 } from "@/components/ui/dialog";
 import {
   Form,
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { toastSuccess } from "@/lib/utils";
 import { Category } from "@/types/category";
@@ -41,15 +44,16 @@ export const CategorySaveForm: FC<CategorySaveFormProps> = ({
     defaultValues: {
       name: initialData?.name ?? "",
       description: initialData?.description ?? "",
+      isDeleted: initialData?.isDeleted ?? false,
     },
   });
   useEffect(() => {
     form.reset({
       name: initialData?.name ?? "",
       description: initialData?.description ?? "",
+      isDeleted: initialData?.isDeleted ?? false,
     });
   }, [form, initialData]);
-
   const [createCategory, { isLoading: isCreatingCategory }] =
     useCreateCategoryMutation();
   const [updateCategory, { isLoading: isUpdatingCategory }] =
@@ -71,7 +75,9 @@ export const CategorySaveForm: FC<CategorySaveFormProps> = ({
   return (
     <DialogContent>
       <DialogTitle>
-        <DialogHeader>Cập nhập danh mục</DialogHeader>
+        <DialogHeader>
+          {action == "update" ? "Cập nhập" : "Tạo mới"} danh mục
+        </DialogHeader>
       </DialogTitle>
       <div>
         <Form {...form}>
@@ -103,6 +109,27 @@ export const CategorySaveForm: FC<CategorySaveFormProps> = ({
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="isDeleted"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>Trạng thái</FormLabel>
+                    <FormDescription>
+                      Trạng thái hoạt động của danh mục
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      disabled={action == "create"}
+                      checked={!field.value}
+                      onCheckedChange={(e) => field.onChange(!e)}
+                    />
+                  </FormControl>
                 </FormItem>
               )}
             />

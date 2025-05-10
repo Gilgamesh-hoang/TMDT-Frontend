@@ -6,6 +6,11 @@ export interface Category {
   createdAt: string;
 }
 
+export interface CategoryDetail extends Category {
+  productCount: number;
+  soldCount: number;
+}
+
 export interface CategoryCreateRequest {
   name: string;
   description?: string;
@@ -13,4 +18,5 @@ export interface CategoryCreateRequest {
 
 export interface CategoryUpdateRequest extends CategoryCreateRequest {
   id: string;
+  isDeleted: boolean;
 }

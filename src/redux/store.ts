@@ -12,6 +12,7 @@ import { adminCategoryApi } from "@/api/adminApi/category";
 import { adminImageApi } from "@/api/adminApi/image";
 import { vnpayApi } from "@/api/customerApi/vnpay.ts";
 import { momoApi } from "@/api/customerApi/momo.ts";
+import { categoryApi } from "@/api/customerApi/category";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [addressApi.reducerPath]: addressApi.reducer,
+    [categoryApi.reducerPath]: categoryApi.reducer,
     [adminProductApi.reducerPath]: adminProductApi.reducer,
     [adminCategoryApi.reducerPath]: adminCategoryApi.reducer,
     [adminImageApi.reducerPath]: adminImageApi.reducer,
@@ -41,6 +43,7 @@ export const store = configureStore({
       .concat(adminImageApi.middleware)
       .concat(vnpayApi.middleware)
       .concat(momoApi.middleware)
+      .concat(categoryApi.middleware)
       .concat(addressApi.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;

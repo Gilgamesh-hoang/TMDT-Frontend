@@ -7,10 +7,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { formatDateTime } from "@/lib/string-utils";
 import { cn } from "@/lib/utils";
 import { Category } from "@/types/category";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import { Link } from "react-router-dom";
 interface GetCategoryColumnsProps {
   onUpdate: (category: Category) => void;
   onDelete: (id: string) => void;
@@ -24,22 +26,27 @@ export const getCategoryColumns = ({
     accessorKey: "id",
   },
   {
-    header: "Ten danh muc",
+    header: "Tên danh mục",
     accessorKey: "name",
   },
   {
-    header: "Trang thai",
+    header: "Ngày tạo",
+    accessorKey: "createdAt",
+    cell: ({ row }) => <span>{formatDateTime(row.getValue("createdAt"))}</span>,
+  },
+  {
+    header: "Trạng thái",
     accessorKey: "isDeleted",
     cell: ({ row }) => {
-      const isDeleted = !row.getValue("isDeleted");
+      const isDeleted = row.getValue("isDeleted");
       return (
         <span
           className={cn(
             "px-3 py-1 rounded-2xl text-white",
-            isDeleted ? "bg-red-600" : "bg-green-600",
+            isDeleted ? "bg-amber-600" : "bg-green-600",
           )}
         >
-          {isDeleted ? "Khong hoat dong" : "Hoat dong"}
+          {isDeleted ? "Không hoạt động" : "Hoạt động"}
         </span>
       );
     },
@@ -57,13 +64,10 @@ export const getCategoryColumns = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Chức năng</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => alert("copy ma san pham" + cateogry.id)}
-            >
-              Sao chép mã sản phẩm
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`${cateogry.id}`}>Xem chi tiết</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => onUpdate(cateogry)}>
               Cập nhập thông tin
             </DropdownMenuItem>
