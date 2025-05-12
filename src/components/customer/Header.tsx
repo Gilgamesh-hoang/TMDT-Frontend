@@ -49,7 +49,7 @@ export const NavBar = () => {
               {data &&
                 data.length > 0 &&
                 data?.map((category) => (
-                  <li className="border-b-1 border-b-gray-200">
+                  <li key={category.id} className="border-b-1 border-b-gray-200">
                     <NavigationMenuLink>{category.name}</NavigationMenuLink>
                   </li>
                 ))}
