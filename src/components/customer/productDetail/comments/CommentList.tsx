@@ -49,7 +49,7 @@ export const CommentList: FC<CommentListProps> = ({ comments }) => {
   };
 
   return (
-    <div className="mt-2 space-y-4">
+    <div className="mt-2 space-y-2">
       {comments &&
         comments.map((comment) => (
           <CommentItem

@@ -18,9 +18,9 @@ export const commentApi = createApi({
       PageResponse<CommentResponse[]>,
       PaginationRequest & { productId: string }
     >({
-      query: (params) => ({
-        url: `/products/${params.productId}/comments`,
-        params,
+      query: ({ productId, page, size }) => ({
+        url: `/products/${productId}/comments`,
+        params: { page, size },
       }),
       transformResponse: extractData,
       providesTags: ["Comment"],

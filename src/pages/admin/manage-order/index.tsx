@@ -4,18 +4,27 @@ import { useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { getOrderColumns } from "./columns";
 import { Pagination } from "@/components/ui/Pagination";
+import { OrderSummary } from "@/types/order";
+import { Dialog } from "@/components/ui/dialog";
+import { OrderUpdateStatusDialog } from "./OrderUpdateStatusDialog";
 export const ManageOrder = () => {
   const [page, setPage] = useState<number>(1);
   const { data: pageResponse, isLoading } = useGetOrdersQuery({
     page,
     size: 5,
   });
-  if (isLoading) return <Loader />;
-  const onDelete = () => {};
-  const columns = getOrderColumns({ onDelete });
+  const [selectedOrder, setSelectedOrder] = useState<null | OrderSummary>();
+  const [showDialog, setShowDialog] = useState<boolean>(false);
+  const onClickUpdateStatus = (order: OrderSummary) => {
+    setSelectedOrder(order);
+    setShowDialog(true);
+  };
+  const columns = getOrderColumns({ onClickUpdateStatus });
   const handleOnPageChange = (page: number) => {
     setPage(page);
   };
+
+  if (isLoading) return <Loader />;
   return (
     <div className="flex flex-col px-4">
       <div className="flex justify-between my-2 items-center">
@@ -36,6 +45,17 @@ export const ManageOrder = () => {
           />
         </div>
       )}
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        {selectedOrder && (
+          <OrderUpdateStatusDialog
+            initialData={selectedOrder}
+            onSave={() => {
+              setSelectedOrder(null);
+              setShowDialog(false);
+            }}
+          />
+        )}
+      </Dialog>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithAccessToken, extractData } from "../util";
-import { OrderSummaryResponse } from "@/types/order";
+import { OrderSummary, UpdateOrderStatusRequest } from "@/types/order";
 import { PageResponse } from "@/types/response";
 import { PaginationRequest } from "@/types/pagination";
 
@@ -9,15 +9,24 @@ export const adminOrderApi = createApi({
   baseQuery: baseQueryWithAccessToken,
   tagTypes: ["Order"],
   endpoints: (builder) => ({
-    getOrders: builder.query<
-      PageResponse<OrderSummaryResponse[]>,
-      PaginationRequest
-    >({
+    getOrders: builder.query<PageResponse<OrderSummary[]>, PaginationRequest>({
       query: () => "/admin/orders",
       transformResponse: extractData,
       providesTags: ["Order"],
     }),
+    updateOrderStatus: builder.mutation<OrderSummary, UpdateOrderStatusRequest>(
+      {
+        query: ({ orderId, status }) => ({
+          url: `/admin/orders/${orderId}`,
+          method: "PUT",
+          body: { status },
+        }),
+        transformResponse: extractData,
+        invalidatesTags: ["Order"],
+      },
+    ),
   }),
 });
 
-export const { useGetOrdersQuery } = adminOrderApi;
+export const { useGetOrdersQuery, useUpdateOrderStatusMutation } =
+  adminOrderApi;

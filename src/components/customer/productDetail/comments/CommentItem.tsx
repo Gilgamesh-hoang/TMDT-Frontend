@@ -51,10 +51,14 @@ export const CommentItem: FC<
   };
 
   const showReplyForm = () => {
-    setReplyId(props.id);
+    if (!replyId) {
+      setReplyId(props.id);
+      return;
+    }
+    setReplyId(null);
   };
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col">
       <div className="flex border-l-emerald-400 border-l-3 space-x-4 px-2">
         <ImageContainer src={AVATAR_SRC} className="size-12" />
         <div className="flex flex-col w-full bg-gray-200 p-2 rounded-2xl">
@@ -122,17 +126,22 @@ export const CommentItem: FC<
               {props.content}
             </p>
           )}
-          <div className="justify-between flex">
+          <div className="justify-between flex   py-0">
             {props.depth < 2 && (
-              <Button onClick={showReplyForm} variant="ghost">
-                Trả lời
+              <Button
+                onClick={showReplyForm}
+                variant="link"
+                size="icon"
+                className="text-black"
+              >
+                {replyId ? "Đóng" : "Trả lời"}
               </Button>
             )}
             <p className="text-sm text-gray-500">
               {formatDateTime(props.createdAt)}
             </p>
           </div>
-          {replyId && <CommentForm onSubmit={onSubmitReply} />}
+          {replyId && <CommentForm onSubmit={onSubmitReply} className="border-3 py-2 border-white rounded" />}
         </div>
       </div>
       <div className="ml-10">

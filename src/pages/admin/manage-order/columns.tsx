@@ -7,22 +7,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ImageContainer } from "@/components/ui/image-container";
 import { StatusBar } from "@/components/ui/status";
 import { formatDateTime, truncateString } from "@/lib/string-utils";
 import { formatCurrency } from "@/lib/utils";
 import { MOMO_IMAGE, VNPAY_IMAGE } from "@/types/constant";
-import { OrderStatus, OrderSummaryResponse } from "@/types/order";
+import { OrderStatus, OrderSummary } from "@/types/order";
 import { Payment } from "@/types/payment";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 interface GetOrderColumnsProps {
-  onDelete: (id: string) => void;
+  onClickUpdateStatus: (order: OrderSummary) => void;
 }
 export const getOrderColumns = ({
-  onDelete,
-}: GetOrderColumnsProps): ColumnDef<OrderSummaryResponse>[] => [
+  onClickUpdateStatus,
+}: GetOrderColumnsProps): ColumnDef<OrderSummary>[] => [
   {
     header: "Id",
     accessorKey: "id",
@@ -74,7 +73,7 @@ export const getOrderColumns = ({
   {
     id: "actions",
     cell: ({ row }) => {
-      const cateogry = row.original;
+      const order = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -86,10 +85,10 @@ export const getOrderColumns = ({
             <DropdownMenuLabel>Chức năng</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link to={`${cateogry.id}`}>Xem chi tiết</Link>
+              <Link to={`${order.id}`}>Xem chi tiết</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onDelete(cateogry.id)}>
-              Xóa
+            <DropdownMenuItem onClick={() => onClickUpdateStatus(order)}>
+              Cập nhập trạng thái
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
