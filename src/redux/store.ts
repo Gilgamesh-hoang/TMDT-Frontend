@@ -16,6 +16,7 @@ import { categoryApi } from "@/api/customerApi/category";
 import { commentApi } from "@/api/customerApi/comment";
 import { TypedUseSelectorHook } from "react-redux";
 import { useSelector } from "react-redux";
+import { adminOrderApi } from "@/api/adminApi/order";
 
 export const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
     [adminProductApi.reducerPath]: adminProductApi.reducer,
     [adminCategoryApi.reducerPath]: adminCategoryApi.reducer,
     [adminImageApi.reducerPath]: adminImageApi.reducer,
+    [adminOrderApi.reducerPath]: adminOrderApi.reducer,
     [vnpayApi.reducerPath]: vnpayApi.reducer,
     [momoApi.reducerPath]: momoApi.reducer,
   },
@@ -46,6 +48,7 @@ export const store = configureStore({
       .concat(adminProductApi.middleware)
       .concat(adminCategoryApi.middleware)
       .concat(adminImageApi.middleware)
+      .concat(adminOrderApi.middleware)
       .concat(vnpayApi.middleware)
       .concat(momoApi.middleware)
       .concat(categoryApi.middleware)

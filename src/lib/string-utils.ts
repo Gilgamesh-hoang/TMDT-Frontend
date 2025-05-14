@@ -1,3 +1,5 @@
+import { OrderStatus, orderStatusVN } from "@/types/order";
+import { PaymentStatus, paymentStatusVN } from "@/types/payment";
 import dayjs from "dayjs";
 
 export const truncateString = (input: string, length: number): string => {
@@ -15,4 +17,11 @@ export const formatDateTime = (dateTime: string) => {
 };
 export const isValidUUID = (value: string | undefined) => {
   return typeof value === "string" && value.length > 0;
+};
+
+export const translateToVN = (input: OrderStatus | PaymentStatus): string => {
+  return (
+    orderStatusVN[input as OrderStatus] ||
+    paymentStatusVN[input as PaymentStatus]
+  );
 };

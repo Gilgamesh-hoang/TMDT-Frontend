@@ -1,15 +1,29 @@
-import {UseFormReturn} from "react-hook-form";
-import {CheckoutValidation} from "@/validation";
-import {z} from "zod";
+import { UseFormReturn } from "react-hook-form";
+import { CheckoutValidation } from "@/validation";
+import { z } from "zod";
+import { Payment } from "./payment";
+export const orderStatusVN: Record<OrderStatus, string> = {
+  PENDING: "Đang chờ xử lý",
+  PROCESSING: "Đang xử lý",
+  DELIVERED: "Đã giao",
+  CANCELLED: "Đã hủy",
+  RETURNED: "Đã trả hàng",
+};
 
-export type OrderStatus = "Success" | "Failed" | "Pending" | "Processing";
-
-export interface Order {
-    id: number;
-    date: string;
-    customerName: string;
-    total: number;
-    status: OrderStatus;
+export type OrderStatus =
+  | "PENDING"
+  | "PROCESSING"
+  | "DELIVERED"
+  | "CANCELLED"
+  | "RETURNED";
+export interface OrderSummaryResponse {
+  id: string;
+  customerName: string;
+  phoneNumber: string;
+  totalAmount: number;
+  status: OrderStatus;
+  payment: Payment;
+  createdAt: string;
 }
 
 export type PlaceOrderRequest = z.infer<typeof CheckoutValidation>;
@@ -17,5 +31,5 @@ export type PlaceOrderRequest = z.infer<typeof CheckoutValidation>;
 export type FormType = UseFormReturn<PlaceOrderRequest>;
 
 export interface OnlinePaymentResponse {
-    paymentUrl: string;
+  paymentUrl: string;
 }
