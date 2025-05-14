@@ -19,7 +19,7 @@ export const Home = () => {
       <BestSeller />
       <MostView />
       <Introduction reverse {...introduction2} />
-      <CustomerFeedbacks/>
+      <CustomerFeedbacks />
       <BrandList />
     </div>
   );

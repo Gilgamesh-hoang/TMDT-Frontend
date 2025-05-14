@@ -24,7 +24,6 @@ export const Detail: React.FC<Product> = (props) => {
   };
 
   const handleIncrease = () => {
-    console.log("click increase")
     setQuantity((prev) => Math.min(50, prev + 1));
   };
 
@@ -39,7 +38,7 @@ export const Detail: React.FC<Product> = (props) => {
   const handleAddToCart = async () => {
     try {
       const response = await addCart({
-        productId: props.id,
+        productId: props.product.id,
         quantity: quantity,
       }).unwrap();
 
@@ -59,21 +58,21 @@ export const Detail: React.FC<Product> = (props) => {
         <ImageCarousels images={props.images.map((image) => image.imagePath)} />
       </div>
       <div className="col-span-7 ">
-        <h3>{props.name}</h3>
+        <h3>{props.product.name}</h3>
         <div className="flex space-x-2">
-          <Ratings variant="yellow" rating={props.rating || 5} />
+          {/* <Ratings variant="yellow" rating={props.product.rating || 5} /> */}
           <div className="text-sm text-yellow-600">
             (20 đánh giá từ khách hàng)
           </div>
         </div>
         <div>
-          <h2>{formatCurrency(props.price)}</h2>
+          <h2>{formatCurrency(props.product.price)}</h2>
         </div>
         <p className="text-gray-800 text-sm">{props.description}</p>
         <div className="my-2 flex space-x-2 items-center">
           <div>Dung tích:</div>
           <span className="bg-primary p-[5px]  rounded-sm font-bold text-white">
-            {props.volume}
+            {props.product.volume}
           </span>
         </div>
         <div className="flex space-x-3">
