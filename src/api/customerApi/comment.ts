@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken, extractData } from "../util";
+import { baseQueryWithAuth, extractData } from "../util";
 import {
   CommentCreateRequest,
   CommentReplyRequest,
@@ -12,7 +12,7 @@ import { PaginationRequest } from "@/types/pagination";
 export const commentApi = createApi({
   reducerPath: "commentApi",
   tagTypes: ["Comment"],
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     getComments: builder.query<
       PageResponse<CommentResponse[]>,

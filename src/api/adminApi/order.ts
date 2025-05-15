@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken, extractData } from "../util";
+import { baseQueryWithAuth, extractData } from "../util";
 import { OrderSummary, UpdateOrderStatusRequest } from "@/types/order";
 import { PageResponse } from "@/types/response";
 import { PaginationRequest } from "@/types/pagination";
@@ -7,7 +7,7 @@ import { OrderDetail } from "@/pages/admin/manage-order/order-detail/type";
 
 export const adminOrderApi = createApi({
   reducerPath: "adminOrderApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Order"],
   endpoints: (builder) => ({
     getOrders: builder.query<PageResponse<OrderSummary[]>, PaginationRequest>({
