@@ -1,15 +1,10 @@
-import {
-  Category,
-  CategoryCreateRequest,
-  CategoryDetail,
-  CategoryUpdateRequest,
-} from "@/types/category";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken, extractData } from "../util";
+import {Category, CategoryCreateRequest, CategoryDetail, CategoryUpdateRequest,} from "@/types/category";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQueryWithAuth, extractData} from "../util";
 
 export const adminCategoryApi = createApi({
   reducerPath: "adminCategoryApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Category"],
   endpoints: (builder) => ({
     getCategories: builder.query<Category[], void>({

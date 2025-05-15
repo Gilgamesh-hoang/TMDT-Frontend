@@ -1,12 +1,12 @@
-import { PaginationRequest } from "@/types/pagination";
-import { Product, ProductCreateRequest } from "@/types/product.ts";
-import { ApiResponse, PageResponse } from "@/types/response.ts";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken } from "../util";
+import {PaginationRequest} from "@/types/pagination";
+import {Product, ProductCreateRequest} from "@/types/product.ts";
+import {ApiResponse, PageResponse} from "@/types/response.ts";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQueryWithAuth} from "../util";
 
 export const adminProductApi = createApi({
   reducerPath: "adminProductApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Product"],
   endpoints: (builder) => ({
     getProductDetail: builder.query<ApiResponse<Product>, string>({

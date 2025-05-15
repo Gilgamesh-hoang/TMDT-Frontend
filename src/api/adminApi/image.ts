@@ -1,12 +1,12 @@
-import { ImageResponse } from "@/types/image";
-import { PaginationRequest } from "@/types/pagination";
-import { ApiResponse, PageResponse } from "@/types/response.ts";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken, extractData } from "../util";
+import {ImageResponse} from "@/types/image";
+import {PaginationRequest} from "@/types/pagination";
+import {ApiResponse, PageResponse} from "@/types/response.ts";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQueryWithAuth, extractData} from "../util";
 
 export const adminImageApi = createApi({
   reducerPath: "adminImageApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Image"],
   endpoints: (builder) => ({
     getImages: builder.query<PageResponse<ImageResponse[]>, PaginationRequest>({
