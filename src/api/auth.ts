@@ -1,17 +1,13 @@
-import { ACCESS_TOKEN_LOCALSTORAGE } from "@/types/constant.ts";
-import { User } from "@/types/models.ts";
-import {
-    LoginGoogleRequest,
-    LoginRequest,
-    RegisterRequest,
-} from "@/types/request.ts";
-import { ApiResponse, AuthResponse } from "@/types/response.ts";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken } from "./util";
+import {ACCESS_TOKEN_LOCALSTORAGE} from "@/types/constant.ts";
+import {User} from "@/types/models.ts";
+import {LoginGoogleRequest, LoginRequest, RegisterRequest,} from "@/types/request.ts";
+import {ApiResponse, AuthResponse} from "@/types/response.ts";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQueryWithAuth} from "./util";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     login: builder.mutation<ApiResponse<User>, LoginRequest>({
       query: (credentials) => ({

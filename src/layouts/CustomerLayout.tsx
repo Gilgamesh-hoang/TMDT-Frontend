@@ -27,7 +27,6 @@ export const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="w-full relative container mx-auto  px-40 flex flex-col space-y-1">
       <Header />
-      {me?.id}
       <div className="border-b-1 border-b-gray-200"></div>
       <NavBar />
       {currentMessage && (
