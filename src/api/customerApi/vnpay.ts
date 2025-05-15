@@ -1,11 +1,11 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {baseQueryWithAccessToken} from "@/api/util.ts";
+import {baseQueryWithAuth} from "@/api/util.ts";
 import {ApiResponse} from "@/types/response.ts";
-import {PlaceOrderRequest, OnlinePaymentResponse} from "@/types/order.tsx";
+import {OnlinePaymentResponse, PlaceOrderRequest} from "@/types/order.tsx";
 
 export const vnpayApi = createApi({
     reducerPath: "vnpayApi",
-    baseQuery: baseQueryWithAccessToken,
+    baseQuery: baseQueryWithAuth,
     endpoints: (builder) => ({
 
         vnpayPayment: builder.mutation<ApiResponse<OnlinePaymentResponse>, PlaceOrderRequest>({

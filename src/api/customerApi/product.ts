@@ -2,11 +2,11 @@ import { PaginationRequest } from "@/types/pagination.ts";
 import { Product, ProductSummaryResponse } from "@/types/product.ts";
 import { ApiResponse, PageResponse } from "@/types/response.ts";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAccessToken } from "../util";
+import { baseQueryWithAuth } from "../util";
 
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   tagTypes: [
     "Product",
     "NewestProducts",

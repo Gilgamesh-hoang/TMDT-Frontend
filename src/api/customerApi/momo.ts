@@ -1,11 +1,12 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {baseQueryWithAccessToken} from "@/api/util.ts";
+import {baseQueryWithAuth} from "@/api/util.ts";
 import {ApiResponse} from "@/types/response.ts";
 import {OnlinePaymentResponse, PlaceOrderRequest} from "@/types/order.tsx";
 
 export const momoApi = createApi({
     reducerPath: "momoApi",
-    baseQuery: baseQueryWithAccessToken,
+    baseQuery: baseQueryWithAuth,
+    tagTypes: ['Cart'],
     endpoints: (builder) => ({
 
         momoPayment: builder.mutation<ApiResponse<OnlinePaymentResponse>, PlaceOrderRequest>({
@@ -22,6 +23,7 @@ export const momoApi = createApi({
                 method: 'POST',
                 body: params,
             }),
+            invalidatesTags: ['Cart'],
         })
     }),
 });

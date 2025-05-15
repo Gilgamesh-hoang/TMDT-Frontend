@@ -1,11 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { ApiResponse } from "@/types/response.ts";
 import { AddCartRequest, CartItem, UpdateCartRequest } from "@/types/cart.ts";
-import { baseQueryWithAccessToken } from "@/api/util.ts";
+import { baseQueryWithAuth } from "@/api/util.ts";
 
 export const cartApi = createApi({
   reducerPath: "cartApi",
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Cart"],
   endpoints: (builder) => ({
     // GET /cart

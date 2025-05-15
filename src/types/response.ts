@@ -21,3 +21,7 @@ export interface AppNotificationResponse {
   message: string;
   sender: string;
 }
+
+export interface JwtResponse {
+  token: string;
+}

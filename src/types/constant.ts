@@ -1,5 +1,6 @@
 export const ACCESS_TOKEN_LOCALSTORAGE = "access_token";
 export const SERVER_URL = "http://localhost:8182/api/v1";
+export const CLIENT_URL = "http://localhost:5173";
 export const WEBSOCKER_URL = "ws://localhost:8182/ws";
 export const ENABLE_WEBSOCKET = false;
 export const AVATAR_SRC = "https://avatar.iran.liara.run/public";
