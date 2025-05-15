@@ -49,7 +49,7 @@ export const AdminSideBar: React.FC<AdminSideBarProps> = ({
         if (!expand) toggleExpand();
       }}
       className={cn(
-        `fixed bg-white  flex flex-col transition-all 
+        `fixed bg-gray-50  flex flex-col transition-all 
         h-full left-0 top-0,  `,
         expand ? "w-62  " : "w-14 ",
       )}

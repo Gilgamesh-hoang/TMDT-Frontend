@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
 import { Bounce, toast } from "react-toastify";
-import { OrderStatus } from "@/types/order";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

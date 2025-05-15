@@ -17,7 +17,7 @@ export const ProductDetail = () => {
 
   if (isLoading) return <Loader />;
   if (isError || !data) {
-    return <Navigate to="/notfound" />;
+    return <Navigate to="/404" />;
   }
   const product = data.data;
   return (

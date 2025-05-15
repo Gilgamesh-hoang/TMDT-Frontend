@@ -26,8 +26,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { OrderStatusSchema } from "./formSchema";
 import { orderStatusValues, orderStatusVN, OrderSummary } from "@/types/order";
-import { toast } from "react-toastify";
 import { toastSuccess } from "@/lib/utils";
+import { allowStatusTransitions } from "./util";
 
 interface CategorySaveFormProps {
   initialData: OrderSummary;
@@ -84,11 +84,19 @@ export const OrderUpdateStatusDialog: FC<CategorySaveFormProps> = ({
                         <SelectValue placeholder="Trạng thái" />
                       </SelectTrigger>
                       <SelectContent>
-                        {orderStatusValues.map((status) => (
-                          <SelectItem key={status} value={status}>
-                            {orderStatusVN[status]}
-                          </SelectItem>
-                        ))}
+                        {orderStatusValues.map((status) => {
+                          const allowUpdateStatus =
+                            allowStatusTransitions[initialData.status];
+                          return (
+                            <SelectItem
+                              disabled={!allowUpdateStatus.includes(status)}
+                              key={status}
+                              value={status}
+                            >
+                              {orderStatusVN[status]}
+                            </SelectItem>
+                          );
+                        })}
                       </SelectContent>
                     </Select>
                   </FormControl>

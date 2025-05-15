@@ -16,7 +16,7 @@ export const orderStatusVN: Record<OrderStatus, string> = {
   PROCESSING: "Đang xử lý",
   DELIVERED: "Đã giao",
   CANCELLED: "Đã hủy",
-  RETURNED: "Đã trả hàng",
+  RETURNED: "Trả hàng",
 };
 
 export interface OrderSummary {

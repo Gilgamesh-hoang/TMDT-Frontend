@@ -12,7 +12,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     setExpand((pre) => !pre);
   };
   return (
-    <div className="flex  h-screen bg-gray-100">
+    <div className="flex  h-screen ">
       <AdminSideBar expand={expand} toggleExpand={toggleEpand} />
       <div
         className={cn("flex flex-col px-10 w-full ml-15", expand && "ml-54")}
