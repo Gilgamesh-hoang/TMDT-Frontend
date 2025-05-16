@@ -1,4 +1,4 @@
-    import {Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.tsx';
 import {RouteType} from "@/routes";
 import {CustomerLayout} from "@/layouts/CustomerLayout.tsx";

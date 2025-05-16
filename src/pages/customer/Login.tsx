@@ -12,9 +12,10 @@ import Loader from "@/components/ui/Loader.tsx";
 import {useLoginMutation} from "@/api/auth.ts";
 import {useDispatch} from "react-redux";
 import {setCurrentUser} from "@/redux/slices/authSlice.ts";
-import {toastError, toastSuccess} from "@/lib/utils.ts";
+import {hasRole, toastError, toastSuccess} from "@/lib/utils.ts";
 import OAuth2Google from "@/components/ui/OAuth2Google.tsx";
-import {ROUTES} from "@/types/constant.ts";
+import {ADMIN_ROUTES, ROUTES} from "@/types/constant.ts";
+import {UserRole} from "@/types/models.ts";
 
 export const Login: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +44,14 @@ export const Login: React.FC = () => {
             // Cập nhật user vào Redux
             dispatch(setCurrentUser(response.data));
             toastSuccess("Đăng nhập thành công");
-            navigate(ROUTES.HOME);
+
+            if (hasRole([UserRole.ROLE_ADMIN, UserRole.ROLE_EMPLOYEE], response.data.roles)) {
+                navigate(ADMIN_ROUTES.DASHBOARD);
+            }else {
+                navigate(ROUTES.HOME);
+            }
+
+
         } catch (error) {
             toastError("Đăng nhập thất bại", 2000)
         } finally {

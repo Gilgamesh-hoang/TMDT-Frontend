@@ -1,7 +1,10 @@
 export enum UserRole {
-    CUSTOMER = 'CUSTOMER',
-    ADMIN = 'ADMIN',
+    ROLE_CUSTOMER = 'ROLE_CUSTOMER',
+    ROLE_EMPLOYEE = 'ROLE_EMPLOYEE',
+    ROLE_ADMIN = 'ROLE_ADMIN',
 }
+
+
 
 export interface User {
     id: string;
@@ -9,5 +12,5 @@ export interface User {
     fullName: string;
     phone: string;
     address: string;
-    role: UserRole;
+    roles: UserRole[];
 }
