@@ -9,7 +9,7 @@ import {
 import { cn, formatCurrency, statusColorMap } from "@/lib/utils";
 import { mockOrders } from "@/mock/orders";
 import { DataTableProps } from "@/types/data-table";
-import { Order, OrderStatus } from "@/types/order";
+import { OrderStatus, OrderSummaryResponse } from "@/types/order";
 import {
   ColumnDef,
   flexRender,
@@ -66,7 +66,7 @@ export function SummaryDataTable<TData, TValue>({
     </div>
   );
 }
-const columns: ColumnDef<Order>[] = [
+const columns: ColumnDef<OrderSummaryResponse>[] = [
   { header: "Id", accessorKey: "id" },
   { header: "Date", accessorKey: "date" },
   { header: "Customer", accessorKey: "customerName" },

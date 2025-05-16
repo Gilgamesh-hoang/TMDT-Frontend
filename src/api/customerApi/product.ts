@@ -1,8 +1,8 @@
-import {PaginationRequest} from "@/types/pagination.ts";
-import {Product} from "@/types/product.ts";
-import {ApiResponse, PageResponse} from "@/types/response.ts";
-import {createApi} from "@reduxjs/toolkit/query/react";
-import {baseQueryWithAuth} from "../util";
+import { PaginationRequest } from "@/types/pagination.ts";
+import { Product, ProductSummaryResponse } from "@/types/product.ts";
+import { ApiResponse, PageResponse } from "@/types/response.ts";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithAuth } from "../util";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -14,17 +14,18 @@ export const productApi = createApi({
     "MostViewedProducts",
   ],
   endpoints: (builder) => ({
-    getNewestProducts: builder.query<ApiResponse<Product[]>, PaginationRequest>(
-      {
-        query: ({ page, size }) => ({
-          url: "products/newest",
-          params: { page, size },
-        }),
-        providesTags: ["NewestProducts"],
-      },
-    ),
+    getNewestProducts: builder.query<
+      ApiResponse<ProductSummaryResponse[]>,
+      PaginationRequest
+    >({
+      query: ({ page, size }) => ({
+        url: "products/newest",
+        params: { page, size },
+      }),
+      providesTags: ["NewestProducts"],
+    }),
     getBestSellerProducts: builder.query<
-      ApiResponse<Product[]>,
+      ApiResponse<ProductSummaryResponse[]>,
       PaginationRequest
     >({
       query: ({ page, size }) => ({
@@ -34,7 +35,7 @@ export const productApi = createApi({
       providesTags: ["BestSellerProducts"],
     }),
     getMostViewedProducts: builder.query<
-      ApiResponse<Product[]>,
+      ApiResponse<ProductSummaryResponse[]>,
       PaginationRequest
     >({
       query: ({ page, size }) => ({
@@ -49,13 +50,16 @@ export const productApi = createApi({
       }),
       providesTags: ["Product"],
     }),
-    searchProducts: builder.query<ApiResponse<PageResponse<Product[]>>, string | PaginationRequest>({
+    searchProducts: builder.query<
+      ApiResponse<PageResponse<ProductSummaryResponse[]>>,
+      string | PaginationRequest
+    >({
       query: (searchParams) => {
         // Xử lý tham số search
-        if (typeof searchParams === 'string') {
+        if (typeof searchParams === "string") {
           return {
             url: `products/quick-search`,
-            params: { q: searchParams }
+            params: { q: searchParams },
           };
         } else {
           return {
@@ -63,14 +67,13 @@ export const productApi = createApi({
             params: {
               q: searchParams.search,
               page: searchParams.page,
-              size: searchParams.size
-            }
+              size: searchParams.size,
+            },
           };
         }
       },
     }),
   }),
-  
 });
 
 export const {
@@ -78,5 +81,5 @@ export const {
   useGetBestSellerProductsQuery,
   useGetMostViewedProductsQuery,
   useGetProductDetailQuery,
-  useSearchProductsQuery
+  useSearchProductsQuery,
 } = productApi;

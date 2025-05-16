@@ -66,7 +66,7 @@ export const CategorySaveForm: FC<CategorySaveFormProps> = ({
       if (action == "create") await createCategory(formData).unwrap();
       if (action == "update" && initialData)
         await updateCategory({ ...formData, id: initialData.id }).unwrap();
-      toastSuccess("Tạo danh mục mới thành công");
+      toastSuccess("Lưu danh mục mới thành công");
       onSave();
     } catch (error) {
       console.log(error);

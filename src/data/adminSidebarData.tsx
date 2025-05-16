@@ -50,7 +50,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <ReceiptText />,
         name: "Đơn hàng",
-        href: "/orders",
+        href: ADMIN_ROUTES.MANAGE_ORDER,
       },
     ],
   },
