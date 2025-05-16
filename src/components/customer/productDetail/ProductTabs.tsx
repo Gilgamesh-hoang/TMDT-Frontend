@@ -1,7 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RatingLayout from "@/components/customer/productDetail/rating/RatingLayout.tsx";
+import { CommentSection } from "./comments/CommentSection";
+import { FC } from "react";
 
-export const ProductTabs = () => {
+interface ProductTabsProps {
+  productId: string;
+}
+export const ProductTabs: FC<ProductTabsProps> = ({ productId }) => {
   return (
     <Tabs defaultValue="comment" className="w-full">
       <TabsList className="w-full h-11 font-bold">
@@ -13,9 +18,7 @@ export const ProductTabs = () => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="comment">
-        <div className="min-h-30 flex-center">
-          Trong đây sẽ tạo component render danh sách bình luận, form bình luận
-        </div>
+        <CommentSection productId={productId} />
       </TabsContent>
       <TabsContent value="rating">
         <div className="min-h-30">

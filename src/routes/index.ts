@@ -16,6 +16,8 @@ import { ManageProduct } from "@/pages/admin/manage-product";
 import { ProductSaveForm } from "@/pages/admin/manage-product/ProductSaveForm";
 import { ManageCategory } from "@/pages/admin/manage-category";
 import { CategoryDetail } from "@/pages/admin/manage-category/CategoryDetail";
+import { ManageOrder } from "@/pages/admin/manage-order";
+import { OrderDetail } from "@/pages/admin/manage-order/order-detail/OrderDetail";
 
 export interface RouteType {
   path: string;
@@ -104,6 +106,16 @@ export const adminRoutes: RouteType[] = [
   {
     path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/${ADMIN_ROUTES.SAVE_PRODUCT}`,
     element: ProductSaveForm,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_ORDER,
+    element: ManageOrder,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.ORDER_DETAIL,
+    element: OrderDetail,
     layout: AdminLayout,
   },
 ];

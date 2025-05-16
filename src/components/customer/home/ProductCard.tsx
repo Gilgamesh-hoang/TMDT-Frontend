@@ -19,12 +19,12 @@ import {
 } from "@/redux/slices/wishlistSlice";
 import { RootState } from "@/redux/store";
 import { CartItem } from "@/types/cart.ts";
-import { Product } from "@/types/product.ts";
+import { ProductSummaryResponse } from "@/types/product.ts";
 import { Heart, ShoppingCart, StarIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const ProductCard: React.FC<Product> = (product) => {
+const ProductCard: React.FC<ProductSummaryResponse> = (product) => {
   const [addCart] = useAddCartMutation();
   const wishlist = useSelector((state: RootState) => state.wishlist);
   const dispatch = useDispatch();

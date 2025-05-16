@@ -1,4 +1,4 @@
-import { WEBSOCKER_URL } from "@/types/constant";
+import { ENABLE_WEBSOCKET, WEBSOCKER_URL } from "@/types/constant";
 import { Client, Message } from "@stomp/stompjs";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -6,6 +6,7 @@ export const useStomp = (username: string) => {
   const [connected, setConnected] = useState<boolean>(false);
   const stompClient = useRef<Client | null>(null);
   useEffect(() => {
+    if (!ENABLE_WEBSOCKET) return;
     const client = new Client({
       brokerURL: WEBSOCKER_URL,
       connectHeaders: {

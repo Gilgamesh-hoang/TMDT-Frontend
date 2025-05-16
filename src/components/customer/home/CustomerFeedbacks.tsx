@@ -4,11 +4,11 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Ratings } from "@/components/ui/rating";
-import { feedbacks } from "@/mock/customerFeedback";
-import React, { useState } from "react";
-import Autoplay from "embla-carousel-autoplay";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { uuid } from "@/lib/utils";
+import { feedbacks } from "@/mock/customerFeedback";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import Autoplay from "embla-carousel-autoplay";
+import { useState } from "react";
 
 export interface CustomerFeedback {
   avatar?: string;
@@ -33,8 +33,8 @@ export const CustomerFeedbacks = () => {
           {feedbacks.map((item) => (
             <CarouselItem key={uuid()}>
               <div className="mx-auto px-60">
-                <Avatar className="flex-center" >
-                  <AvatarImage  className="rounded-full" src={item.avatar} />
+                <Avatar className="flex-center">
+                  <AvatarImage className="rounded-full" src={item.avatar} />
                 </Avatar>
                 <blockquote className="italic font-semibold text-center text-2xl mt-4">
                   <p>{item.content}</p>

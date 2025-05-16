@@ -1,12 +1,10 @@
 import { Category } from "@/types/category.ts";
 import { ImageResponse } from "./image";
 
-export interface Product {
+export interface ProductSummaryResponse {
   id: string;
   category: Category;
   name: string;
-  description: string;
-  images: ImageResponse[];
   totalViews: number;
   volume: string;
   thumbnail: string;
@@ -15,6 +13,11 @@ export interface Product {
   quantity: number;
   rating?: number;
   sold?: number;
+}
+export interface Product {
+  images: ImageResponse[];
+  product: ProductSummaryResponse;
+  description: string;
 }
 
 export interface ProductCreateRequest {

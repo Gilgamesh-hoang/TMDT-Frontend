@@ -33,7 +33,7 @@ import { useStickyHeader } from "@/hooks/useStickyHeader";
 import { useGetCategoriesQuery } from "@/api/customerApi/category";
 
 export const NavBar = () => {
-  const { data, isLoading } = useGetCategoriesQuery();
+  const { data } = useGetCategoriesQuery();
   return (
     <NavigationMenu className="my-4 mx-auto ">
       <NavigationMenuList>
@@ -49,7 +49,10 @@ export const NavBar = () => {
               {data &&
                 data.length > 0 &&
                 data?.map((category) => (
-                  <li key={category.id} className="border-b-1 border-b-gray-200">
+                  <li
+                    key={category.id}
+                    className="border-b-1 border-b-gray-200"
+                  >
                     <NavigationMenuLink>{category.name}</NavigationMenuLink>
                   </li>
                 ))}
@@ -154,7 +157,10 @@ export const Header = () => {
       )}
     >
       <div className="flex justify-between items-center px-16 py-2  ">
-        <div className="w-16 h-16  flex-center rounded-full bg-primary">
+        <div
+          onClick={() => navigate(ROUTES.HOME)}
+          className="w-16 h-16  flex-center rounded-full bg-primary cursor-pointer"
+        >
           Logo
         </div>
         <SearchBar />
