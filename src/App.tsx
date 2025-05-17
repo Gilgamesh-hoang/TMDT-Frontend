@@ -1,27 +1,25 @@
-import {useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import "./App.css";
-import {useEffect} from "react";
-import {setCurrentUser} from "@/redux/slices/authSlice.ts";
 import {useFetchCurrentUserQuery} from "@/api/customerApi/user.ts";
 import {ToastContainer} from "react-toastify";
 import {ACCESS_TOKEN_LOCALSTORAGE} from "@/types/constant.ts";
 import {AppRoutes} from "@/routes/AppRoutes.tsx";
+import {RootState} from "@/redux/store.ts";
 
 function App() {
-    const dispatch = useDispatch();
     const token = localStorage.getItem(ACCESS_TOKEN_LOCALSTORAGE);
-    const {data, error} = useFetchCurrentUserQuery(undefined, {
-        skip: !token, // Chỉ gọi query nếu token tồn tại
+    useFetchCurrentUserQuery(undefined, {
+        skip: !token,
     });
+    const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+    const me = useSelector((state: RootState) => state.auth.me);
 
-    useEffect(() => {
-        if (data && data.data) {
-            dispatch(setCurrentUser(data.data));
-        }
-        if (error) {
-            console.error("Failed to fetch current user:", error);
-        }
-    }, [data, error, dispatch]);
+    const isUserChecked = !token || (!isLoading && me !== null);
+
+    if (!isUserChecked) {
+        return;
+    }
+
 
     return (
         <div>

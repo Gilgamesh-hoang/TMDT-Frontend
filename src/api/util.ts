@@ -82,9 +82,13 @@ export const baseQueryWithAuth: BaseQueryFn<
     // Wait if another refresh operation is in progress
     await mutex.waitForUnlock();
     let result = await baseQuery(args, api, extraOptions);
-
     // Handle 401 Unauthorized errors
     if (result.error && result.error.status === 401) {
+        const currentToken = localStorage.getItem(ACCESS_TOKEN_LOCALSTORAGE);
+        if (!currentToken) {
+            return result;
+        }
+
         // Extract the URL from the args (args can be a string or FetchArgs object)
         const url = typeof args === 'string' ? args : args.url;
         if (url === '/auth/login') {

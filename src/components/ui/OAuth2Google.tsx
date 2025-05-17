@@ -5,10 +5,11 @@ import {FcGoogle} from "react-icons/fc";
 import {useLoginGoogleMutation} from "@/api/auth.ts";
 import {useDispatch} from "react-redux";
 import {setCurrentUser} from "@/redux/slices/authSlice.ts";
-import {toastError, toastSuccess} from "@/lib/utils.ts";
-import {ROUTES} from "@/types/constant.ts";
+import {hasRole, toastError, toastSuccess} from "@/lib/utils.ts";
+import {ADMIN_ROUTES, ROUTES} from "@/types/constant.ts";
 import Loader from "@/components/ui/Loader.tsx";
 import {FC} from "react";
+import {UserRole} from "@/types/models.ts";
 
 interface OAuth2GoogleProps {
     setIsGoogleLogin?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,11 +31,16 @@ const OAuth2Google: FC<OAuth2GoogleProps> = ({setIsGoogleLogin, isDisabled=false
                     // Cập nhật user vào Redux
                     dispatch(setCurrentUser(response.data));
                     toastSuccess("Đăng nhập thành công");
-                    navigate(ROUTES.HOME);
+
+                    if (hasRole([UserRole.ROLE_ADMIN, UserRole.ROLE_EMPLOYEE], response.data.roles)) {
+                        navigate(ADMIN_ROUTES.DASHBOARD);
+                    }else {
+                        navigate(ROUTES.HOME);
+                    }
                 }
-            } catch (error: any) {
+            } catch (error) {
                 toastError("Đăng nhập thất bại", 2000)
-                console.log(error);
+                console.error(error);
             } finally {
                 if (setIsGoogleLogin) {
                     setIsGoogleLogin(false);
@@ -43,7 +49,7 @@ const OAuth2Google: FC<OAuth2GoogleProps> = ({setIsGoogleLogin, isDisabled=false
         },
         onError: (error) => {
             toastError("Đăng nhập thất bại", 2000)
-            console.log(error);
+            console.error(error);
             if (setIsGoogleLogin) {
                 setIsGoogleLogin(false);
             }
