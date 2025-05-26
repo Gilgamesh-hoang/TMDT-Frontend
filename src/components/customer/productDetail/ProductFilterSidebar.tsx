@@ -24,13 +24,8 @@ export const ProductFilterSidebar = ({
     initialFilter.maxPrice || maxPriceGlobal,
   ]);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(price);
-  };
-
+    
+  
   useEffect(() => {
     // Update filter when price range changes
     const timer = setTimeout(() => {
