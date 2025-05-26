@@ -1,6 +1,6 @@
 import { Category } from "@/types/category.ts";
 import { ImageResponse } from "./image";
-
+import { PaginationRequest } from "@/types/pagination";
 export interface ProductSummaryResponse {
   id: string;
   category: Category;
@@ -31,4 +31,30 @@ export interface ProductCreateRequest {
   price: number;
   discountPrice: number;
   quantity: number;
+}
+export enum SortOption {
+  NEWEST = "NEWEST",
+  BEST_SELLER = "BEST_SELLER",
+  PRICE = "PRICE",
+  MOST_VIEWED = "MOST_VIEWED"
+}
+
+export enum SortDirection {
+  ASC = "ASC",
+  DESC = "DESC"
+}
+
+export interface ProductFilterDTO {
+  categoryIds?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  minRating?: number;
+  sortOption?: SortOption;
+  sortDirection?: SortDirection;
+   priceSortDirection?: SortDirection;
+}
+
+export interface SearchFilterRequest extends PaginationRequest {
+  search?: string;
+  filter?: ProductFilterDTO;
 }

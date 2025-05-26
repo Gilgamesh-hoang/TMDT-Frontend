@@ -1,8 +1,9 @@
 import { PaginationRequest } from "@/types/pagination.ts";
-import { Product, ProductSummaryResponse } from "@/types/product.ts";
+import { Product, ProductFilterDTO, ProductSummaryResponse, SearchFilterRequest } from "@/types/product.ts";
 import { ApiResponse, PageResponse } from "@/types/response.ts";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithAuth } from "../util";
+
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -73,6 +74,31 @@ export const productApi = createApi({
         }
       },
     }),
+    filterProducts: builder.query<
+      ApiResponse<PageResponse<ProductSummaryResponse[]>>,
+      { filter: ProductFilterDTO; page: number; size: number }
+    >({
+      query: ({ filter, page, size }) => ({
+        url: "products/filter",
+        method: "POST",
+        body: filter,
+        params: { page, size },
+      }),
+    }),
+   
+    searchFilterProducts: builder.query<
+      ApiResponse<PageResponse<ProductSummaryResponse[]>>,
+      SearchFilterRequest
+    >({
+      query: ({ search, filter, page, size }) => ({
+        url: "products/search-filter",
+        method: "POST",
+        body: filter,
+        params: { q: search, page, size },
+      }),
+    }),
+    
+
   }),
 });
 
@@ -82,4 +108,5 @@ export const {
   useGetMostViewedProductsQuery,
   useGetProductDetailQuery,
   useSearchProductsQuery,
+   useSearchFilterProductsQuery,
 } = productApi;
