@@ -14,7 +14,7 @@ const ratingVariants = {
   },
   yellow: {
     star: "text-yellow-500",
-    emptyStar: "text-yellow-200",
+    emptyStar: "text-yellow-400",
   },
 };
 

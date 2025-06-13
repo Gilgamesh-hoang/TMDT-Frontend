@@ -59,9 +59,9 @@ export const CommentItem: FC<
   };
   return (
     <div className="flex flex-col">
-      <div className="flex border-l-emerald-400 border-l-3 space-x-4 px-2">
-        <ImageContainer src={AVATAR_SRC} className="size-12" />
-        <div className="flex flex-col w-full bg-gray-200 p-2 rounded-2xl">
+      <div className="flex border-l-emerald-400 border-l-3 space-x-2 px-2">
+        <ImageContainer src={AVATAR_SRC} className="size-10" />
+        <div className="flex flex-col w-full bg-gray-100 px-2 rounded-2xl">
           <div className="flex justify-between">
             <h3 className="leading-0">{props.author.fullName}</h3>
             {me?.id == props.author.id && (
