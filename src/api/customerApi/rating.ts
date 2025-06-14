@@ -13,13 +13,19 @@ export const ratingApi = createApi({
   tagTypes: ["Rating"],
   baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
+    canRateProduct: builder.query<number, string>({
+      query: (productId) => ({
+        url: `/ratings/products/${productId}/check-eligibility`,
+      }),
+      transformResponse: extractData,
+    }),
     getRatings: builder.query<
       PageResponse<RatingReponse[]>,
-      PaginationRequest & { productId: string }
+      PaginationRequest & { productId: string; ratingFilter: number }
     >({
-      query: ({ productId, page, size }) => ({
+      query: ({ productId, page, size, ratingFilter }) => ({
         url: `/products/${productId}/ratings`,
-        params: { page, size },
+        params: { page, size, ratingFilter },
       }),
       transformResponse: extractData,
       providesTags: ["Rating"],
@@ -62,4 +68,5 @@ export const {
   useGetRatingsQuery,
   useCreateRatingMutation,
   useGetRatingStatsQuery,
+  useCanRateProductQuery,
 } = ratingApi;

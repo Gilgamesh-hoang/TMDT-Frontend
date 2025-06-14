@@ -15,6 +15,6 @@ export interface RatingReponse {
   id: string;
   rating: number;
   author: Author;
-  createdDate: string;
+  createdAt: string;
   content: string;
 }
