@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import RatingLayout from "@/components/customer/productDetail/rating/RatingLayout.tsx";
-import { CommentSection } from "./comments/CommentSection";
 import { FC } from "react";
+import { CommentSection } from "./comments/CommentSection";
+import { RatingSection } from "./rating/RatingSection";
 
 interface ProductTabsProps {
   productId: string;
@@ -21,9 +21,7 @@ export const ProductTabs: FC<ProductTabsProps> = ({ productId }) => {
         <CommentSection productId={productId} />
       </TabsContent>
       <TabsContent value="rating">
-        <div className="min-h-30">
-          <RatingLayout />
-        </div>
+        <RatingSection productId={productId} />
       </TabsContent>
     </Tabs>
   );

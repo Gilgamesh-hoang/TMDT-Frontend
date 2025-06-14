@@ -20,7 +20,6 @@ export const CommentSection: FC<CommentSectionProps> = ({ productId }) => {
   const [createComment] = useCreateCommentMutation();
   const [page, setPage] = useState(1);
   const { data, isLoading } = useGetCommentsQuery({ page, size: 5, productId });
-  console.log(data);
   const handleCommentSave = async (
     comment: z.infer<typeof CommentSaveSchema>,
   ) => {

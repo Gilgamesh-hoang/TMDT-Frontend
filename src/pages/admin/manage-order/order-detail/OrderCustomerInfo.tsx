@@ -11,7 +11,7 @@ export const OrderCustomerInfo: FC<CustomerInfo> = ({
 }) => {
   return (
     <div className="rounded-2xl border p-2">
-      <h3>Thong tin khach hang</h3>
+      <h3>Thông tin khách hàng</h3>
       <div className="flex flex-col space-y-2 text-gray-700">
         <div className="flex space-x-1">
           <UserIcon />
@@ -24,7 +24,7 @@ export const OrderCustomerInfo: FC<CustomerInfo> = ({
         </div>
         <div className="flex space-x-1">
           <PhoneIcon />
-          <span>{phone || "Chua co so dien thoai"}</span>
+          <span>{phone || "Chưa có số điện thoại"}</span>
         </div>
       </div>
     </div>

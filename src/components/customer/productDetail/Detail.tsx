@@ -1,18 +1,17 @@
-import { Product } from "@/types/product";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "@/components/customer/productDetail/productCarouselStyle.css";
-import { ImageCarousels } from "./ImageCarousels";
-import { Ratings } from "@/components/ui/rating";
-import { formatCurrency, toastError, toastSuccess } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { ProductPolicies } from "./ProductPolicies";
 import { useAddCartMutation } from "@/api/customerApi/cart.ts";
-import { useDispatch } from "react-redux";
-import { CartItem } from "@/types/cart.ts";
+import "@/components/customer/productDetail/productCarouselStyle.css";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { formatCurrency, toastError, toastSuccess } from "@/lib/utils";
 import { addToCart } from "@/redux/slices/cartSlice.ts";
+import { CartItem } from "@/types/cart.ts";
+import { Product } from "@/types/product";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import { ImageCarousels } from "./ImageCarousels";
+import { ProductPolicies } from "./ProductPolicies";
 
 export const Detail: React.FC<Product> = (props) => {
   const [addCart] = useAddCartMutation();

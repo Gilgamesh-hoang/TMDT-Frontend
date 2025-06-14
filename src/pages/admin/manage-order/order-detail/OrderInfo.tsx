@@ -14,11 +14,11 @@ export const OrderInfo: FC<OrderSummary> = ({ id, createdAt, status }) => {
         </div>
         <div>
           <Button variant={"outline"} className="rounded-2xl">
-            Nhap them
+            Nhập thêm
           </Button>
         </div>
       </div>
-      <p className="text-gray text-sm">Dat luc {formatDateTime(createdAt)}</p>
+      <p className="text-gray text-sm">Đặt lúc {formatDateTime(createdAt)}</p>
     </div>
   );
 };

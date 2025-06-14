@@ -16,7 +16,7 @@ export const OrderShipingInfo: FC<OrderShipingInfoProps> = ({
 }) => {
   return (
     <div className="rounded-2xl border p-2">
-      <h3>Thong tin giao hang</h3>
+      <h3>Thông tin giao hàng</h3>
       <div className="flex flex-col space-y-1 text-gray-700">
         <div className="flex space-x-1">
           <UserIcon />

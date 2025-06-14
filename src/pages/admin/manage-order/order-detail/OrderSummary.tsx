@@ -18,13 +18,13 @@ export const OrderSummary: FC<
       </div>
       <div className="grid grid-cols-10 mt-4">
         <div className="col-span-5">
-          <p>Tam tinh</p>
-          <p>Phi van chuyen</p>
-          <p>Tong cong</p>
+          <p>Tạm tính</p>
+          <p>Phí vận chuyển</p>
+          <p>Tổng cộng</p>
         </div>
         <div className="col-span-4">
-          <p>{orderItemCount} san pham</p>
-          <p>Mien phi</p>
+          <p>{orderItemCount} sản phẩm</p>
+          <p>Miễn phí</p>
         </div>
         <div className="col-span-1 text-right">
           <p>{formatCurrency(totalAmount)}</p>
