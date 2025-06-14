@@ -16,7 +16,7 @@ export const OrderItem: FC<OrderItemSummary> = (props) => {
             {product.category.name}
           </span>
           <p className="font-bold">{truncateString(product.name, 50)}</p>
-          <p className="text-gray">Dung tich: {product.volume}</p>
+          <p className="text-gray">Dung tích: {product.volume}</p>
         </div>
       </div>
       <div className="flex space-x-8 ">
