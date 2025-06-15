@@ -1,13 +1,12 @@
 import {
-  useGetDeletedProductsQuery,
-  useRecoverProductMutation,
+    useGetDeletedProductsQuery,
+    useRecoverProductMutation,
 } from "@/api/adminApi/product";
-import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/admin/common/BackButton";
 import { DataTable } from "@/components/ui/data-table";
 import Loader from "@/components/ui/Loader";
 import { toastSuccess } from "@/lib/utils";
 import { getProductColumns } from "./columns";
-import { BackButton } from "@/components/admin/common/BackButton";
 export const ManageDeletedProduct = () => {
   const { data, isLoading } = useGetDeletedProductsQuery();
   const [recoverProduct] = useRecoverProductMutation();

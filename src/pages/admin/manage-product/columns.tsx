@@ -12,6 +12,7 @@ import { Category } from "@/types/category";
 import { ProductSummaryResponse } from "@/types/product";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import { Link } from "react-router-dom";
 interface ProductColumnsProps {
   onClickDelete: (productId: string) => void;
 }
@@ -87,7 +88,9 @@ export const getProductColumns = ({
               Sao chép mã sản phẩm
             </DropdownMenuItem>
             <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
-            <DropdownMenuItem>Cập nhập thông tin</DropdownMenuItem>
+            <Link to={`${product.id}/save`}>
+              <DropdownMenuItem>Cập nhập thông tin</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem onClick={() => onClickDelete(product.id)}>
               Xóa sản phẩm
             </DropdownMenuItem>

@@ -7,6 +7,7 @@ import {
 import { ApiResponse, PageResponse } from "@/types/response.ts";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithAuth, extractData } from "../util";
+import { ProductUpdateRequest } from "@/pages/admin/manage-product/formSchema";
 
 export const adminProductApi = createApi({
   reducerPath: "adminProductApi",
@@ -22,7 +23,7 @@ export const adminProductApi = createApi({
     getDeletedProductCount: builder.query<number, void>({
       query: () => "/admin/products/deleted/count",
       providesTags: ["Product"],
-      transformResponse: extractData,
+      transformResponse:extractData
     }),
     getDeletedProducts: builder.query<ProductSummaryResponse[], void>({
       query: () => "/admin/products/deleted",
@@ -64,6 +65,25 @@ export const adminProductApi = createApi({
         invalidatesTags: ["Product"],
       },
     ),
+    updateProduct: builder.mutation<void, ProductUpdateRequest>({
+      query: (body) => ({
+        url: `/admin/products/${body.id}`,
+        method: "put",
+        body,
+      }),
+      invalidatesTags: ["Product"],
+    }),
+    updateImages: builder.mutation<
+      void,
+      { productId: string; imageIds: string[]; thumbnail: string }
+    >({
+      query: (body) => ({
+        url: `/admin/products/${body.productId}/images`,
+        method: "put",
+        body,
+      }),
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -75,4 +95,6 @@ export const {
   useGetDeletedProductsQuery,
   useRecoverProductMutation,
   useGetDeletedProductCountQuery,
+  useUpdateProductMutation,
+  useUpdateImagesMutation,
 } = adminProductApi;

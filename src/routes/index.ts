@@ -19,6 +19,8 @@ import { CategoryDetail } from "@/pages/admin/manage-category/CategoryDetail";
 import { ManageOrder } from "@/pages/admin/manage-order";
 import { OrderDetail } from "@/pages/admin/manage-order/order-detail/OrderDetail";
 import { ManageDeletedProduct } from "@/pages/admin/manage-deleted-product";
+import { ProductUpdateForm } from "@/pages/admin/manage-product/ProductUpdateForm";
+import { ImageUpdateForm } from "@/pages/admin/manage-product/ImageUpdateForm";
 
 export interface RouteType {
   path: string;
@@ -112,6 +114,16 @@ export const adminRoutes: RouteType[] = [
   {
     path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/${ADMIN_ROUTES.SAVE_PRODUCT}`,
     element: ProductSaveForm,
+    layout: AdminLayout,
+  },
+  {
+    path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/:productId/${ADMIN_ROUTES.SAVE_PRODUCT}`,
+    element: ProductUpdateForm,
+    layout: AdminLayout,
+  },
+  {
+    path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/:productId/${ADMIN_ROUTES.SAVE_PRODUCT}/images`,
+    element: ImageUpdateForm,
     layout: AdminLayout,
   },
   {
