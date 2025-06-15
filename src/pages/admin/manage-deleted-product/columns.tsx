@@ -13,10 +13,10 @@ import { ProductSummaryResponse } from "@/types/product";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 interface ProductColumnsProps {
-  onClickDelete: (productId: string) => void;
+  onClickRecover: (productId: string) => void;
 }
 export const getProductColumns = ({
-  onClickDelete,
+  onClickRecover,
 }: ProductColumnsProps): ColumnDef<ProductSummaryResponse>[] => [
   {
     header: "Id",
@@ -86,10 +86,8 @@ export const getProductColumns = ({
             >
               Sao chép mã sản phẩm
             </DropdownMenuItem>
-            <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
-            <DropdownMenuItem>Cập nhập thông tin</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onClickDelete(product.id)}>
-              Xóa sản phẩm
+            <DropdownMenuItem onClick={() => onClickRecover(product.id)}>
+              Khôi phục sản phẩm
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

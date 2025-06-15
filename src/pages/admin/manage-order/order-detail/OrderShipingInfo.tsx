@@ -28,7 +28,7 @@ export const OrderShipingInfo: FC<OrderShipingInfoProps> = ({
       </div>
       <Button variant={"ghost"} className="text-primary">
         <MapIcon />
-       Xem bản đồ  
+        Xem bản đồ
       </Button>
     </div>
   );

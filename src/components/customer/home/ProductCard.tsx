@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductSummaryResponse> = (product) => {
     }
   };
   const isInWishlist = wishlist.items.some(
-    (item) => item.product.id == product.id,
+    (item) => item.product.id == product.id
   );
   const handleAddtoWishlist = () => {
     dispatch(addToWishlist({ product }));
