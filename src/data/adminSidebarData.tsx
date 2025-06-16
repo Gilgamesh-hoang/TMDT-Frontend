@@ -100,7 +100,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <MessagesSquare />,
         name: "Bình luận",
-        href: "/commments",
+        href: ADMIN_ROUTES.MANAGE_COMMENT,
       },
     ],
   },

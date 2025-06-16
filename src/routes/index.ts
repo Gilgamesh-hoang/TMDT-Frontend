@@ -21,6 +21,7 @@ import { OrderDetail } from "@/pages/admin/manage-order/order-detail/OrderDetail
 import { ManageDeletedProduct } from "@/pages/admin/manage-deleted-product";
 import { ProductUpdateForm } from "@/pages/admin/manage-product/ProductUpdateForm";
 import { ImageUpdateForm } from "@/pages/admin/manage-product/ImageUpdateForm";
+import { ManageComment } from "@/pages/admin/manage-comment";
 
 export interface RouteType {
   path: string;
@@ -129,6 +130,11 @@ export const adminRoutes: RouteType[] = [
   {
     path: ADMIN_ROUTES.MANAGE_ORDER,
     element: ManageOrder,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_COMMENT,
+    element: ManageComment,
     layout: AdminLayout,
   },
   {
