@@ -1,6 +1,7 @@
 import {
   useBanAccountMutation,
   useGetCustomerAccountsQuery,
+  useGetEmployeeAccountsQuery,
   useUnbanAccountMutation,
 } from "@/api/adminApi/account";
 import { DataTable } from "@/components/ui/data-table";
@@ -10,9 +11,9 @@ import { PaginationRequest } from "@/types/pagination";
 import { useState } from "react";
 import { getAdminAccountColumns } from "./columns";
 import { toastError, toastSuccess } from "@/lib/utils";
-export const ManageCustomerAccount = () => {
+export const ManageEmployeeAccount = () => {
   const [page, setPage] = useState<PaginationRequest>({ page: 1, size: 10 });
-  const { data, isLoading } = useGetCustomerAccountsQuery(page);
+  const { data, isLoading } = useGetEmployeeAccountsQuery(page);
   const [banAccount] = useBanAccountMutation();
   const [unbanAccount] = useUnbanAccountMutation();
   const onToggleBan = async (userId: string, status: boolean) => {
@@ -30,7 +31,7 @@ export const ManageCustomerAccount = () => {
   return (
     <div className="flex flex-col px-4 ">
       <div className="flex justify-between my-2 items-center">
-        <h2>Quản lý tài khoản khách hàng</h2>
+        <h2>Quản lý tài khoản nhân viên</h2>
       </div>
       {data && (
         <div className="border-3   min-h-[500px]">

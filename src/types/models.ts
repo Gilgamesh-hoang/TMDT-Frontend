@@ -3,6 +3,11 @@ export enum UserRole {
   ROLE_EMPLOYEE = "ROLE_EMPLOYEE",
   ROLE_ADMIN = "ROLE_ADMIN",
 }
+export interface CustomerDetailResponse extends AdminAccountResponse {
+  deliveredOrderCount: number;
+  cancelledOrderCount: number;
+  totalSpent: number;
+}
 
 export interface AdminAccountResponse {
   id: string;

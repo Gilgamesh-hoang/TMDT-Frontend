@@ -1,4 +1,4 @@
-import { AdminAccountResponse } from "@/types/models";
+import { AdminAccountResponse, CustomerDetailResponse } from "@/types/models";
 import { PaginationRequest } from "@/types/pagination";
 import { PageResponse } from "@/types/response";
 import { createApi } from "@reduxjs/toolkit/query/react";
@@ -20,6 +20,11 @@ export const adminAccountApi = createApi({
       transformResponse: extractData,
       providesTags: ["AdminAccount"],
     }),
+    getCustomerDetail: builder.query<CustomerDetailResponse, string>({
+      query: (userId) => `/admin/accounts/customer/${userId}`,
+      transformResponse: extractData,
+      providesTags: ["AdminAccount"],
+    }),
     getEmployeeAccounts: builder.query<
       PageResponse<AdminAccountResponse[]>,
       PaginationRequest
@@ -31,8 +36,27 @@ export const adminAccountApi = createApi({
       transformResponse: extractData,
       providesTags: ["AdminAccount"],
     }),
+    banAccount: builder.mutation<void, string>({
+      query: (userId) => ({
+        url: `/admin/accounts/customer/${userId}/ban`,
+        method: "post",
+      }),
+      invalidatesTags: ["AdminAccount"],
+    }),
+    unbanAccount: builder.mutation<void, string>({
+      query: (userId) => ({
+        url: `/admin/accounts/customer/${userId}/unban`,
+        method: "post",
+      }),
+      invalidatesTags: ["AdminAccount"],
+    }),
   }),
 });
 
-export const { useGetCustomerAccountsQuery, useGetEmployeeAccountsQuery } =
-  adminAccountApi;
+export const {
+  useGetCustomerAccountsQuery,
+  useGetEmployeeAccountsQuery,
+  useBanAccountMutation,
+  useUnbanAccountMutation,
+  useGetCustomerDetailQuery
+} = adminAccountApi;

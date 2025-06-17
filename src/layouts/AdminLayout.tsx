@@ -5,7 +5,7 @@ import { useAppSelector } from "@/redux/store";
 import { ADMIN_ONLY, ADMIN_ROUTES } from "@/types/constant";
 import { UserRole } from "@/types/models";
 import { useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { matchPath, Navigate, useLocation } from "react-router-dom";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -15,7 +15,10 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const isAdmin = me?.roles.includes(UserRole.ROLE_ADMIN);
   const [expand, setExpand] = useState(true);
   const { pathname } = useLocation();
-  if (!isAdmin && ADMIN_ONLY.includes(pathname)) {
+  const isAdminOnlyPath = ADMIN_ONLY.some((adminPath) =>
+    matchPath(adminPath, pathname),
+  );
+  if (!isAdmin && isAdminOnlyPath) {
     return <Navigate to={ADMIN_ROUTES.UNAUTHORIZED} />;
   }
   const toggleEpand = () => {
