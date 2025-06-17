@@ -2,6 +2,15 @@ export interface Author {
   id: string;
   fullName: string;
 }
+
+export interface AdminCommentResponse {
+  id: string;
+  productName: string;
+  author: Author;
+  content: string;
+  createdAt: string;
+  isDeleted: boolean;
+}
 export interface CommentResponse {
   id: string;
   productId: string;
@@ -10,6 +19,7 @@ export interface CommentResponse {
   replies: CommentResponse[];
   depth: number;
   createdAt: string;
+  isDeleted: boolean;
 }
 
 export interface CommentCreateRequest {

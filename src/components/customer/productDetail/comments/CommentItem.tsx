@@ -17,7 +17,7 @@ import { z } from "zod";
 import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
 import { useReplyCommentMutation } from "@/api/customerApi/comment";
-import { toastSuccess } from "@/lib/utils";
+import { cn, toastSuccess } from "@/lib/utils";
 
 export const CommentItem: FC<
   CommentResponse & {
@@ -122,17 +122,25 @@ export const CommentItem: FC<
               </form>
             </Form>
           ) : (
-            <p className="whitespace-pre-wrap wrap-break-word">
-              {props.content}
+            <p
+              className={cn(
+                "whitespace-pre-wrap wrap-break-word",
+                props.isDeleted && "text-red-500",
+              )}
+            >
+              {props.isDeleted
+                ? "Bình luận đã quản trị viên bị xóa"
+                : props.content}
             </p>
           )}
-          <div className="justify-between flex   py-0">
-            {props.depth < 2 && (
+          <div className="justify-between flex items-center  py-0">
+            {props.depth < 2  && (
               <Button
                 onClick={showReplyForm}
                 variant="link"
                 size="icon"
                 className="text-black"
+                disabled={props.isDeleted}
               >
                 {replyId ? "Đóng" : "Trả lời"}
               </Button>
@@ -141,7 +149,12 @@ export const CommentItem: FC<
               {formatDateTime(props.createdAt)}
             </p>
           </div>
-          {replyId && <CommentForm onSubmit={onSubmitReply} className="border-3 py-2 border-white rounded" />}
+          {replyId && (
+            <CommentForm
+              onSubmit={onSubmitReply}
+              className="border-3 py-2 border-white rounded"
+            />
+          )}
         </div>
       </div>
       <div className="ml-10">

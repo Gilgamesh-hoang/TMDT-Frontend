@@ -18,6 +18,11 @@ import { ManageCategory } from "@/pages/admin/manage-category";
 import { CategoryDetail } from "@/pages/admin/manage-category/CategoryDetail";
 import { ManageOrder } from "@/pages/admin/manage-order";
 import { OrderDetail } from "@/pages/admin/manage-order/order-detail/OrderDetail";
+import { ManageDeletedProduct } from "@/pages/admin/manage-deleted-product";
+import { ProductUpdateForm } from "@/pages/admin/manage-product/ProductUpdateForm";
+import { ImageUpdateForm } from "@/pages/admin/manage-product/ImageUpdateForm";
+import { ManageComment } from "@/pages/admin/manage-comment";
+import { ManageRating } from "@/pages/admin/manage-rating";
 
 export interface RouteType {
   path: string;
@@ -99,6 +104,11 @@ export const adminRoutes: RouteType[] = [
     layout: AdminLayout,
   },
   {
+    path: ADMIN_ROUTES.MANAGE_DELETED_PRODUCT,
+    element: ManageDeletedProduct,
+    layout: AdminLayout,
+  },
+  {
     path: ADMIN_ROUTES.CATEGORY_DETAIL,
     element: CategoryDetail,
     layout: AdminLayout,
@@ -109,8 +119,28 @@ export const adminRoutes: RouteType[] = [
     layout: AdminLayout,
   },
   {
+    path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/:productId/${ADMIN_ROUTES.SAVE_PRODUCT}`,
+    element: ProductUpdateForm,
+    layout: AdminLayout,
+  },
+  {
+    path: `${ADMIN_ROUTES.MANAGE_PRODUCT}/:productId/${ADMIN_ROUTES.SAVE_PRODUCT}/images`,
+    element: ImageUpdateForm,
+    layout: AdminLayout,
+  },
+  {
     path: ADMIN_ROUTES.MANAGE_ORDER,
     element: ManageOrder,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_COMMENT,
+    element: ManageComment,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_RATING,
+    element: ManageRating,
     layout: AdminLayout,
   },
   {

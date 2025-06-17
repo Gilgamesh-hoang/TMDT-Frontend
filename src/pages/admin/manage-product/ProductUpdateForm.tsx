@@ -1,5 +1,6 @@
 import { useGetCategoriesQuery } from "@/api/adminApi/category";
-import { useCreateProductMutation } from "@/api/adminApi/product";
+import { useUpdateProductMutation } from "@/api/adminApi/product";
+import { useGetProductDetailQuery } from "@/api/customerApi/product";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -20,78 +21,52 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { isValidUUID } from "@/lib/string-utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SmileIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { IoMdSad } from "react-icons/io";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { z } from "zod";
-import { ProductSaveSchema } from "./formSchema";
-import { MediaDialog } from "@/components/admin/product-save-form/MediaDialog";
-import { Dialog } from "@radix-ui/react-dialog";
-import { DialogContent } from "@/components/ui/dialog";
-import { ImageContainer } from "@/components/ui/image-container";
-import { ImageResponse } from "@/types/image";
+import { ProductUpdateRequest, ProductUpdateSchema } from "./formSchema";
 import { BackButton } from "@/components/admin/common/BackButton";
-
-export const ProductSaveForm = () => {
+import { ImageContainer } from "@/components/ui/image-container";
+import { NavLink } from "react-router-dom";
+export const ProductUpdateForm = () => {
+  const { productId } = useParams();
   const [showDiscount, setShowDiscount] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedImages, setSelectedImages] = useState<ImageResponse[]>([]);
-  const form = useForm<z.infer<typeof ProductSaveSchema>>({
-    resolver: zodResolver(ProductSaveSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      imageIds: [],
-      thumbnail: "",
-      categoryId: "",
-      quantity: 100,
-      status: "1",
-      volume: "",
-      price: 100000,
-      discountPrice: 0,
+  const { data, isLoading } = useGetProductDetailQuery(productId!, {
+    skip: !isValidUUID(productId),
+  });
+  const product = data?.data.product;
+  const images = data?.data.images;
+  const form = useForm<ProductUpdateRequest>({
+    resolver: zodResolver(ProductUpdateSchema),
+    values: product && {
+      id: product.id,
+      name: product.name,
+      description: data?.data.description,
+      categoryId: product.category.id,
+      quantity: product.quantity,
+      volume: product.volume,
+      price: product.price,
+      discountPrice: product.discountPrice || 0,
     },
   });
-  const [createProduct, { isLoading: isSaving }] = useCreateProductMutation();
-
-  const handleSaveProduct = async (
-    product: z.infer<typeof ProductSaveSchema>,
-  ) => {
+  const [updateProduct, { isLoading: isSaving }] = useUpdateProductMutation();
+  const handleSaveProduct = async (request: ProductUpdateRequest) => {
     try {
-      await createProduct({
-        ...product,
-        status: Number(product.status),
-      }).unwrap();
-      toast.success("Tạo sản phẩm mới thành công");
-      setSelectedImages([]);
-      form.reset();
+      await updateProduct(request).unwrap();
+      toast.success("Cập nhập sản phẩm thành công");
     } catch (error) {
       console.log(error);
     }
   };
   const { data: categories } = useGetCategoriesQuery();
-  const handleImagesSelected = (images: ImageResponse[]) => {
-    setSelectedImages(images);
-    form.setValue("thumbnail", images[0]?.imagePath ?? "");
-    form.setValue(
-      "imageIds",
-      images.map((img) => img.id),
-    );
-    setOpenModal(false);
-  };
-  const toggleSelectThumbnail = (url: string) => {
-    form.setValue("thumbnail", url);
-  };
-  const toggleOpenModal = () => {
-    setOpenModal((prev) => !prev);
-  };
-  if (isSaving) return <Loader />;
+  if (isSaving || isLoading) return <Loader />;
   return (
     <div className="mx-8 my-5 ">
       <BackButton />
-      <h3>Tạo sản phẩm mới</h3>
+      <h3>Cập nhập sản phẩm - {productId}</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSaveProduct)}>
           <div className="grid grid-cols-3 gap-5">
@@ -130,25 +105,17 @@ export const ProductSaveForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="button" onClick={toggleOpenModal}>
-                Media
-              </Button>
-              <div className="flex space-x-2 min-h-30 rounded-sm border bg-white">
-                {selectedImages.length > 0 &&
-                  selectedImages.map((image) => (
-                    <div
-                      className="relative"
-                      key={image.id}
-                      onClick={() => {
-                        toggleSelectThumbnail(image.imagePath);
-                      }}
-                    >
+              <div className="flex space-x-2 min-h-30 rounded-sm border bg-white flex-wrap">
+                {images &&
+                  images?.length > 0 &&
+                  images.map((image) => (
+                    <div className="relative" key={image.id}>
                       <ImageContainer
                         key={image.id}
                         className="size-35"
                         src={image.imagePath}
                       />
-                      {form.watch("thumbnail") === image.imagePath && (
+                      {image.imagePath == product?.thumbnail && (
                         <p className="absolute bg-gray-300 text-center w-full bottom-0">
                           Thumbnail
                         </p>
@@ -156,48 +123,12 @@ export const ProductSaveForm = () => {
                     </div>
                   ))}
               </div>
+              <NavLink to={"images"}>
+                <Button type="button">Update</Button>
+              </NavLink>
+              <div className="flex space-x-2 min-h-30 rounded-sm border bg-white"></div>
             </div>
             <div className="flex flex-col gap-3 col-span-1">
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem className="bg-white p-2 rounded-2xl border">
-                    <FormLabel>Trạng thái</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Trạng thái" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">
-                            <div
-                              className="flex items-center justify-between gap-4 
-                             px-4 bg-green-200 rounded-md "
-                            >
-                              <SmileIcon size={25} />
-                              <span>Hoạt động</span>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="2">
-                            <div
-                              className="flex items-center justify-between gap-4 
-                             px-4 bg-gray-200 rounded-md "
-                            >
-                              <IoMdSad size={25} />
-                              <span>Ẩn</span>
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="categoryId"
@@ -206,8 +137,8 @@ export const ProductSaveForm = () => {
                     <FormLabel>Danh mục</FormLabel>
                     <FormControl>
                       <Select
+                        value={field.value}
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Danh mục" />
@@ -319,11 +250,6 @@ export const ProductSaveForm = () => {
           </div>
         </form>
       </Form>
-      <Dialog open={openModal} onOpenChange={setOpenModal}>
-        <DialogContent className="max-w-6xl px-1 overflow-y-auto max-h-[700px]">
-          <MediaDialog onSelect={handleImagesSelected} />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

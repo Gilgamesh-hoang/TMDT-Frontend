@@ -20,6 +20,16 @@ export interface Product {
   description: string;
 }
 
+export interface ProductUpdateRequest {
+  id: string;
+  name: string;
+  categoryId: string;
+  description: string;
+  volume: string;
+  price: number;
+  discountPrice: number;
+  quantity: number;
+}
 export interface ProductCreateRequest {
   name: string;
   categoryId: string;
@@ -36,12 +46,12 @@ export enum SortOption {
   NEWEST = "NEWEST",
   BEST_SELLER = "BEST_SELLER",
   PRICE = "PRICE",
-  MOST_VIEWED = "MOST_VIEWED"
+  MOST_VIEWED = "MOST_VIEWED",
 }
 
 export enum SortDirection {
   ASC = "ASC",
-  DESC = "DESC"
+  DESC = "DESC",
 }
 
 export interface ProductFilterDTO {
@@ -51,7 +61,7 @@ export interface ProductFilterDTO {
   minRating?: number;
   sortOption?: SortOption;
   sortDirection?: SortDirection;
-   priceSortDirection?: SortDirection;
+  priceSortDirection?: SortDirection;
 }
 
 export interface SearchFilterRequest extends PaginationRequest {
