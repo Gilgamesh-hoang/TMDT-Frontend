@@ -3,6 +3,8 @@ import {
   SideBarLinkItemProps,
 } from "@/data/adminSidebarData";
 import { cn, uuid } from "@/lib/utils";
+import { useAppSelector } from "@/redux/store";
+import { UserRole } from "@/types/models";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -43,6 +45,8 @@ export const AdminSideBar: React.FC<AdminSideBarProps> = ({
   toggleExpand,
 }) => {
   const { pathname } = useLocation();
+  const { me } = useAppSelector((state) => state.auth);
+  const isAdmin = me?.roles.includes(UserRole.ROLE_ADMIN);
   return (
     <div
       onMouseEnter={() => {
@@ -77,14 +81,18 @@ export const AdminSideBar: React.FC<AdminSideBarProps> = ({
           <div key={uuid()}>
             {expand && <p className="font-bold px-4">{item.group}</p>}
             <div className="mt-4 flex flex-col space-y-2">
-              {item.linkItems.map((link) => (
-                <SideBarLinkItem
-                  expand={expand}
-                  active={pathname.startsWith(link.href)}
-                  {...link}
-                  key={uuid()}
-                />
-              ))}
+              {item.linkItems
+                .filter((l) => !(l.adminOnly && !isAdmin))
+                .map((link) => {
+                  return (
+                    <SideBarLinkItem
+                      expand={expand}
+                      active={pathname.startsWith(link.href)}
+                      {...link}
+                      key={uuid()}
+                    />
+                  );
+                })}
             </div>
           </div>
         ))}

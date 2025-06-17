@@ -18,6 +18,7 @@ export interface SideBarLinkItemProps {
   icon: React.ReactNode;
   name: string;
   href: string;
+  adminOnly?: boolean;
 }
 interface AdminSideBarData {
   group: string;
@@ -36,6 +37,7 @@ export const adminSideBarData: AdminSideBarData[] = [
         icon: <ChartPie />,
         name: "Thống kê",
         href: "/charts",
+        adminOnly: true,
       },
       {
         icon: <Warehouse />,
@@ -60,12 +62,13 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <UsersRound />,
         name: "Khách hàng",
-        href: "/customers",
+        href: ADMIN_ROUTES.MANAGE_CUSTOMER,
       },
       {
         icon: <Users />,
         name: "Nhân viên",
-        href: "/staffs",
+        href: ADMIN_ROUTES.MANAGE_EMPLOYEE,
+        adminOnly: true,
       },
     ],
   },
@@ -81,11 +84,13 @@ export const adminSideBarData: AdminSideBarData[] = [
         icon: <BookOpen />,
         name: "Chính sách",
         href: "/policies",
+        adminOnly: true,
       },
       {
         icon: <Images />,
         name: "Carousel",
         href: "/carousels",
+        adminOnly: true,
       },
     ],
   },
@@ -96,6 +101,7 @@ export const adminSideBarData: AdminSideBarData[] = [
         icon: <Stars />,
         name: "Đánh giá",
         href: ADMIN_ROUTES.MANAGE_RATING,
+        adminOnly: true,
       },
       {
         icon: <MessagesSquare />,

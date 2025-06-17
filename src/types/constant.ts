@@ -1,3 +1,5 @@
+import { ManageRating } from "@/pages/admin/manage-rating";
+
 export const ACCESS_TOKEN_LOCALSTORAGE = "access_token";
 export const SERVER_URL = "http://localhost:8182/api/v1";
 export const CLIENT_URL = "http://localhost:5173";
@@ -24,6 +26,7 @@ export const ROUTES = Object.freeze({
 
 export const ADMIN_ROUTES = Object.freeze({
   DASHBOARD: "/admin/dashboard",
+  UNAUTHORIZED: "/admin/unauthorized",
   MANAGE_PRODUCT: "/admin/manage-products",
   MANAGE_DELETED_PRODUCT: "/admin/manage-deleted-products",
   MANAGE_ORDER: "/admin/manage-orders",
@@ -31,6 +34,13 @@ export const ADMIN_ROUTES = Object.freeze({
   MANAGE_CATEGORY: "/admin/manage-categories",
   MANAGE_COMMENT: "/admin/manage-comments",
   MANAGE_RATING: "/admin/manage-ratings",
+  MANAGE_CUSTOMER: "/admin/manage-customers",
+  MANAGE_EMPLOYEE: "/admin/manage-employees",
   CATEGORY_DETAIL: "/admin/manage-categories/:id",
   SAVE_PRODUCT: "save",
 });
+
+export const ADMIN_ONLY = [
+  ADMIN_ROUTES.MANAGE_RATING,
+  ADMIN_ROUTES.MANAGE_EMPLOYEE,
+];

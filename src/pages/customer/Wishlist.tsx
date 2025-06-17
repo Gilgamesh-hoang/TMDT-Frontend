@@ -1,5 +1,4 @@
 import { useAddCartMutation } from "@/api/customerApi/cart";
-import { IoMdSad } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { formatCurrency, toastError, toastSuccess } from "@/lib/utils";
 import { useAppDispatch } from "@/redux/hook";
@@ -7,13 +6,14 @@ import { addToCart } from "@/redux/slices/cartSlice";
 import { removeFromWishlist } from "@/redux/slices/wishlistSlice";
 import { RootState } from "@/redux/store";
 import { CartItem } from "@/types/cart";
-import { Product } from "@/types/product";
+import { ProductSummaryResponse } from "@/types/product";
 import { TrashIcon } from "lucide-react";
 import { FC } from "react";
+import { IoMdSad } from "react-icons/io";
 import { useSelector } from "react-redux";
 
 const WishlistItem: FC<
-  Product & {
+  ProductSummaryResponse & {
     index: number;
     handleRemove: () => void;
     handleAddToCart: () => void;
