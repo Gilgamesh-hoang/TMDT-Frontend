@@ -11,6 +11,10 @@ export interface RatingStatsResponse {
   averageRating: number;
   ratingDistribution: Record<number, number>;
 }
+
+export interface AdminRatingReponse extends RatingReponse {
+  productName: string;
+}
 export interface RatingReponse {
   id: string;
   rating: number;

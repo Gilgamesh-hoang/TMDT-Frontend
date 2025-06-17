@@ -95,7 +95,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <Stars />,
         name: "Đánh giá",
-        href: "/ratings",
+        href: ADMIN_ROUTES.MANAGE_RATING,
       },
       {
         icon: <MessagesSquare />,
