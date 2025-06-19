@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSearchFilterProductsQuery } from "@/api/customerApi/product";
 import { ProductBreadCrumb } from "@/components/customer/productDetail/ProductBreadCrumbs";
@@ -21,23 +21,28 @@ export const SearchPage = () => {
   const [page, setPage] = useState(1);
   const size = 10;
   const [showFilterMobile, setShowFilterMobile] = useState(false);
-
-  // Directly calling the categories API here instead of using a custom hook
   const { data: categoryData, isLoading: categoriesLoading } = useGetCategoriesQuery();
-  const categories: Category[] = categoryData || [];
 
-  // State for filter
-  const [filter, setFilter] = useState<ProductFilterDTO>({
+  const categories: Category[] = useMemo(() => categoryData || [], [categoryData]);
+
+  const initialFilterState = useMemo(() => ({
     sortOption: SortOption.NEWEST,
     sortDirection: SortDirection.DESC,
-  });
+  }), []);
 
-  // Reset page when keyword or filter changes
+  const [filter, setFilter] = useState<ProductFilterDTO>(initialFilterState);
+
+ 
   useEffect(() => {
     setPage(1);
-  }, [keyword, filter]);
+  }, [keyword]); 
 
-  // Using API to search and filter combined
+  useEffect(() => {
+    if (page !== 1) {
+      setPage(1);
+    }
+  }, [filter.categoryIds, filter.minPrice, filter.maxPrice, filter.minRating]); // Chỉ theo dõi các filter quan trọng
+
   const { data, isLoading, isError } = useSearchFilterProductsQuery({
     search: keyword,
     filter,
@@ -45,50 +50,46 @@ export const SearchPage = () => {
     size,
   });
 
-  // Get pagination info from backend response
   const products = data?.data?.data || [];
-
   const currentPage = data?.data?.currentPage || 1;
   const totalPages = data?.data?.totalPage || 1;
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     setPage(newPage);
-    // Scroll to top when changing page
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
-  const handleFilterChange = (newFilter: ProductFilterDTO) => {
-    // Bảo toàn cài đặt sắp xếp khi các bộ lọc khác thay đổi
-    // Lấy ra sortOption và sortDirection từ filter hiện tại
-    const { sortOption, sortDirection } = filter;
-    
-    // Áp dụng các bộ lọc mới nhưng giữ nguyên các tùy chọn sắp xếp
-    setFilter({
-      ...newFilter,
-      sortOption: sortOption || SortOption.NEWEST, // Mặc định nếu không có
-      sortDirection: sortDirection || SortDirection.DESC, // Mặc định nếu không có
+  const handleFilterChange = useCallback((newFilter: ProductFilterDTO) => {
+    setFilter(prevFilter => {
+      const { sortOption, sortDirection } = prevFilter;
+
+      return {
+        ...newFilter,
+        sortOption: sortOption || SortOption.NEWEST,
+        sortDirection: sortDirection || SortDirection.DESC,
+      };
     });
-  };
+  }, []);
 
-  const handleSortChange = (newFilter: ProductFilterDTO) => {
-    // Chỉ cập nhật cài đặt sắp xếp nhưng giữ nguyên các bộ lọc khác
+  const handleSortChange = useCallback((newFilter: ProductFilterDTO) => {
+
     const { sortOption, sortDirection } = newFilter;
     
-    // Đảm bảo các bộ lọc như categoryIds, minPrice, maxPrice, minRating... được giữ nguyên
     setFilter(prevFilter => ({
       ...prevFilter,
       sortOption,
       sortDirection,
     }));
-  };
+  }, []);
 
-  const toggleFilterMobile = () => {
-    setShowFilterMobile(!showFilterMobile);
-  };
+  const toggleFilterMobile = useCallback(() => {
+    setShowFilterMobile(prev => !prev);
+  }, []);
 
-  // Calculate min and max price from all products
-  const minPriceGlobal = 0;
-  const maxPriceGlobal = 10000000; // Assume max price is 10 million
+  const priceRange = useMemo(() => ({
+    min: 0,
+    max: 10000000
+  }), []);
 
   if (isLoading || categoriesLoading) {
     return <Loader />;
@@ -124,9 +125,9 @@ export const SearchPage = () => {
             <ProductFilterSidebar
               initialFilter={filter}
               onFilterChange={handleFilterChange}
-              categories={categories || []}
-              minPriceGlobal={minPriceGlobal}
-              maxPriceGlobal={maxPriceGlobal}
+              categories={categories}
+              minPriceGlobal={priceRange.min}
+              maxPriceGlobal={priceRange.max}
             />
           </div>
         )}
@@ -136,15 +137,15 @@ export const SearchPage = () => {
           <ProductFilterSidebar
             initialFilter={filter}
             onFilterChange={handleFilterChange}
-            categories={categories || []}
-            minPriceGlobal={minPriceGlobal}
-            maxPriceGlobal={maxPriceGlobal}
+            categories={categories}
+            minPriceGlobal={priceRange.min}
+            maxPriceGlobal={priceRange.max}
           />
         </div>
 
         {/* Products grid */}
         <div className="w-full lg:w-3/4">
-          {/* Product sort bar - MOVED HERE */}
+          {/* Product sort bar */}
           <div className="flex justify-end mb-4">
             <ProductSortBar filter={filter} onSortChange={handleSortChange} />
           </div>

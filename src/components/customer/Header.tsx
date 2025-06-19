@@ -12,6 +12,7 @@ import {
   Lock,
   LogOut,
   Search,
+  Settings,
   ShoppingCart,
   User,
   User2,
@@ -171,6 +172,14 @@ export const Header = () => {
             </PopoverTrigger>
             <PopoverContent className="w-42  " sideOffset={9}>
               {me ? (
+                <>
+                <Link
+                to="/user/profile"
+                className="flex gap-4 mb-4 hover:text-red-900"
+              >
+                <Settings />
+                Tài khoản
+              </Link>
                 <button
                   className="flex gap-4 hover:text-red-900 cursor-pointer"
                   onClick={handleLogout}
@@ -178,6 +187,8 @@ export const Header = () => {
                   <LogOut />
                   Đăng xuất
                 </button>
+                </>
+                
               ) : (
                 <>
                   <Link
