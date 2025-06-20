@@ -27,6 +27,8 @@ import { ManageCustomerAccount } from "@/pages/admin/manage-customer-account";
 import { UnauthorizedPage } from "@/pages/admin/UnauthorizedPage";
 import { CustomerDetail } from "@/pages/admin/manage-customer-account/CustomerDetail";
 import { ManageEmployeeAccount } from "@/pages/admin/manage-employee-account";
+import UserProfile from "@/pages/customer/profile/UserProfile";
+import { UpdateEmail } from "@/pages/customer/profile/UpdateEmail";
 
 export interface RouteType {
   path: string;
@@ -69,6 +71,16 @@ export const publicRoutes: RouteType[] = [
   {
     path: ROUTES.FORGOT_PASSWORD,
     element: ForgotPassword,
+    layout: CustomerLayout,
+  },
+   {
+    path: ROUTES.PROFILE,
+    element: UserProfile,
+    layout: CustomerLayout,
+  },
+   {
+    path: ROUTES.UPDATE_EMAIL,
+    element: UpdateEmail,
     layout: CustomerLayout,
   },
 ];

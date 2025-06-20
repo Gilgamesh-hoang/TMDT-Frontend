@@ -22,6 +22,8 @@ export const ROUTES = Object.freeze({
   WISHLIST: "/wishlist",
   CHECKOUT: "/thanh-toan",
   SEARCH_PRODUCT: "/tim-kiem",
+  PROFILE: '/user/profile',
+  UPDATE_EMAIL: "/user/update-email",
 });
 
 export const ADMIN_ROUTES = Object.freeze({
