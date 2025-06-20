@@ -3,6 +3,7 @@ import { PaginationRequest } from "@/types/pagination";
 import { PageResponse } from "@/types/response";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithAuth, extractData } from "../util";
+import { EmployeeResgisterRequest } from "@/pages/admin/manage-employee-account/formSchema";
 
 export const adminAccountApi = createApi({
   reducerPath: "adminAccountApi",
@@ -36,6 +37,14 @@ export const adminAccountApi = createApi({
       transformResponse: extractData,
       providesTags: ["AdminAccount"],
     }),
+    registerEmployee: builder.mutation<void, EmployeeResgisterRequest>({
+      query: (body) => ({
+        url: `/admin/accounts/employee/register`,
+        method: "post",
+        body,
+      }),
+      invalidatesTags: ["AdminAccount"],
+    }),
     banAccount: builder.mutation<void, string>({
       query: (userId) => ({
         url: `/admin/accounts/customer/${userId}/ban`,
@@ -58,5 +67,6 @@ export const {
   useGetEmployeeAccountsQuery,
   useBanAccountMutation,
   useUnbanAccountMutation,
-  useGetCustomerDetailQuery
+  useGetCustomerDetailQuery,
+  useRegisterEmployeeMutation
 } = adminAccountApi;

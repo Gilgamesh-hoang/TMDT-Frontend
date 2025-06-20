@@ -1,19 +1,23 @@
 import {
   useBanAccountMutation,
-  useGetCustomerAccountsQuery,
   useGetEmployeeAccountsQuery,
   useUnbanAccountMutation,
 } from "@/api/adminApi/account";
+import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
+import { Dialog } from "@/components/ui/dialog";
 import Loader from "@/components/ui/Loader";
 import { Pagination } from "@/components/ui/Pagination";
+import { toastError, toastSuccess } from "@/lib/utils";
 import { PaginationRequest } from "@/types/pagination";
 import { useState } from "react";
 import { getAdminAccountColumns } from "./columns";
-import { toastError, toastSuccess } from "@/lib/utils";
+import { RegisterDialog } from "./RegisterDialog";
 export const ManageEmployeeAccount = () => {
   const [page, setPage] = useState<PaginationRequest>({ page: 1, size: 10 });
   const { data, isLoading } = useGetEmployeeAccountsQuery(page);
+  const [showRegisterDigalog, setShowRegisterDigalog] =
+    useState<boolean>(false);
   const [banAccount] = useBanAccountMutation();
   const [unbanAccount] = useUnbanAccountMutation();
   const onToggleBan = async (userId: string, status: boolean) => {
@@ -32,6 +36,7 @@ export const ManageEmployeeAccount = () => {
     <div className="flex flex-col px-4 ">
       <div className="flex justify-between my-2 items-center">
         <h2>Quản lý tài khoản nhân viên</h2>
+        <Button onClick={() => setShowRegisterDigalog(true)}>Tạo mới</Button>
       </div>
       {data && (
         <div className="border-3   min-h-[500px]">
@@ -49,6 +54,9 @@ export const ManageEmployeeAccount = () => {
           />
         </div>
       )}
+      <Dialog open={showRegisterDigalog} onOpenChange={setShowRegisterDigalog}>
+        <RegisterDialog callback={() => setShowRegisterDigalog(false)} />
+      </Dialog>
     </div>
   );
 };
