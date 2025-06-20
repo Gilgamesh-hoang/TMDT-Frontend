@@ -23,6 +23,8 @@ import { ProductUpdateForm } from "@/pages/admin/manage-product/ProductUpdateFor
 import { ImageUpdateForm } from "@/pages/admin/manage-product/ImageUpdateForm";
 import { ManageComment } from "@/pages/admin/manage-comment";
 import { ManageRating } from "@/pages/admin/manage-rating";
+import UserProfile from "@/pages/customer/profile/UserProfile";
+import { UpdateEmail } from "@/pages/customer/profile/UpdateEmail";
 
 export interface RouteType {
   path: string;
@@ -65,6 +67,16 @@ export const publicRoutes: RouteType[] = [
   {
     path: ROUTES.FORGOT_PASSWORD,
     element: ForgotPassword,
+    layout: CustomerLayout,
+  },
+   {
+    path: ROUTES.PROFILE,
+    element: UserProfile,
+    layout: CustomerLayout,
+  },
+   {
+    path: ROUTES.UPDATE_EMAIL,
+    element: UpdateEmail,
     layout: CustomerLayout,
   },
 ];
