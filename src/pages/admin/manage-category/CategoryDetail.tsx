@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 import { FC, ReactNode } from "react";
 import { useParams } from "react-router-dom";
 
-interface FieldPairProps {
+export interface FieldPairProps {
   name: string;
   value: ReactNode;
 }
-const FieldPair: FC<FieldPairProps> = ({ name, value }) => {
+export const FieldPair: FC<FieldPairProps> = ({ name, value }) => {
   return (
     <div className="flex justify-between items-center text-lg font-medium text-gray-800">
       <span>{name}:</span>
