@@ -37,3 +37,74 @@ export type FormType = UseFormReturn<PlaceOrderRequest>;
 export interface OnlinePaymentResponse {
   paymentUrl: string;
 }
+
+
+//user
+export interface OrderRequest {
+  fullName: string;
+  phoneNumber: string;
+  street: string;
+  province: string;
+  district: string;
+  commune: string;
+  note?: string;
+  paymentMethod: string;
+}
+
+export interface UserOrderSummaryResponse {
+  id: string;
+  fullName: string;
+  phoneNumber: string;
+  totalAmount: number;
+  status: OrderStatus;
+  paymentMethod: string;
+  paymentStatus: string;
+  createdAt: string;
+  totalItems: number;
+}
+
+export interface UserOrderDetailResponse {
+  id: string;
+  fullName: string;
+  phoneNumber: string;
+  street: string;
+  province: string;
+  district: string;
+  commune: string;
+  note?: string;
+  totalAmount: number;
+  status: OrderStatus;
+  paymentMethod: string;
+  paymentStatus: string;
+  createdAt: string;
+  orderItems: UserOrderItemResponse[];
+}
+
+export interface UserOrderItemResponse {
+  productId: string;
+  productName: string;
+  productImage: string;
+  price: number;
+  quantity: number;
+  subtotal: number;
+}
+
+export interface GetUserOrdersParams {
+  status?: OrderStatus;
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDirection?: 'asc' | 'desc';
+}
+
+
+// Utility types for better type safety
+export type OrderStatusFilter = OrderStatus | 'ALL';
+
+export interface OrderFilters {
+  status?: OrderStatus;
+  dateFrom?: string;
+  dateTo?: string;
+  minAmount?: number;
+  maxAmount?: number;
+}

@@ -29,6 +29,7 @@ import { CustomerDetail } from "@/pages/admin/manage-customer-account/CustomerDe
 import { ManageEmployeeAccount } from "@/pages/admin/manage-employee-account";
 import UserProfile from "@/pages/customer/profile/UserProfile";
 import { UpdateEmail } from "@/pages/customer/profile/UpdateEmail";
+import OrderDetails from "@/pages/customer/OrderDetails";
 
 export interface RouteType {
   path: string;
@@ -81,6 +82,12 @@ export const publicRoutes: RouteType[] = [
    {
     path: ROUTES.UPDATE_EMAIL,
     element: UpdateEmail,
+    layout: CustomerLayout,
+  },
+
+   {
+    path: ROUTES.ORDER_DETAIL,
+    element: OrderDetails ,
     layout: CustomerLayout,
   },
 ];

@@ -21,6 +21,7 @@ import { ratingApi } from "@/api/customerApi/rating";
 import { adminCommentApi } from "@/api/adminApi/comment";
 import { adminRatingApi } from "@/api/adminApi/rating";
 import { adminAccountApi } from "@/api/adminApi/account";
+import { orderApi } from "@/api/customerApi/order";
 
 export const store = configureStore({
   reducer: {
@@ -31,6 +32,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
     [addressApi.reducerPath]: addressApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
@@ -50,6 +52,7 @@ export const store = configureStore({
       .concat(userApi.middleware)
       .concat(authApi.middleware)
       .concat(cartApi.middleware)
+      .concat(orderApi.middleware)
       .concat(productApi.middleware)
       .concat(addressApi.middleware)
       .concat(commentApi.middleware)

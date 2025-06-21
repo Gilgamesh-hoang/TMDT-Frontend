@@ -35,6 +35,12 @@ import { useGetCategoriesQuery } from "@/api/customerApi/category";
 
 export const NavBar = () => {
   const { data } = useGetCategoriesQuery();
+  const navigate = useNavigate();
+   const handleCategoryClick = (categoryId: string, categoryName: string) => {
+
+    navigate(`/tim-kiem?categoryIds=${categoryId}`);
+  };
+
   return (
     <NavigationMenu className="my-4 mx-auto ">
       <NavigationMenuList>
@@ -45,8 +51,8 @@ export const NavBar = () => {
           <NavigationMenuTrigger className="bg-transparent ml-24 ">
             Tinh dầu
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-1  w-[200px] ">
+           <NavigationMenuContent>
+            <ul className="grid gap-1 w-[200px]">
               {data &&
                 data.length > 0 &&
                 data?.map((category) => (
@@ -54,7 +60,12 @@ export const NavBar = () => {
                     key={category.id}
                     className="border-b-1 border-b-gray-200"
                   >
-                    <NavigationMenuLink>{category.name}</NavigationMenuLink>
+                    <NavigationMenuLink
+                      className="cursor-pointer hover:text-primary hover:bg-gray-50 p-2 block rounded transition-colors"
+                      onClick={() => handleCategoryClick(category.id, category.name)}
+                    >
+                      {category.name}
+                    </NavigationMenuLink>
                   </li>
                 ))}
             </ul>
