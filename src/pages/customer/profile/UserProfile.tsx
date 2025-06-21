@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Phone, Mail, MapPin, Eye, Edit3, Loader, Key, Truck } from 'lucide-react';
+import { User, Phone, Mail, MapPin, Eye, Edit3, Loader, Key, Truck, Package, Calendar, DollarSign, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { 
   useFetchCurrentUserQuery, 
@@ -8,8 +8,13 @@ import {
   UpdateUserRequest,
   ChangePasswordRequest 
 } from '@/api/customerApi/user';
+import { 
+  useGetMyOrdersQuery,
+} from '@/api/customerApi/order';
+import { OrderStatus, orderStatusVN } from '@/types/order';
 
-import { toastError, toastSuccess } from '@/lib/utils';
+import { formatCurrency, toastError, toastSuccess } from '@/lib/utils';
+import { formatDateTime } from '@/lib/string-utils';
 
 interface EditForm {
   fullName: string;
@@ -37,14 +42,30 @@ const UserProfile: React.FC = () => {
     confirmPassword: ''
   });
 
+  // Orders state
+  const [orderPage, setOrderPage] = useState(0);
+  const [orderStatus, setOrderStatus] = useState<OrderStatus | 'ALL'>('ALL');
+
   const navigate = useNavigate();
 
   // API hooks
   const { data: userResponse, isLoading, error, refetch } = useFetchCurrentUserQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
   const [changePassword, { isLoading: isChangingPassword }] = useChangePasswordMutation();
+  
+  // Orders API
+  const { 
+    data: ordersResponse, 
+    isLoading: isLoadingOrders, 
+    error: ordersError 
+  } = useGetMyOrdersQuery({
+    page: orderPage,
+    size: 10,
+    ...(orderStatus !== 'ALL' && { status: orderStatus as OrderStatus })
+  });
 
   const user = userResponse?.data;
+  const ordersData = ordersResponse?.data;
 
   // Initialize form when user data is loaded
   useEffect(() => {
@@ -153,6 +174,30 @@ const UserProfile: React.FC = () => {
     }
   };
 
+  const handleViewOrderDetail = (orderId: string) => {
+    navigate(`/user/order-detail/${orderId}`);
+  };
+
+  const getStatusColor = (status: OrderStatus) => {
+    switch (status) {
+      case 'PENDING':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'PROCESSING':
+        return 'bg-blue-100 text-blue-800';
+      case 'DELIVERED':
+        return 'bg-green-100 text-green-800';
+      case 'CANCELLED':
+        return 'bg-red-100 text-red-800';
+      case 'RETURNED':
+        return 'bg-gray-100 text-gray-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+
+  
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -201,7 +246,6 @@ const UserProfile: React.FC = () => {
               >
                 <span className="text-gray-600 text-xl">←</span>
               </button>
-              
             </div>
             <h1 className="text-2xl font-semibold text-white">Thông tin tài khoản</h1>
           </div>
@@ -210,8 +254,6 @@ const UserProfile: React.FC = () => {
         <div className="flex gap-6">
           {/* Sidebar */}
           <div className="w-80 bg-white rounded-lg shadow-sm h-fit">
-          
-            
             <nav className="p-4">
               <ul className="space-y-2">
                 <li>
@@ -240,7 +282,6 @@ const UserProfile: React.FC = () => {
                     <span>Đơn hàng</span>
                   </button>
                 </li>
-               
                 <li>
                   <button
                     onClick={() => setActiveTab('password')}
@@ -374,17 +415,144 @@ const UserProfile: React.FC = () => {
 
             {activeTab === 'orders' && (
               <div className="p-8">
-                <h2 className="text-xl font-semibold mb-6">Đơn hàng của tôi</h2>
-                <div className="text-center py-12">
-                  <div className="text-gray-400 mb-4">
-                    <div className="w-16 h-16 border-2 border-gray-300 rounded mx-auto mb-4"></div>
-                  </div>
-                  <p className="text-gray-500">Bạn chưa có đơn hàng nào</p>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-semibold">Đơn hàng của tôi</h2>
+                  
+                  {/* Order Status Filter */}
+                  <select
+                    value={orderStatus}
+                    onChange={(e) => {
+                      setOrderStatus(e.target.value as OrderStatus | 'ALL');
+                      setOrderPage(0);
+                    }}
+                    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="ALL">Tất cả đơn hàng</option>
+                    <option value="PENDING">Đang chờ xử lý</option>
+                    <option value="PROCESSING">Đang xử lý</option>
+                    <option value="DELIVERED">Đã giao</option>
+                    <option value="CANCELLED">Đã hủy</option>
+                    <option value="RETURNED">Trả hàng</option>
+                  </select>
                 </div>
+
+                {isLoadingOrders ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="flex items-center space-x-2">
+                      <Loader className="animate-spin" size={24} />
+                      <span>Đang tải danh sách đơn hàng...</span>
+                    </div>
+                  </div>
+                ) : ordersError ? (
+                  <div className="text-center py-12">
+                    <p className="text-red-500 mb-4">Có lỗi xảy ra khi tải danh sách đơn hàng</p>
+                  </div>
+                ) : !ordersData?.data || ordersData.data.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="text-gray-400 mb-4">
+                      <Package size={64} className="mx-auto mb-4" />
+                    </div>
+                    <p className="text-gray-500">
+                      {orderStatus === 'ALL' ? 'Bạn chưa có đơn hàng nào' : `Không có đơn hàng ${orderStatusVN[orderStatus as OrderStatus]?.toLowerCase()}`}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {ordersData.data.map((order) => (
+                      <div key={order.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-center space-x-4">
+                                <div>
+                                  <h3 className="font-semibold text-lg">Đơn hàng #{order.id.slice(-8).toUpperCase()}</h3>
+                                  <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                                    <div className="flex items-center space-x-1">
+                                      <Calendar size={14} />
+                                      <span>{formatDateTime(order.createdAt)}</span>
+                                    </div>
+                                    <div className="flex items-center space-x-1">
+                                      <Package size={14} />
+                                      <span>{order.totalItems} sản phẩm</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="text-right">
+                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
+                                  {orderStatusVN[order.status]}
+                                </span>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-6">
+                                <div>
+                                  <span className="text-sm text-gray-500">Người nhận:</span>
+                                  <p className="font-medium">{order.fullName}</p>
+                                </div>
+                                <div>
+                                  <span className="text-sm text-gray-500">Số điện thoại:</span>
+                                  <p className="font-medium">{order.phoneNumber}</p>
+                                </div>
+                                <div>
+                                  <span className="text-sm text-gray-500">Thanh toán:</span>
+                                  <p className="font-medium">{order.paymentMethod === 'COD' ? 'Thanh toán khi nhận hàng' : 'Chuyển khoản'}</p>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center space-x-4">
+                                <div className="text-right">
+                                  <div className="flex items-center space-x-1">
+                                    <DollarSign size={16} className="text-green-600" />
+                                    <span className="text-lg font-bold text-green-600">
+                                      {formatCurrency(order.totalAmount)}
+                                    </span>
+                                  </div>
+                                </div>
+                                
+                                <button
+                                  onClick={() => handleViewOrderDetail(order.id)}
+                                  className="flex items-center space-x-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                                >
+                                  <span>Xem chi tiết</span>
+                                  <ChevronRight size={16} />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Pagination */}
+                    {ordersData.totalPage > 1 && (
+                      <div className="flex items-center justify-center space-x-4 mt-8">
+                        <button
+                          onClick={() => setOrderPage(Math.max(0, orderPage - 1))}
+                          disabled={orderPage === 0}
+                          className="px-4 py-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                        >
+                          Trang trước
+                        </button>
+                        
+                        <span className="px-4 py-2">
+                          Trang {orderPage + 1} / {ordersData.totalPage}
+                        </span>
+                        
+                        <button
+                          onClick={() => setOrderPage(Math.min(ordersData.totalPage - 1, orderPage + 1))}
+                          disabled={orderPage >= ordersData.totalPage - 1}
+                          className="px-4 py-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                        >
+                          Trang sau
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
-
-            
 
             {activeTab === 'password' && (
               <div className="p-8">
