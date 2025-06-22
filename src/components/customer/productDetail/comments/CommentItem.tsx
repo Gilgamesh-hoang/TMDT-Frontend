@@ -1,12 +1,12 @@
+import { useReplyCommentMutation } from "@/api/customerApi/comment";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { ImageContainer } from "@/components/ui/image-container";
 import { PopoverContent } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { formatDateTime } from "@/lib/string-utils";
+import { cn, toastSuccess } from "@/lib/utils";
 import { useAppSelector } from "@/redux/store";
 import { CommentResponse } from "@/types/comment";
-import { AVATAR_SRC } from "@/types/constant";
 import { CommentSaveSchema } from "@/validation/comment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
@@ -14,10 +14,8 @@ import { EditIcon, EllipsisIcon, SendIcon, TrashIcon } from "lucide-react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
-import { useReplyCommentMutation } from "@/api/customerApi/comment";
-import { cn, toastSuccess } from "@/lib/utils";
+import { CommentList } from "./CommentList";
 
 export const CommentItem: FC<
   CommentResponse & {
@@ -60,7 +58,6 @@ export const CommentItem: FC<
   return (
     <div className="flex flex-col">
       <div className="flex border-l-emerald-400 border-l-3 space-x-2 px-2">
-        <ImageContainer src={AVATAR_SRC} className="size-10" />
         <div className="flex flex-col w-full bg-gray-100 px-2 rounded-2xl">
           <div className="flex justify-between">
             <h3 className="leading-0">{props.author.fullName}</h3>
