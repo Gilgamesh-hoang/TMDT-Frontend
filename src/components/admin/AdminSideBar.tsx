@@ -15,11 +15,11 @@ interface AdminSideBarProps {
 }
 const SideBarLinkItem: React.FC<
   SideBarLinkItemProps & { expand: boolean; active: boolean }
-> = ({ icon, name, href, expand, active = false }) => {
+> = ({ icon, name, href, expand, active = false, disabled = false }) => {
   return (
     <div>
       <Link
-        to={href}
+        to={disabled ? "" : href}
         className={cn(
           "px-4 py-[8px] relative flex space-x-2 box-content",
           active && "text-primary shadow-[inset_4px_0_0_0_#ffab66]",
@@ -33,7 +33,7 @@ const SideBarLinkItem: React.FC<
               active ? "text-black" : "text-gray",
             )}
           >
-            {name}
+            {disabled ? `${name} (bảo trì)` : name}
           </span>
         )}
       </Link>

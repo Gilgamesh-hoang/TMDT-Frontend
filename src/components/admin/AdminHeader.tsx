@@ -65,10 +65,9 @@ export const AdminHeader = () => {
         >
           {isAdmin ? "Admin" : "Nhân viên"}
         </div>
-        <Link to="wishlist" className="relative">
+        <div className="relative">
           <Bell />
-          <Badge className="absolute  rounded-full -top-2 -right-3">3</Badge>
-        </Link>
+        </div>
         <div className="flex-center gap-10">
           <Popover>
             <PopoverTrigger className="cursor-pointer">

@@ -39,6 +39,9 @@ export const ADMIN_ROUTES = Object.freeze({
   MANAGE_CUSTOMER: "/admin/manage-customers",
   MANAGE_EMPLOYEE: "/admin/manage-employees",
   CATEGORY_DETAIL: "/admin/manage-categories/:id",
+  MANAGE_POLICY: "/admin/manage-policies",
+  MANAGE_NEWS: "/admin/manage-news",
+  MANAGE_CAROUSEL: "/admin/manage-carousels",
   STATS: "/admin/stats",
   SAVE_PRODUCT: "save",
 });
