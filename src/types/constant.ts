@@ -23,6 +23,7 @@ export const ROUTES = Object.freeze({
   CHECKOUT: "/thanh-toan",
   SEARCH_PRODUCT: "/tim-kiem",
   PROFILE: '/user/profile',
+  ORDER_DETAIL: '/user/order-detail/:orderId',
   UPDATE_EMAIL: "/user/update-email",
 });
 

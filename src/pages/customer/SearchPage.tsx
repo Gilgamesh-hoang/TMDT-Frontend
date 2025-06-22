@@ -18,6 +18,11 @@ import { ProductSortBar } from "@/components/customer/productDetail/ProductSortB
 export const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("q") || "";
+  
+
+  const categoryIdsFromUrl = searchParams.get("categoryIds");
+  const initialCategoryIds = categoryIdsFromUrl ? [categoryIdsFromUrl] : [];
+  
   const [page, setPage] = useState(1);
   const size = 10;
   const [showFilterMobile, setShowFilterMobile] = useState(false);
@@ -25,23 +30,39 @@ export const SearchPage = () => {
 
   const categories: Category[] = useMemo(() => categoryData || [], [categoryData]);
 
+
   const initialFilterState = useMemo(() => ({
     sortOption: SortOption.NEWEST,
     sortDirection: SortDirection.DESC,
-  }), []);
+    categoryIds: initialCategoryIds.length > 0 ? initialCategoryIds : undefined,
+  }), [initialCategoryIds]);
 
   const [filter, setFilter] = useState<ProductFilterDTO>(initialFilterState);
 
- 
+  // Reset page khi keyword thay đổi
   useEffect(() => {
     setPage(1);
   }, [keyword]); 
 
+  // Reset page khi filter thay đổi (trừ sort)
   useEffect(() => {
     if (page !== 1) {
       setPage(1);
     }
-  }, [filter.categoryIds, filter.minPrice, filter.maxPrice, filter.minRating]); // Chỉ theo dõi các filter quan trọng
+  }, [filter.categoryIds, filter.minPrice, filter.maxPrice, filter.minRating]);
+
+
+  useEffect(() => {
+    const newCategoryIds = categoryIdsFromUrl ? [categoryIdsFromUrl] : [];
+    
+
+    if (JSON.stringify(newCategoryIds) !== JSON.stringify(filter.categoryIds || [])) {
+      setFilter(prevFilter => ({
+        ...prevFilter,
+        categoryIds: newCategoryIds.length > 0 ? newCategoryIds : undefined,
+      }));
+    }
+  }, [categoryIdsFromUrl]);
 
   const { data, isLoading, isError } = useSearchFilterProductsQuery({
     search: keyword,
@@ -72,7 +93,6 @@ export const SearchPage = () => {
   }, []);
 
   const handleSortChange = useCallback((newFilter: ProductFilterDTO) => {
-
     const { sortOption, sortDirection } = newFilter;
     
     setFilter(prevFilter => ({
@@ -91,16 +111,39 @@ export const SearchPage = () => {
     max: 10000000
   }), []);
 
+  // Lấy tên category được chọn để hiển thị
+  const getSelectedCategoryName = () => {
+    if (filter.categoryIds && filter.categoryIds.length > 0 && categories.length > 0) {
+      const selectedCategory = categories.find(cat => cat.id === filter.categoryIds![0]);
+      return selectedCategory ? selectedCategory.name : "";
+    }
+    return "";
+  };
+
+  // Tạo breadcrumb text dựa trên keyword và category
+  const getBreadcrumbText = () => {
+    const selectedCategoryName = getSelectedCategoryName();
+    
+    if (keyword && selectedCategoryName) {
+      return `Kết quả tìm kiếm: "${keyword}" trong danh mục "${selectedCategoryName}"`;
+    } else if (keyword) {
+      return `Kết quả tìm kiếm: "${keyword}"`;
+    } else if (selectedCategoryName) {
+      return `Sản phẩm trong danh mục: "${selectedCategoryName}"`;
+    }
+    return "Kết quả tìm kiếm";
+  };
+
   if (isLoading || categoriesLoading) {
     return <Loader />;
   }
 
   return (
     <div className="w-full flex flex-col space-y-4 p-2">
-      <ProductBreadCrumb productName={`Kết quả tìm kiếm: "${keyword}"`} />
+      <ProductBreadCrumb productName={getBreadcrumbText()} />
 
       <div className="my-4">
-        <h1 className="text-2xl font-bold mb-2">Kết quả tìm kiếm cho: "{keyword}"</h1>
+        <h1 className="text-2xl font-bold mb-2">{getBreadcrumbText()}</h1>
         <p className="text-gray-500">
           {products.length > 0 ? 
             `${products.length} sản phẩm được tìm thấy${totalPages > 1 ? ` - Trang ${currentPage}/${totalPages}` : ''}` : 
@@ -159,7 +202,10 @@ export const SearchPage = () => {
           ) : products.length === 0 ? (
             <div className="flex flex-col justify-center items-center h-64">
               <p className="text-lg mb-4">
-                Không tìm thấy sản phẩm nào phù hợp với từ khóa "{keyword}"
+                {keyword ? 
+                  `Không tìm thấy sản phẩm nào phù hợp với từ khóa "${keyword}"` :
+                  `Không tìm thấy sản phẩm nào${getSelectedCategoryName() ? ` trong danh mục "${getSelectedCategoryName()}"` : ''}`
+                }
               </p>
               <p className="text-gray-500">
                 Vui lòng thử lại với từ khóa khác hoặc điều chỉnh bộ lọc của bạn
