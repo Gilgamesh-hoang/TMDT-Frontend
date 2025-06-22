@@ -1,10 +1,9 @@
 
-import {type ClassValue, clsx} from "clsx";
-import {twMerge} from "tailwind-merge";
-import {v4 as uuidv4} from "uuid";
-import {Bounce, toast} from "react-toastify";
-import {OrderStatus} from "@/types/order";
-import {UserRole} from "@/types/models.ts";
+import { UserRole } from "@/types/models.ts";
+import { type ClassValue, clsx } from "clsx";
+import { Bounce, toast } from "react-toastify";
+import { twMerge } from "tailwind-merge";
+import { v4 as uuidv4 } from "uuid";
 
 
 export function cn(...inputs: ClassValue[]) {

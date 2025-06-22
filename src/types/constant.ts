@@ -1,4 +1,3 @@
-import { ManageRating } from "@/pages/admin/manage-rating";
 
 export const ACCESS_TOKEN_LOCALSTORAGE = "access_token";
 export const SERVER_URL = "http://localhost:8182/api/v1";
@@ -40,10 +39,15 @@ export const ADMIN_ROUTES = Object.freeze({
   MANAGE_CUSTOMER: "/admin/manage-customers",
   MANAGE_EMPLOYEE: "/admin/manage-employees",
   CATEGORY_DETAIL: "/admin/manage-categories/:id",
+  MANAGE_POLICY: "/admin/manage-policies",
+  MANAGE_NEWS: "/admin/manage-news",
+  MANAGE_CAROUSEL: "/admin/manage-carousels",
+  STATS: "/admin/stats",
   SAVE_PRODUCT: "save",
 });
 
 export const ADMIN_ONLY = [
   ADMIN_ROUTES.MANAGE_RATING,
   ADMIN_ROUTES.MANAGE_EMPLOYEE,
+  ADMIN_ROUTES.STATS,
 ];

@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { ImageContainer } from "@/components/ui/image-container";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { AVATAR_SRC } from "@/types/constant";
 import { CommentSaveSchema } from "@/validation/comment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendIcon } from "lucide-react";
@@ -24,7 +22,6 @@ export const CommentForm: FC<CommentFormProps> = ({ onSubmit, className }) => {
   });
   return (
     <div className={cn("flex space-x-4 mx-auto", className)}>
-      <ImageContainer src={AVATAR_SRC} className="size-12" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) =>

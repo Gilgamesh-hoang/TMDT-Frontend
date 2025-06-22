@@ -8,13 +8,13 @@ export const ImageCarousels: React.FC<ImageCarouselsProps> = ({ images }) => {
     customPaging: function (i: number) {
       return (
         <a>
-          <img className="" src={images[i]} />
+          <img src={images[i]} />
         </a>
       );
     },
     dots: true,
     dotsClass: "slick-dots slick-thumb",
-    arrows:false,
+    arrows: false,
     infinite: true,
     speed: 500,
     autoplay: true,
@@ -24,9 +24,9 @@ export const ImageCarousels: React.FC<ImageCarouselsProps> = ({ images }) => {
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        {images.slice(0, 5).map((src) => (
+        {images.slice(0, 8).map((src) => (
           <div key={uuid()}>
-            <img src={src} />
+            <img  src={src} />
           </div>
         ))}
       </Slider>

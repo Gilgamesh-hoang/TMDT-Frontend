@@ -19,6 +19,7 @@ export interface SideBarLinkItemProps {
   name: string;
   href: string;
   adminOnly?: boolean;
+  disabled?: boolean;
 }
 interface AdminSideBarData {
   group: string;
@@ -36,7 +37,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <ChartPie />,
         name: "Thống kê",
-        href: "/charts",
+        href: ADMIN_ROUTES.STATS,
         adminOnly: true,
       },
       {
@@ -78,19 +79,22 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <Newspaper />,
         name: "Tin tức",
-        href: "/news",
+        disabled: true,
+        href: ADMIN_ROUTES.MANAGE_NEWS,
       },
       {
         icon: <BookOpen />,
         name: "Chính sách",
-        href: "/policies",
+        disabled: true,
+        href: ADMIN_ROUTES.MANAGE_POLICY,
         adminOnly: true,
       },
       {
         icon: <Images />,
         name: "Carousel",
-        href: "/carousels",
+        href: ADMIN_ROUTES.MANAGE_CAROUSEL,
         adminOnly: true,
+        disabled: true,
       },
     ],
   },

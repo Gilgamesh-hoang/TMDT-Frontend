@@ -1,21 +1,23 @@
+import { StatusBar } from "@/components/ui/status";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from "@/components/ui/table";
-import { cn, formatCurrency, statusColorMap } from "@/lib/utils";
-import { mockOrders } from "@/mock/orders";
+import { formatDateTime } from "@/lib/string-utils";
+import { formatCurrency } from "@/lib/utils";
 import { DataTableProps } from "@/types/data-table";
-import { OrderStatus, OrderSummaryResponse } from "@/types/order";
+import { OrderStatus, OrderSummary } from "@/types/order";
 import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
+    ColumnDef,
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
 } from "@tanstack/react-table";
+import { FC } from "react";
 
 export function SummaryDataTable<TData, TValue>({
   columns,
@@ -66,37 +68,36 @@ export function SummaryDataTable<TData, TValue>({
     </div>
   );
 }
-const columns: ColumnDef<OrderSummaryResponse>[] = [
-  { header: "Id", accessorKey: "id" },
-  { header: "Date", accessorKey: "date" },
-  { header: "Customer", accessorKey: "customerName" },
+const columns: ColumnDef<OrderSummary>[] = [
   {
-    header: "Amount",
-    accessorKey: "total",
-    cell: ({ row }) => <p>{formatCurrency(row.getValue("total"))}</p>,
+    header: "Ngày tạo",
+    accessorKey: "createdAt",
+    cell: ({ row }) => <span>{formatDateTime(row.getValue("createdAt"))}</span>,
   },
   {
-    header: "Status",
+    header: "Khách hàng",
+    accessorKey: "customerName",
+  },
+  {
+    header: "Tổng tiền",
+    accessorKey: "totalAmount",
+    cell: ({ row }) => (
+      <span>{formatCurrency(row.getValue("totalAmount"))}</span>
+    ),
+  },
+  {
+    header: "Trạng thái đơn hàng",
     accessorKey: "status",
     cell: ({ row }) => (
-      <div className=" flex">
-        <div
-          className={cn(
-            "text-white rounded-2xl px-3 py-[2px] font-bold",
-            statusColorMap[row.getValue("status") as OrderStatus],
-          )}
-        >
-          {row.getValue("status")}
-        </div>
-      </div>
+      <StatusBar status={row.getValue("status") as OrderStatus} />
     ),
   },
 ];
-export const RecentOrders = () => {
+export const RecentOrders: FC<{ data: OrderSummary[] }> = ({ data }) => {
   return (
-    <div className="container mx-auto p2-10">
+    <div className="container mx-auto">
       <h2>Đơn hàng mới nhất</h2>
-      <SummaryDataTable columns={columns} data={mockOrders} />
+      <SummaryDataTable columns={columns} data={data} />
     </div>
   );
 };

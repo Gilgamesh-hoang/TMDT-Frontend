@@ -11,7 +11,7 @@ export const ManageOrder = () => {
   const [page, setPage] = useState<number>(1);
   const { data: pageResponse, isLoading } = useGetOrdersQuery({
     page,
-    size: 5,
+    size: 10,
   });
   const [selectedOrder, setSelectedOrder] = useState<null | OrderSummary>();
   const [showDialog, setShowDialog] = useState<boolean>(false);

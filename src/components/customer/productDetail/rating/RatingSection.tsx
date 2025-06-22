@@ -25,7 +25,7 @@ export const RatingSection: FC<RatingSectionProps> = ({ productId }) => {
     ratingFilter,
   });
   const { data: ratingStats } = useGetRatingStatsQuery(productId);
-  const { data: canRateProduct } = useCanRateProductQuery(productId);
+  const { data: canRateProduct,refetch } = useCanRateProductQuery(productId);
   const updateRatingFilter = (rating: number | string) => {
     setRatingFilter(Number(rating));
     setPage(1);
@@ -98,6 +98,7 @@ export const RatingSection: FC<RatingSectionProps> = ({ productId }) => {
           productId={productId}
           callback={() => {
             setShowForm(false);
+            refetch();
           }}
         />
       </Dialog>

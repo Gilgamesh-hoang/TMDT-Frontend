@@ -56,12 +56,11 @@ export const Detail: React.FC<Product> = (props) => {
       <div className="col-span-5 ">
         <ImageCarousels images={props.images.map((image) => image.imagePath)} />
       </div>
-      <div className="col-span-7 ">
+      <div className="col-span-7 ml-20">
         <h3>{props.product.name}</h3>
         <div className="flex space-x-2">
-          {/* <Ratings variant="yellow" rating={props.product.rating || 5} /> */}
           <div className="text-sm text-yellow-600">
-            (20 đánh giá từ khách hàng)
+            ({props.product.sold} sản phẩm đã bán)
           </div>
         </div>
         <div>

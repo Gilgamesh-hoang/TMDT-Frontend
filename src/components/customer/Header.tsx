@@ -32,12 +32,13 @@ import { setTotalQuantities } from "@/redux/slices/cartSlice.ts";
 import { useState } from "react";
 import { useStickyHeader } from "@/hooks/useStickyHeader";
 import { useGetCategoriesQuery } from "@/api/customerApi/category";
+import { ImageContainer } from "../ui/image-container";
 
 export const NavBar = () => {
   const { data } = useGetCategoriesQuery();
   const navigate = useNavigate();
-   const handleCategoryClick = (categoryId: string, categoryName: string) => {
-
+  const handleCategoryClick = (categoryId: string, categoryName: string) => {
+    console.log(categoryName);
     navigate(`/tim-kiem?categoryIds=${categoryId}`);
   };
 
@@ -51,7 +52,7 @@ export const NavBar = () => {
           <NavigationMenuTrigger className="bg-transparent ml-24 ">
             Tinh dầu
           </NavigationMenuTrigger>
-           <NavigationMenuContent>
+          <NavigationMenuContent>
             <ul className="grid gap-1 w-[200px]">
               {data &&
                 data.length > 0 &&
@@ -62,7 +63,9 @@ export const NavBar = () => {
                   >
                     <NavigationMenuLink
                       className="cursor-pointer hover:text-primary hover:bg-gray-50 p-2 block rounded transition-colors"
-                      onClick={() => handleCategoryClick(category.id, category.name)}
+                      onClick={() =>
+                        handleCategoryClick(category.id, category.name)
+                      }
                     >
                       {category.name}
                     </NavigationMenuLink>
@@ -169,13 +172,13 @@ export const Header = () => {
       )}
     >
       <div className="flex justify-between items-center px-16 py-2  ">
-        <div
-          onClick={() => navigate(ROUTES.HOME)}
-          className="w-16 h-16  flex-center rounded-full bg-primary cursor-pointer"
-        >
-          Logo
+        <div onClick={() => navigate(ROUTES.HOME)}>
+          <ImageContainer
+            className="size-16 cursor-pointer"
+            src={"/logo.png"}
+          />
         </div>
-        <SearchBar />
+        <SearchBar className="w-[500px]"  />
         <div className="flex-center gap-10">
           <Popover>
             <PopoverTrigger className="cursor-pointer">
@@ -184,22 +187,21 @@ export const Header = () => {
             <PopoverContent className="w-42  " sideOffset={9}>
               {me ? (
                 <>
-                <Link
-                to="/user/profile"
-                className="flex gap-4 mb-4 hover:text-red-900"
-              >
-                <Settings />
-                Tài khoản
-              </Link>
-                <button
-                  className="flex gap-4 hover:text-red-900 cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  <LogOut />
-                  Đăng xuất
-                </button>
+                  <Link
+                    to="/user/profile"
+                    className="flex gap-4 mb-4 hover:text-red-900"
+                  >
+                    <Settings />
+                    Tài khoản
+                  </Link>
+                  <button
+                    className="flex gap-4 hover:text-red-900 cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    <LogOut />
+                    Đăng xuất
+                  </button>
                 </>
-                
               ) : (
                 <>
                   <Link

@@ -30,6 +30,7 @@ import { ManageEmployeeAccount } from "@/pages/admin/manage-employee-account";
 import UserProfile from "@/pages/customer/profile/UserProfile";
 import { UpdateEmail } from "@/pages/customer/profile/UpdateEmail";
 import OrderDetails from "@/pages/customer/OrderDetails";
+import { StatisticsPage } from "@/pages/admin/statistic/StatisticsPage";
 
 export interface RouteType {
   path: string;
@@ -184,6 +185,11 @@ export const adminRoutes: RouteType[] = [
   {
     path: ADMIN_ROUTES.ORDER_DETAIL,
     element: OrderDetail,
+    layout: AdminLayout,
+  },
+  {
+    path: ADMIN_ROUTES.STATS,
+    element: StatisticsPage,
     layout: AdminLayout,
   },
   {

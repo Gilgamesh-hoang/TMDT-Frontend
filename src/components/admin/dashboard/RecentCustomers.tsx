@@ -1,21 +1,24 @@
+import { AdminAccountResponse } from "@/types/models";
 import { ColumnDef } from "@tanstack/react-table";
+import { FC } from "react";
 import { SummaryDataTable } from "./RecentOrders";
-import { Customer } from "@/types/customer";
-import { customers } from "@/mock/customers";
-const columns: ColumnDef<Customer>[] = [
-  { header: "Id", accessorKey: "id" },
-  { header: "Customer", accessorKey: "name" },
+import { formatDateTime } from "@/lib/string-utils";
+const columns: ColumnDef<AdminAccountResponse>[] = [
+  { header: "Khách hàng", accessorKey: "fullName" },
   { header: "Email", accessorKey: "email" },
   {
-    header: "Register date",
-    accessorKey: "createdDate",
+    header: "Ngày tạo tài khoản",
+    accessorKey: "createdAt",
+    cell: ({ row }) => <span>{formatDateTime(row.getValue("createdAt"))}</span>,
   },
 ];
-export const RecentCustomers = () => {
+export const RecentCustomers: FC<{ data: AdminAccountResponse[] }> = ({
+  data,
+}) => {
   return (
-    <div className="container mx-auto p2-10">
+    <div className="container mx-auto ">
       <h2>Khách hàng mới đăng ký</h2>
-      <SummaryDataTable columns={columns} data={customers} />
+      <SummaryDataTable columns={columns} data={data} />
     </div>
   );
 };

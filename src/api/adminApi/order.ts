@@ -11,7 +11,10 @@ export const adminOrderApi = createApi({
   tagTypes: ["Order"],
   endpoints: (builder) => ({
     getOrders: builder.query<PageResponse<OrderSummary[]>, PaginationRequest>({
-      query: () => "/admin/orders",
+      query: (params) => ({
+        url: "/admin/orders",
+        params,
+      }),
       transformResponse: extractData,
       providesTags: ["Order"],
     }),

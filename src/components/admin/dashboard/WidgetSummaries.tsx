@@ -6,31 +6,39 @@ import {
   AnalyticsWidgetSummary,
   AnalyticsWidgetSummaryProps,
 } from "@/components/admin/dashboard/AnalyticsWidgetSummary";
-export const WidgetSummaries = () => {
+import { FC } from "react";
+import { DashboardResponse } from "@/types/dashboard";
+export const WidgetSummaries: FC<DashboardResponse> = ({
+  orderCount,
+  productCount,
+  totalRevenue,
+  customerCount,
+}) => {
   const analyticsSummaries: AnalyticsWidgetSummaryProps[] = [
     {
       icon: <FaSackDollar size={60} />,
       title: "Doanh thu",
       color: "green",
-      total: 123,
+      total: totalRevenue,
+      currency:true
     },
     {
       icon: <FaTruck size={60} />,
       title: "Đơn hàng",
       color: "orange",
-      total: 223,
+      total: orderCount,
     },
     {
       icon: <FaUsers size={60} />,
       title: "Khách hàng",
       color: "fuchsia",
-      total: 223,
+      total: customerCount,
     },
     {
       icon: <Warehouse size={60} />,
       title: "Sản phẩm",
       color: "blue",
-      total: 223,
+      total: productCount,
     },
   ];
   return (

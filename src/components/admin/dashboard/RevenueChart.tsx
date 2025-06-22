@@ -8,6 +8,8 @@ import {
   BarElement,
   Title,
 } from "chart.js";
+import { FC } from "react";
+import { MonthlyRevenue } from "@/types/dashboard";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -17,7 +19,13 @@ ChartJS.register(
   Legend,
 );
 
-export const RevenueChart = () => {
+export const RevenueChart: FC<{ monthlyRevenues: MonthlyRevenue[] }> = ({
+  monthlyRevenues,
+}) => {
+  const revenues = [...Array(12).fill(0)];
+  monthlyRevenues.forEach((item) => {
+    revenues[item.month - 1] = item.totalAmount;
+  });
   const options = {
     responsive: true,
     plugins: {
@@ -38,13 +46,18 @@ export const RevenueChart = () => {
     "May",
     "June",
     "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
   const data = {
     labels,
     datasets: [
       {
         label: "Doanh thu (VND)",
-        data: [332232, 132312, 523251, 94231, 56232, 432351, 95435],
+        data: revenues,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
