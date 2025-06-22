@@ -1,9 +1,9 @@
-import MostView from "../home/MostView";
+import { BestSeller } from "../home/BestSeller";
 
 export const SimilarProducts = () => {
   return (
     <div>
-      <MostView />
+      <BestSeller />
     </div>
   );
 };

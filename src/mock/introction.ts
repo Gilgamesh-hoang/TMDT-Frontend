@@ -9,13 +9,8 @@ export const introduction1: IntroductionProps = {
 };
 export const introduction2: IntroductionProps = {
   href: "/",
-  title: "Lorem ipsum dolor sit amet ",
-  description: `Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus,
-            gravida orci, fringilla a. Ac sed eu fringilla odio mi. Consequat
-            pharetra at magna imperdiet cursus ac faucibus sit libero. Ultricies
-            quam nunc, lorem sit lorem urna, pretium aliquam ut. In vel, quis
-            donec dolor id in. Pulvinar commodo mollis diam sed facilisis at
-            cursus imperdiet cursus ac faucibus sit faucibus sit libero.`,
+  title: "Thư Giãn & Làm Dịu Cảm Xúc",
+  description: `Mang đến sự thư thái và dễ chịu, bộ sưu tập này kết hợp giữa tính thẩm mỹ và công dụng chăm sóc sức khỏe. Với thiết kế tinh tế và mùi hương độc đáo, sản phẩm giúp làm dịu tinh thần, tạo không gian sống trong lành và thanh lịch. Phù hợp cho nhiều mục đích sử dụng như thư giãn, cải thiện giấc ngủ hay làm quà tặng ý nghĩa.`,
   imageUrl:
     "https://caogam.vn/sites/default/files/styles/anh_detail/public/2021-12/tinh-dau-bac-ha.jpg?itok=Oc-j5mpL",
 };

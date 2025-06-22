@@ -61,7 +61,7 @@ export const Detail: React.FC<Product> = (props) => {
         <div className="flex space-x-2">
           {/* <Ratings variant="yellow" rating={props.product.rating || 5} /> */}
           <div className="text-sm text-yellow-600">
-            (20 đánh giá từ khách hàng)
+            ({props.product.sold} sản phẩm đã bán khách hàng)
           </div>
         </div>
         <div>
