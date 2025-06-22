@@ -36,7 +36,7 @@ export const adminSideBarData: AdminSideBarData[] = [
       {
         icon: <ChartPie />,
         name: "Thống kê",
-        href: "/charts",
+        href: ADMIN_ROUTES.STATS,
         adminOnly: true,
       },
       {

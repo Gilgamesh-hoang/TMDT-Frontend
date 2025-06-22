@@ -22,6 +22,7 @@ import { adminCommentApi } from "@/api/adminApi/comment";
 import { adminRatingApi } from "@/api/adminApi/rating";
 import { adminAccountApi } from "@/api/adminApi/account";
 import { orderApi } from "@/api/customerApi/order";
+import { adminDashboardApi } from "@/api/adminApi/dashboard";
 
 export const store = configureStore({
   reducer: {
@@ -44,6 +45,7 @@ export const store = configureStore({
     [adminImageApi.reducerPath]: adminImageApi.reducer,
     [adminOrderApi.reducerPath]: adminOrderApi.reducer,
     [adminAccountApi.reducerPath]: adminAccountApi.reducer,
+    [adminDashboardApi.reducerPath]: adminDashboardApi.reducer,
     [vnpayApi.reducerPath]: vnpayApi.reducer,
     [momoApi.reducerPath]: momoApi.reducer,
   },
@@ -64,6 +66,7 @@ export const store = configureStore({
       .concat(adminAccountApi.middleware)
       .concat(adminCommentApi.middleware)
       .concat(adminRatingApi.middleware)
+      .concat(adminDashboardApi.middleware)
       .concat(vnpayApi.middleware)
       .concat(momoApi.middleware)
       .concat(categoryApi.middleware)

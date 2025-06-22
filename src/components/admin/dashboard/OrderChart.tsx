@@ -1,14 +1,15 @@
-import { Line } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
 } from "chart.js";
+import { FC } from "react";
+import { Line } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -20,7 +21,9 @@ ChartJS.register(
   Legend,
 );
 
-export const OrderChart = () => {
+export const OrderChart: FC<{ dailyOrderCount: number[] }> = ({
+  dailyOrderCount,
+}) => {
   const options = {
     responsive: true,
     plugins: {
@@ -29,25 +32,17 @@ export const OrderChart = () => {
       },
       title: {
         display: true,
-        text: "So luong don hang trong tuan",
+        text: "Số lượng đơn hàng trong tuần",
       },
     },
   };
-  const labels = [
-    "T2",
-    "T3",
-    "T4",
-    "T5",
-    "T6",
-    "T7",
-    "CN",
-  ];
+  const labels = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
   const data = {
     labels,
     datasets: [
       {
-        label: "Don hang (VND)",
-        data: [51, 100, 121, 67, 80, 200, 163],
+        label: "Đơn hàng",
+        data: dailyOrderCount,
         backgroundColor: "rgba(155, 199, 132, 0.5)",
       },
     ],

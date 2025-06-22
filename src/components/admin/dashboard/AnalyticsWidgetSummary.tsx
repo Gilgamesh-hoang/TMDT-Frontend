@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 import { ReactNode } from "react";
 type WidgetColor = keyof typeof gradientMap;
 export interface AnalyticsWidgetSummaryProps {
@@ -6,6 +6,7 @@ export interface AnalyticsWidgetSummaryProps {
   color?: WidgetColor;
   icon: ReactNode;
   total: number;
+  currency?: boolean;
 }
 const gradientMap = {
   red: "from-red-400 to-red-500",
@@ -19,6 +20,7 @@ export const AnalyticsWidgetSummary: React.FC<AnalyticsWidgetSummaryProps> = ({
   color,
   icon,
   total,
+  currency,
 }) => {
   const gradient = gradientMap[color || "blue"];
   return (
@@ -29,7 +31,14 @@ export const AnalyticsWidgetSummary: React.FC<AnalyticsWidgetSummaryProps> = ({
       )}
     >
       <h2 className="m-0">{title}</h2>
-      <p className="text-5xl font-bold  text-right">{total}</p>
+      <p
+        className={cn(
+          " font-bold  text-right",
+          currency ? "text-3xl" : "text-5xl",
+        )}
+      >
+        {currency ? formatCurrency(total) : total}
+      </p>
       <div className="absolute bottom-2 left-3 -rotate-35 text-ligh-gray/15">
         {icon}
       </div>
